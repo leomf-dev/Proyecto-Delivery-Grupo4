@@ -22,7 +22,7 @@
         </activity>
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".AccesoActivity"
             android:exported="true" />
     </application>
 
