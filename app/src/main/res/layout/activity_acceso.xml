@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/semi_negro"
+    tools:context=".AccesoActivity">
+
+
+    <!-- Ic_letra de la app -->
+    <ImageView
+        android:id="@+id/icLetra_app"
+        android:layout_width="120dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="4dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/letra_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <!-- Carrusel de imágenes  -->
+    <FrameLayout
+        android:id="@+id/frCarrusel"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/icLetra_app">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vpCarrusel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!-- Difuminado superior- se controla en ancho de los 2 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:background="@drawable/fade_top"
+            android:layout_gravity="top" />
+
+        <!-- Degradado inferior -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:background="@drawable/fade_bottom"
+            android:layout_gravity="bottom" />
+    </FrameLayout>
+
+
+
+    <!-- Texto de principal de acceso -->
+    <TextView
+        android:id="@+id/tvTitulo1"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:text="Busca tu comida favorita cerca de ti"
+        android:textSize="25sp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/frCarrusel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <!-- ScrollView para contener los campos -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitulo1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+
+
+    <!-- Correo -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilCorreo"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Correo"
+        app:startIconDrawable="@drawable/ic_correo_small"
+        app:startIconTint="@color/white"
+        app:startIconContentDescription="Ícono de correo"
+        app:boxCornerRadiusTopStart="16dp"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusBottomStart="16dp"
+        app:boxCornerRadiusBottomEnd="16dp"
+        android:textColorHint="@color/white_50">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietCorreo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/white" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Contraseña -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilClave"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Contraseña"
+        android:layout_marginTop="16dp"
+        app:startIconDrawable="@drawable/ic_pass_small"
+        app:startIconTint="@color/white"
+        app:startIconContentDescription="Ícono de contraseña"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/white_50"
+        app:boxCornerRadiusTopStart="16dp"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusBottomStart="16dp"
+        app:boxCornerRadiusBottomEnd="16dp"
+        android:textColorHint="@color/white_50">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietClave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:textColor="@color/white" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Botón de iniciar sesion -->
+        <Button
+            android:id="@+id/btnInicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Iniciar sesión"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Texto de dirigir al registro-->
+        <TextView
+            android:id="@+id/tvRegistrarse"
+            android:text="¿No tienes cuenta aún? Registrate"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/tvRegistrarse"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
+        <!-- Boton de Registro -->
+        <Button
+            android:id="@+id/btnRegistro"
+            android:layout_width="135dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/amarillo"
+            android:text="Registrarse" />
+
+    </LinearLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
