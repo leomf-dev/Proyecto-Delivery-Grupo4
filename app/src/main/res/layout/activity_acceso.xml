@@ -9,7 +9,7 @@
     tools:context=".AccesoActivity">
 
 
-    <!-- Logo de la app -->
+    <!-- Ic_letra de la app -->
     <ImageView
         android:id="@+id/icLetra_app"
         android:layout_width="120dp"
@@ -23,7 +23,7 @@
 
 
 
-    <!-- Carrusel de imágenes con bordes difuminados -->
+    <!-- Carrusel de imágenes  -->
     <FrameLayout
         android:id="@+id/frCarrusel"
         android:layout_width="0dp"
@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <!-- Degradado superior (se funde con el fondo negro) -->
+        <!-- Difuminado superior- se controla en ancho de los 2 -->
         <View
             android:layout_width="match_parent"
             android:layout_height="12dp"
@@ -53,7 +53,8 @@
     </FrameLayout>
 
 
-    <!-- Texto de instrucciones -->
+
+    <!-- Texto de principal de acceso -->
     <TextView
         android:id="@+id/tvTitulo1"
         android:layout_width="290dp"
@@ -67,6 +68,7 @@
         app:layout_constraintTop_toBottomOf="@id/frCarrusel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
 
     <!-- ScrollView para contener los campos -->
     <ScrollView
@@ -84,37 +86,59 @@
         android:orientation="vertical"
         android:gravity="center">
 
+
+
     <!-- Correo -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilCorreo"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Correo">
+        android:hint="Correo"
+        app:startIconDrawable="@drawable/ic_correo_small"
+        app:startIconTint="@color/white"
+        app:startIconContentDescription="Ícono de correo"
+        app:boxCornerRadiusTopStart="16dp"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusBottomStart="16dp"
+        app:boxCornerRadiusBottomEnd="16dp"
+        android:textColorHint="@color/white_50">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tietCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress"
+            android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Contraseña -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilClave"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Contraseña"
         android:layout_marginTop="16dp"
-        app:passwordToggleEnabled="true">
-
+        app:startIconDrawable="@drawable/ic_pass_small"
+        app:startIconTint="@color/white"
+        app:startIconContentDescription="Ícono de contraseña"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/white_50"
+        app:boxCornerRadiusTopStart="16dp"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusBottomStart="16dp"
+        app:boxCornerRadiusBottomEnd="16dp"
+        android:textColorHint="@color/white_50">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tietClave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Botón de inicio -->
+        <!-- Botón de iniciar sesion -->
         <Button
             android:id="@+id/btnInicio"
             android:layout_width="wrap_content"
@@ -122,14 +146,29 @@
             android:text="Iniciar sesión"
             android:layout_marginTop="16dp"/>
 
-        <!-- Registro -->
+        <!-- Texto de dirigir al registro-->
+        <TextView
+            android:id="@+id/tvRegistrarse"
+            android:text="¿No tienes cuenta aún? Registrate"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/tvRegistrarse"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
+        <!-- Boton de Registro -->
         <Button
             android:id="@+id/btnRegistro"
-            android:layout_width="133dp"
+            android:layout_width="135dp"
             android:layout_height="wrap_content"
-            android:text="Registro"
+            android:layout_marginTop="5dp"
             android:backgroundTint="@color/amarillo"
-            android:layout_marginTop="16dp"/>
+            android:text="Registrarse" />
 
     </LinearLayout>
 
