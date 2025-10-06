@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:background="@drawable/popup_background"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Imagen del producto -->
+        <ImageView
+            android:id="@+id/imgPopupComida"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_hamburguesa1"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Título del producto"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Descripción -->
+        <TextView
+            android:id="@+id/txtDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descripción del plato"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Precio -->
+        <TextView
+            android:id="@+id/txtPrecio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Precio: S/. 25.00"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Cantidad -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cantidad:" />
+
+            <EditText
+                android:id="@+id/edtCantidad"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:gravity="center"
+                android:text="1"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+        <!-- Botón agregar al carro -->
+        <Button
+            android:id="@+id/btnAgregarCarro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Agregar al Carro"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/verde" />
+
+        <!-- Botón seguir comprando -->
+        <Button
+            android:id="@+id/btnSeguirComprando"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seguir Comprando"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/azul" />
+
+        <!-- Botón cerrar -->
+        <Button
+            android:id="@+id/btnCerrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cerrar"
+            android:backgroundTint="@color/gris" />
+    </LinearLayout>
+</ScrollView>
