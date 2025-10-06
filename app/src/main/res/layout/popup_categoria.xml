@@ -2,7 +2,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:fillViewport="true"
     android:background="@drawable/popup_background"
     android:padding="16dp">
 
@@ -12,13 +11,12 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <!-- Imagen del producto -->
+        <!-- Imagen -->
         <ImageView
-            android:id="@+id/imgPopupComida"
+            android:id="@+id/imgProducto"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_hamburguesa1"
             android:layout_marginBottom="8dp" />
 
         <!-- Título -->
@@ -30,7 +28,6 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:gravity="center"
-            android:textColor="@color/black"
             android:layout_marginBottom="8dp" />
 
         <!-- Descripción -->
@@ -38,7 +35,7 @@
             android:id="@+id/txtDescripcion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Descripción del plato"
+            android:text="Descripción del producto"
             android:textSize="16sp"
             android:layout_marginBottom="8dp" />
 
@@ -47,9 +44,9 @@
             android:id="@+id/txtPrecio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Precio: S/. 25.00"
-            android:textSize="16sp"
+            android:text="Precio: S/0.00"
             android:textStyle="bold"
+            android:textSize="16sp"
             android:layout_marginBottom="8dp" />
 
         <!-- Cantidad -->
@@ -75,30 +72,26 @@
                 android:layout_marginStart="8dp" />
         </LinearLayout>
 
-        <!-- Botón agregar al carro -->
+        <!-- Botones -->
         <Button
             android:id="@+id/btnAgregarCarro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Agregar al Carro"
-            android:layout_marginBottom="8dp"
-            android:backgroundTint="@color/verde" />
+            android:layout_marginBottom="8dp" />
 
-        <!-- Botón seguir comprando -->
         <Button
             android:id="@+id/btnSeguirComprando"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Seguir Comprando"
-            android:layout_marginBottom="8dp"
-            android:backgroundTint="@color/azul" />
+            android:layout_marginBottom="8dp" />
 
-        <!-- Botón cerrar -->
         <Button
             android:id="@+id/btnCerrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cerrar"
-            android:backgroundTint="@color/gris" />
+            android:text="Cerrar" />
+
     </LinearLayout>
 </ScrollView>
