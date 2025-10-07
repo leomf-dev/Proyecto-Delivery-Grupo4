@@ -4,7 +4,8 @@
     android:padding="16dp"
     android:gravity="center_horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/ActivityEstadoPedido">
 
     <RelativeLayout
         android:layout_width="match_parent"
