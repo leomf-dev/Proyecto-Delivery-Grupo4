@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_fondo_splash"
-    tools:context=".SplashActivity">
+    tools:context=".ui.SplashActivity">
 
     <ImageView
         android:id="@+id/icSplash"
@@ -20,6 +20,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:scaleType="centerInside"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

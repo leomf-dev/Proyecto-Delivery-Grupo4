@@ -1,10 +1,11 @@
-package com.cibertec.proyectogrupo4_dami
+package com.cibertec.proyectogrupo4_dami.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.cibertec.proyectogrupo4_dami.R
 
 class CarruselAdapter(private val imagenes: List<Int>) : RecyclerView.Adapter<CarruselAdapter.CarruselViewHolder>() {
 
