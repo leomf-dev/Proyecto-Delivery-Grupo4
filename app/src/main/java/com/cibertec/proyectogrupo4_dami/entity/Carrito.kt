@@ -4,7 +4,8 @@ data class Carrito (
     val producto: Producto,
     var cantidad: Int
 ) {
-    val subtotal = producto.precio * cantidad
+    val subtotal:Double
+        get() = producto.precio*cantidad
    /* tvSubtotal.text = String.format("S/ %.2f", subtotal)    */
 }
 
