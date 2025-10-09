@@ -13,10 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/forma_formulario"
+        android:background="@drawable/formulario_registro"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingTop="10dp">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -24,7 +25,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <!-- Botón de regresar -->
+
             <ImageView
                 android:id="@+id/btnRegresar"
                 android:layout_width="wrap_content"
@@ -33,7 +34,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="15dp"/>
 
-            <!-- Texto "Volver" junto al botón -->
+
             <TextView
                 android:id="@+id/tvVolver"
                 android:layout_width="wrap_content"
@@ -56,7 +57,6 @@
             android:paddingHorizontal="32dp">
 
 
-            <!-- Campo Nombre de Usuario -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilNombreUsuario"
                 android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                     android:textColor="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Campo Correo -->
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilCorreo"
                 android:layout_width="match_parent"
@@ -102,7 +102,7 @@
                     android:textColor="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Campo Teléfono -->
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilTelefono"
                 android:layout_width="match_parent"
@@ -126,7 +126,7 @@
                     android:textColor="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Campo Contraseña -->
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilClave"
                 android:layout_width="match_parent"
@@ -151,7 +151,7 @@
                     android:textColor="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Campo Confirmar Contraseña -->
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilConfirmarClave"
                 android:layout_width="match_parent"
@@ -176,7 +176,7 @@
                     android:textColor="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Botón Registrarse -->
+
             <Button
                 android:id="@+id/btnRegistrarse"
                 android:layout_width="230dp"
@@ -188,7 +188,6 @@
                 android:textSize="16sp"
                 android:textColor="@color/white"
                 app:cornerRadius="20dp" />
-
         </LinearLayout>
 
 

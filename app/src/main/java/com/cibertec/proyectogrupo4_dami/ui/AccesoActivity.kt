@@ -1,12 +1,14 @@
 package com.cibertec.proyectogrupo4_dami.ui
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -20,9 +22,7 @@ import com.google.android.material.textfield.TextInputLayout
 import kotlin.math.abs
 
 class AccesoActivity : AppCompatActivity() {
-    private val listaUsuarios = mutableListOf(
-        Usuario(1, "Juan", "Pérez", "juan@cibertec.edu.pe", "1234", "987654321", "71234567")
-    )
+
     private lateinit var vpCarrusel: ViewPager2
     private lateinit var tietCorreologin: TextInputEditText
     private lateinit var tietClavelogin: TextInputEditText
@@ -41,8 +41,18 @@ class AccesoActivity : AppCompatActivity() {
         btnIniciarSesion = findViewById(R.id.btnIniciarSesion)
         btnRegistrarse = findViewById(R.id.btnRegistrarse)
 
-
         configurarCarrusel()
+
+        // Ir a RegistroActivity
+        btnRegistrarse.setOnClickListener {
+            startActivity(Intent(this, RegistroActivity::class.java))
+        }
+
+        // Iniciar sesión
+        btnIniciarSesion.setOnClickListener {
+            validarYAcceder()
+        }
+
 
         // Insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -50,11 +60,66 @@ class AccesoActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-
     }
+
+    private fun validarYAcceder() {
+        val correo = tietCorreologin.text.toString().trim()
+        val clave = tietClavelogin.text.toString().trim()
+
+        // Correo
+        if (correo.isEmpty()) {
+            Toast.makeText(this, "Ingresa tu correo", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Contraseña
+        if (clave.isEmpty()) {
+            Toast.makeText(this, "Ingresa tu contraseña", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+
+        // Leer datos guardados
+        val prefs = getSharedPreferences("DatosUsuario", Context.MODE_PRIVATE)
+        val correoGuardado = prefs.getString("correo", "") ?: ""
+        val claveGuardada = prefs.getString("clave", "") ?: ""
+
+      //Correo existente
+        if (correo != correoGuardado) {
+            Toast.makeText(this, "La cuenta no existe", Toast.LENGTH_SHORT).show()
+            tietCorreologin.setText("")
+            return
+        }
+
+       // Contraseña existente
+        if (clave != claveGuardada) {
+            Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
+            tietClavelogin.setText("")
+            return
+        }
+
+
+        // AQUI PONES, EL NOMBRE DE TU ACTIVITY DONDE ESTAN LAS CATEGORIAS
+        val nombres = prefs.getString("nombres", "") ?: ""
+        val celular = prefs.getString("celular", "") ?: ""
+
+        val intent = Intent(this, EjemploActivity::class.java).apply {
+            putExtra("nombres", nombres)
+            putExtra("correo", correo)
+            putExtra("celular", celular)
+            putExtra("clave", clave)
+        }
+        startActivity(intent)
+        finish()
+    }
+
+
     private fun configurarCarrusel() {
-        val imagenesCarrusel = listOf(R.drawable.carrusel_03, R.drawable.carrusel_04, R.drawable.carrusel_08,R.drawable.carrusel_07)
+        val imagenesCarrusel = listOf(
+        R.drawable.carrusel_03,
+        R.drawable.carrusel_04,
+        R.drawable.carrusel_08,
+        R.drawable.carrusel_07)
         val adapter = CarruselAdapter(imagenesCarrusel)
         vpCarrusel.adapter = adapter
 

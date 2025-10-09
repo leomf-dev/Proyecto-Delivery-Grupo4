@@ -52,7 +52,7 @@
             android:paddingTop="40dp"
             android:paddingHorizontal="10dp">
 
-            <!-- Correo -->
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilCorreologin"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
@@ -76,7 +76,7 @@
                     android:textColor="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Contraseña -->
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilClavelogin"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
