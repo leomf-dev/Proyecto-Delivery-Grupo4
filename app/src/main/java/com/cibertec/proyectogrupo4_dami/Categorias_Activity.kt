@@ -125,7 +125,6 @@ class Categorias_Activity : AppCompatActivity() {
         btnSeguir.setOnClickListener { dialog.dismiss() }
         btnAgregar.setOnClickListener {
             dialog.dismiss()
-            // Aquí lógica del carrito :)
         }
         dialog.show()
     }
