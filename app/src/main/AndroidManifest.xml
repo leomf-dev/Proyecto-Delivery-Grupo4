@@ -15,14 +15,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoGrupo4_DAMI">
         <activity
+            android:name=".ui.RegistroActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.AccesoActivity"
+            android:exported="true" />
+        <activity
             android:name=".ContactoRepartidorActivity"
             android:exported="false" />
         <activity
             android:name=".ActivityEstadoPedido"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".ui.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.ProyectoGrupo4_DAMI.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
