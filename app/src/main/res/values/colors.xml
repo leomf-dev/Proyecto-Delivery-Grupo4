@@ -11,5 +11,7 @@
     <color name="orange">#9B4E09</color>
     <color name="verde">#365614</color>
     <color name="morado">#15092F</color>
-
+    <color name="gray">#3A3333</color>
+    <color name="gris">#3A3333</color>
+    <color name="azul">#447BDB</color>
 </resources>

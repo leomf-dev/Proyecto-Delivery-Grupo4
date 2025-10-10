@@ -11,6 +11,10 @@
         android:roundIcon="@mipmap/ic_logo_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoGrupo4_DAMI">
+
+        <activity
+            android:name=".ui.Categorias_Activity"
+            android:exported="false" />
         <activity
             android:name=".ui.EjemploActivity"
             android:exported="false" />

@@ -1,13 +1,11 @@
 package com.cibertec.proyectogrupo4_dami.ui
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -16,9 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.cibertec.proyectogrupo4_dami.R
 import com.cibertec.proyectogrupo4_dami.adapter.CarruselAdapter
-import com.cibertec.proyectogrupo4_dami.entity.Usuario
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import kotlin.math.abs
 
 class AccesoActivity : AppCompatActivity() {
@@ -103,7 +99,7 @@ class AccesoActivity : AppCompatActivity() {
         val nombres = prefs.getString("nombres", "") ?: ""
         val celular = prefs.getString("celular", "") ?: ""
 
-        val intent = Intent(this, EjemploActivity::class.java).apply {
+        val intent = Intent(this, Categorias_Activity::class.java).apply {
             putExtra("nombres", nombres)
             putExtra("correo", correo)
             putExtra("celular", celular)
