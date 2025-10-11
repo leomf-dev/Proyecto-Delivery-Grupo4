@@ -11,19 +11,29 @@
         android:roundIcon="@mipmap/ic_logo_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoGrupo4_DAMI">
+
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.Categorias_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.EjemploActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.RegistroActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.AccesoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.ProyectoGrupo4_DAMI.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".AccesoActivity"
-            android:exported="true" />
     </application>
 
 </manifest>
