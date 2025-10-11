@@ -69,8 +69,7 @@
                 android:id="@+id/btnAumentar"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:backgroundTint="#FF6F61"
-                android:background="@drawable/bg_round_button"
+                android:background="@color/white"
                 android:src="@drawable/ic_add"
                 android:contentDescription="Aumentar" />
 
@@ -87,8 +86,7 @@
                 android:id="@+id/btnDisminuir"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:backgroundTint="#FF6F61"
-                android:background="@drawable/bg_round_button"
+                android:background="@color/white"
                 android:src="@drawable/ic_remove"
                 android:contentDescription="Disminuir" />
         </LinearLayout>

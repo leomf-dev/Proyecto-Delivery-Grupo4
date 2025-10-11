@@ -10,7 +10,7 @@
     tools:context=".CarritoActivity">
 
     <TextView
-        android:text="Carrito 🛒"
+        android:text="Carrito"
         android:textSize="35dp"
         android:textStyle="bold"
         android:paddingBottom="8dp"
