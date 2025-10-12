@@ -1,6 +1,7 @@
 package com.cibertec.proyectogrupo4_dami.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cibertec.proyectogrupo4_dami.R
 import com.cibertec.proyectogrupo4_dami.adapter.HistorialAdapter
 import com.cibertec.proyectogrupo4_dami.entity.Producto
+import com.google.android.material.button.MaterialButton
 import kotlin.ranges.until
 
 class Categorias_Activity : AppCompatActivity() {
@@ -30,6 +32,8 @@ class Categorias_Activity : AppCompatActivity() {
         setContentView(R.layout.activity_categorias)
 
         rvHistorial = findViewById(R.id.rvHistorial)
+
+
 
         //----COLOCAR DATOS "REEMPLAZAR POR DATOS DE SQL"
         val productos = listOf(
@@ -105,6 +109,7 @@ class Categorias_Activity : AppCompatActivity() {
         rvHistorial.layoutManager = LinearLayoutManager(this)
         rvHistorial.adapter = historialAdapter
 
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -135,5 +140,8 @@ class Categorias_Activity : AppCompatActivity() {
             }
             true
         }
+
+        }
     }
-}
+
+
