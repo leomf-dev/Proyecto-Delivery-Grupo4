@@ -10,63 +10,67 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.cibertec.proyectogrupo4_dami.R
 import com.cibertec.proyectogrupo4_dami.entity.Carrito
-class CarritoAdapter(
-    private val lista: MutableList<Carrito>,
-    private val onUpdate: () -> Unit // se usa para actualizar el total
-) : RecyclerView.Adapter<CarritoAdapter.ViewHolder>() {
+import com.google.android.material.button.MaterialButton
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class CarritoAdapter(
+    private val listaCarrito: MutableList<Carrito>,
+    private val onActualizarTotal: (Double) -> Unit // se usa para actualizar el total
+) : RecyclerView.Adapter<CarritoAdapter.CarritoViewHolder>() {
+
+    inner class CarritoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgProducto: ImageView = itemView.findViewById(R.id.imgProducto)
         val tvNombre: TextView = itemView.findViewById(R.id.tvNombreProducto)
         val tvPrecio: TextView = itemView.findViewById(R.id.tvPrecioProducto)
         val tvCantidad: TextView = itemView.findViewById(R.id.tvCantidad)
         val tvSubtotal: TextView = itemView.findViewById(R.id.tvSubtotal)
-        val btnAumentar: Button = itemView.findViewById(R.id.btnAumentar)
-        val btnDisminuir: Button = itemView.findViewById(R.id.btnDisminuir)
-        /*val btnEliminar: ImageButton = itemView.findViewById(R.id.btnEliminar)*/
+        val btnAumentar: MaterialButton = itemView.findViewById(R.id.btnAumentar)
+        val btnDisminuir:  MaterialButton = itemView.findViewById(R.id.btnDisminuir)
+        val btnEliminar: ImageButton = itemView.findViewById(R.id.btnEliminar)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarritoViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_carrito, parent, false)
-        return ViewHolder(view)
+        return CarritoViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = lista[position]
+    override fun getItemCount(): Int = listaCarrito.size
 
-        holder.imgProducto.setImageResource(item.producto.imagen)
-        holder.tvNombre.text = item.producto.nombre
-        holder.tvPrecio.text = "S/. %.2f".format(item.producto.precio)
+    override fun onBindViewHolder(holder: CarritoViewHolder, position: Int) {
+        val item = listaCarrito[position]
+
+        holder.imgProducto.setImageResource(item.producto.imagenResId)
+        holder.tvNombre.text = item.producto.titulo
+        holder.tvPrecio.text = item.producto.precio
         holder.tvCantidad.text = item.cantidad.toString()
-        holder.tvSubtotal.text = "Subtotal: S/. %.2f".format(item.subtotal)
+        holder.tvSubtotal.text = "Subtotal: S/ %.2f".format(item.subtotal)
 
+        //Aumentar cantidad
         holder.btnAumentar.setOnClickListener {
             item.cantidad++
-            holder.tvCantidad.text = item.cantidad.toString()
-            holder.tvSubtotal.text = "Subtotal: S/. %.2f".format(item.subtotal)
-            onUpdate()
+            notifyItemChanged(position)
+            actualizarTotal()
         }
 
+        //Disminuir cantidad
         holder.btnDisminuir.setOnClickListener {
             if (item.cantidad > 1) {
                 item.cantidad--
-                holder.tvCantidad.text = item.cantidad.toString()
-                holder.tvSubtotal.text = "Subtotal: S/. %.2f".format(item.subtotal)
-                onUpdate()
-            } else {
-                Toast.makeText(holder.itemView.context, "Cantidad mínima: 1", Toast.LENGTH_SHORT).show()
+                notifyItemChanged(position)
+                actualizarTotal()
             }
         }
 
-       /* holder.btnEliminar.setOnClickListener {
-            lista.removeAt(position)
+        // Eliminar producto
+        holder.btnEliminar.setOnClickListener {
+            listaCarrito.removeAt(position)
             notifyItemRemoved(position)
-            notifyItemRangeChanged(position, lista.size)
-            Toast.makeText(holder.itemView.context, "Producto eliminado", Toast.LENGTH_SHORT).show()
-            onUpdate()
-        }*/
+            actualizarTotal()
+        }
     }
 
-    override fun getItemCount(): Int = lista.size
+    private fun actualizarTotal() {
+        val total = listaCarrito.sumOf { it.subtotal }
+        onActualizarTotal(total)
+    }
 }

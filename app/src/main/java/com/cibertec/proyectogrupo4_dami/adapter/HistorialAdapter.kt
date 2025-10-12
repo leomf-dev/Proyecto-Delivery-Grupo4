@@ -1,5 +1,6 @@
 package com.cibertec.proyectogrupo4_dami.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cibertec.proyectogrupo4_dami.R
 import com.cibertec.proyectogrupo4_dami.entity.Producto
+import com.cibertec.proyectogrupo4_dami.ui.CarritoActivity
 import com.google.android.material.button.MaterialButton
 
 class HistorialAdapter(private val listaHistorial: List<Producto>) :
@@ -26,6 +28,13 @@ class HistorialAdapter(private val listaHistorial: List<Producto>) :
         holder.tvProducto.text = product.titulo
         holder.tvPrecio.text = product.precio
         holder.tvDescrip.text = product.descripcion
+
+        //  Cuando el usuario presione el botón "Comprar"
+        holder.btnComprar.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, CarritoActivity::class.java)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {

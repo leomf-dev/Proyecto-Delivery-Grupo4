@@ -80,14 +80,14 @@ class AccesoActivity : AppCompatActivity() {
         val correoGuardado = prefs.getString("correo", "") ?: ""
         val claveGuardada = prefs.getString("clave", "") ?: ""
 
-      //Correo existente
+        //Correo existente
         if (correo != correoGuardado) {
             Toast.makeText(this, "La cuenta no existe", Toast.LENGTH_SHORT).show()
             tietCorreologin.setText("")
             return
         }
 
-       // Contraseña existente
+        // Contraseña existente
         if (clave != claveGuardada) {
             Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
             tietClavelogin.setText("")
@@ -112,10 +112,10 @@ class AccesoActivity : AppCompatActivity() {
 
     private fun configurarCarrusel() {
         val imagenesCarrusel = listOf(
-        R.drawable.carrusel_03,
-        R.drawable.carrusel_04,
-        R.drawable.carrusel_08,
-        R.drawable.carrusel_07)
+            R.drawable.carrusel_03,
+            R.drawable.carrusel_04,
+            R.drawable.carrusel_08,
+            R.drawable.carrusel_07)
         val adapter = CarruselAdapter(imagenesCarrusel)
         vpCarrusel.adapter = adapter
 

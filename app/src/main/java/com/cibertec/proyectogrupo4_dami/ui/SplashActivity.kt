@@ -1,17 +1,17 @@
-package com.cibertec.proyectogrupo4_dami
+package com.cibertec.proyectogrupo4_dami.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.ImageView
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.cibertec.proyectogrupo4_dami.ui.AccesoActivity
+import com.cibertec.proyectogrupo4_dami.R
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
