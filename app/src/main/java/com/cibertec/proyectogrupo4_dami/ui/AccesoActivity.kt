@@ -14,6 +14,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.cibertec.proyectogrupo4_dami.R
 import com.cibertec.proyectogrupo4_dami.adapter.CarruselAdapter
+import com.cibertec.proyectogrupo4_dami.data.AppDatabaseHelper
+import com.cibertec.proyectogrupo4_dami.entity.Usuario
 import com.google.android.material.textfield.TextInputEditText
 import kotlin.math.abs
 
@@ -52,10 +54,17 @@ class AccesoActivity : AppCompatActivity() {
 
         // Insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            v.setPadding(
+                systemBars.left,
+                systemBars.top,
+                systemBars.right,
+                maxOf(systemBars.bottom, imeInsets.bottom)
+            )
             insets
         }
+
     }
 
     private fun validarYAcceder() {
@@ -75,30 +84,41 @@ class AccesoActivity : AppCompatActivity() {
         }
 
 
-        // Leer datos guardados
-        val prefs = getSharedPreferences("DatosUsuario", Context.MODE_PRIVATE)
-        val correoGuardado = prefs.getString("correo", "") ?: ""
-        val claveGuardada = prefs.getString("clave", "") ?: ""
+        // Buscar usuario en la base de datos
+        val dbHelper = AppDatabaseHelper(this)
+        val db = dbHelper.readableDatabase
 
-        //Correo existente
-        if (correo != correoGuardado) {
-            Toast.makeText(this, "La cuenta no existe", Toast.LENGTH_SHORT).show()
-            tietCorreologin.setText("")
-            return
-        }
+        val cursor = db.rawQuery(
+            "SELECT clave, nombres, celular FROM usuario WHERE correo = ?",
+            arrayOf(correo)
+        )
 
-        // Contraseña existente
+        // Si no hay resultados
+        if (cursor.count == 0) {
+        cursor.close()
+        db.close()
+        Toast.makeText(this, "La cuenta no existe", Toast.LENGTH_SHORT).show()
+        tietCorreologin.setText("")
+        return
+    }
+  
+        // Obtener datos del usuario
+        cursor.moveToFirst()
+        val claveGuardada = cursor.getString(0)
+        val nombres = cursor.getString(1)
+        val celular = cursor.getString(2)
+        cursor.close()
+        db.close()
+
+        // Validar Contraseña
+
         if (clave != claveGuardada) {
             Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
             tietClavelogin.setText("")
             return
         }
 
-
-        // AQUI PONES, EL NOMBRE DE TU ACTIVITY DONDE ESTAN LAS CATEGORIAS
-        val nombres = prefs.getString("nombres", "") ?: ""
-        val celular = prefs.getString("celular", "") ?: ""
-
+         // Iniciar sesión
         val intent = Intent(this, Categorias_Activity::class.java).apply {
             putExtra("nombres", nombres)
             putExtra("correo", correo)
@@ -110,6 +130,8 @@ class AccesoActivity : AppCompatActivity() {
     }
 
 
+
+    //Configurar Carrusel
     private fun configurarCarrusel() {
         val imagenesCarrusel = listOf(
             R.drawable.carrusel_03,
