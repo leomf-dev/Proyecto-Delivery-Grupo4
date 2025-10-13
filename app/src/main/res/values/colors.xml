@@ -11,5 +11,14 @@
     <color name="orange">#9B4E09</color>
     <color name="verde">#365614</color>
     <color name="morado">#15092F</color>
+    <color name="gray">#3A3333</color>
+    <color name="gris">#3A3333</color>
+    <color name="azul">#447BDB</color>
+    <color name="celeste">#34bbe9</color>
+    <color name="verdoso">#396d52</color>
+    <color name="verde3">#3efe39</color>
+    <color name="azul2">#0d67ff</color>
+    <color name="amarillo2">#fee215</color>
+
 
 </resources>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="17dp"
+    app:strokeColor="@color/verdoso"
+    app:cardElevation="6dp"
+    app:strokeWidth="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Imagen del producto -->
+        <ImageView
+            android:id="@+id/imgProducto"
+            android:layout_width="77dp"
+            android:layout_height="81dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_hamburguesa1"
+            android:layout_marginEnd="12dp" />
+
+        <!-- Información del producto -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvNombreProducto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hamburguesa Clásica"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvPrecioProducto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S/ 15.00"
+                android:textColor="@color/black"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/tvSubtotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subtotal: S/ 15.00"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="13dp" />
+        </LinearLayout>
+
+        <!-- Controles de cantidad -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingHorizontal="4dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDisminuir"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:backgroundTint="@color/white"
+                    app:strokeColor="@color/azul2"
+                    app:strokeWidth="1dp"
+                    app:icon="@drawable/ic_remove"
+                    app:iconTint="@color/black"
+                    app:cornerRadius="10dp"
+                    app:iconGravity="textStart"
+                    app:iconPadding="1dp"/>
+
+            <TextView
+                android:id="@+id/tvCantidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="1"
+                android:textSize="18dp"
+                android:gravity="center"
+                android:padding="4dp"
+                />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAumentar"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:backgroundTint="@color/white"
+                    app:strokeColor="@color/azul2"
+                    app:strokeWidth="1dp"
+                    app:icon="@drawable/ic_add"
+                    app:iconTint="@color/black"
+                    app:cornerRadius="10dp"
+                    app:iconGravity="textStart"
+                    app:iconPadding="1dp"/>
+
+            </LinearLayout>
+
+            <!-- Botón eliminar producto -->
+            <ImageButton
+                android:id="@+id/btnEliminar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_delete"
+                android:contentDescription="Eliminar producto" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

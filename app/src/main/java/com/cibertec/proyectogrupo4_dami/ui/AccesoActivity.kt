@@ -1,13 +1,11 @@
 package com.cibertec.proyectogrupo4_dami.ui
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +17,6 @@ import com.cibertec.proyectogrupo4_dami.adapter.CarruselAdapter
 import com.cibertec.proyectogrupo4_dami.data.AppDatabaseHelper
 import com.cibertec.proyectogrupo4_dami.entity.Usuario
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import kotlin.math.abs
 
 class AccesoActivity : AppCompatActivity() {
@@ -96,14 +93,16 @@ class AccesoActivity : AppCompatActivity() {
             arrayOf(correo)
         )
 
+        // Si no hay resultados
         if (cursor.count == 0) {
-            cursor.close()
-            db.close()
-            Toast.makeText(this, "La cuenta no existe", Toast.LENGTH_SHORT).show()
-            tietCorreologin.setText("")
-            return
-        }
-
+        cursor.close()
+        db.close()
+        Toast.makeText(this, "La cuenta no existe", Toast.LENGTH_SHORT).show()
+        tietCorreologin.setText("")
+        return
+    }
+  
+        // Obtener datos del usuario
         cursor.moveToFirst()
         val claveGuardada = cursor.getString(0)
         val nombres = cursor.getString(1)
@@ -111,15 +110,16 @@ class AccesoActivity : AppCompatActivity() {
         cursor.close()
         db.close()
 
-       // Contraseña existente
+        // Validar Contraseña
+
         if (clave != claveGuardada) {
             Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
             tietClavelogin.setText("")
             return
         }
 
-
-        val intent = Intent(this, CategoriasActivity::class.java).apply {
+         // Iniciar sesión
+        val intent = Intent(this, Categorias_Activity::class.java).apply {
             putExtra("nombres", nombres)
             putExtra("correo", correo)
             putExtra("celular", celular)
@@ -131,13 +131,13 @@ class AccesoActivity : AppCompatActivity() {
 
 
 
-
+    //Configurar Carrusel
     private fun configurarCarrusel() {
         val imagenesCarrusel = listOf(
-        R.drawable.carrusel_03,
-        R.drawable.carrusel_04,
-        R.drawable.carrusel_08,
-        R.drawable.carrusel_07)
+            R.drawable.carrusel_03,
+            R.drawable.carrusel_04,
+            R.drawable.carrusel_08,
+            R.drawable.carrusel_07)
         val adapter = CarruselAdapter(imagenesCarrusel)
         vpCarrusel.adapter = adapter
 
