@@ -19,12 +19,12 @@
             android:exported="false" />
         <activity
             android:name=".ui.AccesoActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ContactoRepartidorActivity"
             android:exported="false" />
         <activity
-            android:name=".ActivityEstadoPedido"
+            android:name=".EstadoPedidoActivity"
             android:exported="false" />
         <activity
             android:name=".ui.SplashActivity"
