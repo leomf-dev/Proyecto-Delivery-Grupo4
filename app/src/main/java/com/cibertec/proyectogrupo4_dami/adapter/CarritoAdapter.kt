@@ -73,4 +73,13 @@ class CarritoAdapter(
         val total = listaCarrito.sumOf { it.subtotal }
         onActualizarTotal(total)
     }
+
+    // 🔹 Función auxiliar para obtener el total (por ejemplo, para enviar al checkout)
+    fun calcularTotal(): Double {
+        return listaCarrito.sumOf {
+            val precioNum = it.producto.precio.replace("S/ ", "").toDouble()
+            precioNum * it.cantidad
+        }
+    }
+
 }

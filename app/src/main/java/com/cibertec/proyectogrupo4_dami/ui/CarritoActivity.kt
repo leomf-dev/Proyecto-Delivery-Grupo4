@@ -56,7 +56,12 @@ class CarritoActivity : AppCompatActivity() {
         }
 
         btnRealizarPedido.setOnClickListener {
-            // Aquí podrías mostrar un mensaje o navegar a otra pantalla
+            val total = carritoAdapter.calcularTotal()
+            val intent = Intent(this, CheckoutActivity::class.java)
+            intent.putExtra("total", total)
+            intent.putExtra("id_usuario", 1) // Simula usuario logueado
+            startActivity(intent)
         }
+
     }
 }

@@ -66,21 +66,31 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
 
         // Tabla PEDIDOS
         db.execSQL("""
-            CREATE TABLE pedidos (
-                -- AGREGAN SUS DATOS
-                id_pedido INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL
-            )
-        """.trimIndent())
+    CREATE TABLE pedidos (
+        id_pedido INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        id_usuario INTEGER NOT NULL,
+        fecha TEXT NOT NULL,
+        total REAL NOT NULL,
+        estado TEXT NOT NULL,
+        direccion TEXT NOT NULL,
+        FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario)
+    )
+""".trimIndent())
 
 
 
         // Tabla DIRECCION
         db.execSQL("""
-            CREATE TABLE direccion (
-                -- AGREGAN SUS DATOS
-                id_direccion INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL
-            )
-        """.trimIndent())
+    CREATE TABLE direccion (
+        id_direccion INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        id_usuario INTEGER NOT NULL,
+        direccion TEXT NOT NULL,
+        referencia TEXT,
+        latitud REAL,
+        longitud REAL,
+        FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario)
+    )
+""".trimIndent())
 
     }
 
