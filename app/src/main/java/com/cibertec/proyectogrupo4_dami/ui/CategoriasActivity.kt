@@ -8,7 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.cibertec.proyectogrupo4_dami.R
 
-class EjemploActivity : AppCompatActivity() {
+class CategoriasActivity : AppCompatActivity() {
     private  lateinit var tvEjemplo: TextView
 
 

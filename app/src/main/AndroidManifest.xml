@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoGrupo4_DAMI">
         <activity
-            android:name=".ui.EjemploActivity"
+            android:name=".ui.CategoriasActivity"
             android:exported="false" />
         <activity
             android:name=".ui.RegistroActivity"

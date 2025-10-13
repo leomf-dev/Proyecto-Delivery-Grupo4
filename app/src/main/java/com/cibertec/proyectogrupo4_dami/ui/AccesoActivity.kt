@@ -119,7 +119,7 @@ class AccesoActivity : AppCompatActivity() {
         }
 
 
-        val intent = Intent(this, EjemploActivity::class.java).apply {
+        val intent = Intent(this, CategoriasActivity::class.java).apply {
             putExtra("nombres", nombres)
             putExtra("correo", correo)
             putExtra("celular", celular)
