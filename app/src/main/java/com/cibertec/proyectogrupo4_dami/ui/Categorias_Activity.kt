@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.OvershootInterpolator
+import android.widget.Button
 import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import com.cibertec.proyectogrupo4_dami.R
 import com.cibertec.proyectogrupo4_dami.adapter.HistorialAdapter
 import com.cibertec.proyectogrupo4_dami.entity.Producto
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlin.ranges.until
 
 class Categorias_Activity : AppCompatActivity() {
@@ -141,7 +143,18 @@ class Categorias_Activity : AppCompatActivity() {
             true
         }
 
+        // ---- Botón para ir al formulario de entrega ----
+        val fabAgregarDireccion = findViewById<FloatingActionButton>(R.id.fabAgregarDireccion)
+        fabAgregarDireccion.setOnClickListener {
+            val intent = Intent(this, FormularioEntregaActivity::class.java)
+            startActivity(intent)
         }
+
+
     }
+
+
+
+}
 
 
