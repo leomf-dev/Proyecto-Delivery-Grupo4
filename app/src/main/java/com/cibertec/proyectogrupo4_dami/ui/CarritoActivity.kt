@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cibertec.proyectogrupo4_dami.Fragment.Inicio_MenuActivity
 import com.cibertec.proyectogrupo4_dami.R
 import com.cibertec.proyectogrupo4_dami.adapter.CarritoAdapter
 import com.cibertec.proyectogrupo4_dami.entity.Carrito
@@ -49,8 +50,9 @@ class CarritoActivity : AppCompatActivity() {
         rvCarrito.layoutManager = LinearLayoutManager(this)
         rvCarrito.adapter = carritoAdapter
 
+        //-----------------------------------------------------CAMBIAR ACITVITY----------------
         btnContinuarComprando.setOnClickListener {
-            val intent = Intent(this, Categorias_Activity::class.java)
+            val intent = Intent(this, Inicio_MenuActivity::class.java)
             startActivity(intent)
             finish() // Cierra el carrito para volver a la categoría
         }
