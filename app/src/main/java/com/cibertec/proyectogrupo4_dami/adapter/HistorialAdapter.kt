@@ -6,10 +6,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.cibertec.proyectogrupo4_dami.Categorias_Activity
 import com.cibertec.proyectogrupo4_dami.R
 import com.google.android.material.button.MaterialButton
-import entity.Producto
+import com.cibertec.proyectogrupo4_dami.entity.Producto
 
 class HistorialAdapter(private val listaHistorial: List<Producto>) :
     RecyclerView.Adapter<HistorialAdapter.HistorialViewHolder>() {
@@ -28,10 +27,6 @@ class HistorialAdapter(private val listaHistorial: List<Producto>) :
         holder.tvPrecio.text = product.precio
         holder.tvDescrip.text = product.descripcion
 
-        //--------LAMAR POPUP--------------
-        holder.btnComprar.setOnClickListener {
-            (holder.itemView.context as Categorias_Activity).mostrarPopupProductoDemo(product)
-        }
         //------------------------------------------------
     }
 
@@ -44,6 +39,6 @@ class HistorialAdapter(private val listaHistorial: List<Producto>) :
         val tvProducto: TextView = itemView.findViewById(R.id.Tv_Producto)
         val tvPrecio: TextView = itemView.findViewById(R.id.Tv_Precio)
         val tvDescrip: TextView = itemView.findViewById(R.id.Tv_Descripcion)
-        val btnComprar: MaterialButton = itemView.findViewById(R.id.btnComprar) // ✅ Nuevo
+        val btnComprar: MaterialButton = itemView.findViewById(R.id.btnComprar) // Comprar
     }
 }

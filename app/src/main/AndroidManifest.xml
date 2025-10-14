@@ -12,14 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoGrupo4_DAMI">
 
-        <activity android:name=".Categorias_Activity"
+        <activity
+            android:name=".Inicio_MenuActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
