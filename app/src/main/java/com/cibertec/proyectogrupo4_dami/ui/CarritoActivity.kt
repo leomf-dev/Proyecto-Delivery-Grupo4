@@ -4,12 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cibertec.proyectogrupo4_dami.R
 import com.cibertec.proyectogrupo4_dami.adapter.CarritoAdapter
+import com.cibertec.proyectogrupo4_dami.data.AppDatabaseHelper
 import com.cibertec.proyectogrupo4_dami.entity.Carrito
 import com.cibertec.proyectogrupo4_dami.entity.Producto
 import com.google.android.material.button.MaterialButton
@@ -55,13 +57,35 @@ class CarritoActivity : AppCompatActivity() {
             finish() // Cierra el carrito para volver a la categoría
         }
 
+
         btnRealizarPedido.setOnClickListener {
             val total = carritoAdapter.calcularTotal()
-            val intent = Intent(this, CheckoutActivity::class.java)
-            intent.putExtra("total", total)
-            intent.putExtra("id_usuario", 1) // Simula usuario logueado
-            startActivity(intent)
-        }
+            val idUsuario = 1 // Simulado, cámbialo cuando uses login real
 
+            val dbHelper = AppDatabaseHelper(this)
+            val db = dbHelper.readableDatabase
+
+            val cursor = db.rawQuery(
+                "SELECT direccion, referencia, id_usuario FROM direccion WHERE id_usuario = ? LIMIT 1",
+                arrayOf(idUsuario.toString())
+            )
+
+            if (cursor.moveToFirst()) {
+                // ✅ Ya tiene dirección → ir al checkout
+                val intent = Intent(this, CheckoutActivity::class.java)
+                intent.putExtra("total", total)
+                intent.putExtra("id_usuario", idUsuario)
+                startActivity(intent)
+            } else {
+                // ❌ No tiene dirección → enviar a configurar
+                Toast.makeText(this, "Configura tu dirección y método de pago primero", Toast.LENGTH_LONG).show()
+                val intent = Intent(this, FormularioEntregaActivity::class.java)
+                intent.putExtra("modo_configuracion", true)
+                startActivity(intent)
+            }
+
+            cursor.close()
+            db.close()
+        }
     }
 }

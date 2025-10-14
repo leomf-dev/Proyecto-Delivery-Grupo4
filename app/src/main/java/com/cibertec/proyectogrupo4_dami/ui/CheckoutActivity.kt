@@ -33,6 +33,24 @@ class CheckoutActivity: AppCompatActivity(){
         val total = intent.getDoubleExtra("total", 0.0)
         val idUsuario = intent.getIntExtra("id_usuario", 1) // Simula usuario logueado
 
+        // ✅ Cargar dirección guardada (si existe)
+        val dbHelper = AppDatabaseHelper(this)
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery(
+            "SELECT direccion, referencia FROM direccion WHERE id_usuario = ? LIMIT 1",
+            arrayOf(idUsuario.toString())
+        )
+
+        if (cursor.moveToFirst()) {
+            val direccionGuardada = cursor.getString(0)
+            val referenciaGuardada = cursor.getString(1)
+            etDireccion.setText(direccionGuardada)
+            etReferencia.setText(referenciaGuardada)
+        }
+        cursor.close()
+        db.close()
+
+
         tvTotal.text = "Total a pagar: S/ %.2f".format(total)
 
         btnConfirmar.setOnClickListener {

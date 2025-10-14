@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.SeleccionarUbicacionActivity">
+
+    <!-- 🌍 Fragmento del mapa -->
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 📌 Barra superior -->
+    <LinearLayout
+        android:id="@+id/barraSuperior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp"
+        android:background="@drawable/bg_barra_superior"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="8dp">
+
+        <ImageView
+            android:id="@+id/btnVolver"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="Volver"
+            android:padding="8dp"
+            android:background="@drawable/bg_boton_redondo"
+            app:tint="@color/verde3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selecciona tu ubicación"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/verde3"
+            android:layout_marginStart="12dp" />
+    </LinearLayout>
+
+    <!-- 📍 Card con instrucciones -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="6dp"
+        app:strokeColor="@color/verde3"
+        app:strokeWidth="1dp"
+        app:layout_constraintTop_toBottomOf="@id/barraSuperior"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mantén presionado el mapa para elegir tu ubicación exacta."
+                android:textSize="14sp"
+                android:textColor="#333"
+                android:lineSpacingExtra="4dp"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- 📍 Botón flotante de confirmación -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnConfirmarUbicacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirmar ubicación"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:icon="@drawable/ic_check"
+        app:iconTint="@android:color/white"
+        app:cornerRadius="24dp"
+        app:backgroundTint="@color/verde3"
+        app:elevation="10dp"
+        android:paddingStart="28dp"
+        android:paddingEnd="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="48dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

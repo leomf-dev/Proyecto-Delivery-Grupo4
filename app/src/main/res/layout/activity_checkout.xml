@@ -1,35 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="24dp"
     android:gravity="center_horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:background="@color/white">
 
+    <!-- Texto del total -->
     <TextView
         android:id="@+id/tvTotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Total a pagar:"
         android:textSize="20sp"
-        android:layout_marginBottom="16dp"/>
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginBottom="16dp" />
 
+    <!-- Campo de dirección -->
     <EditText
         android:id="@+id/etDireccion"
-        android:hint="Dirección de entrega"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:hint="Dirección de entrega"
+        android:inputType="textPostalAddress"
+        android:layout_marginBottom="10dp" />
 
+    <!-- Campo de referencia -->
     <EditText
         android:id="@+id/etReferencia"
-        android:hint="Referencia (opcional)"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:hint="Referencia (opcional)"
+        android:inputType="text"
+        android:layout_marginBottom="20dp" />
 
+    <!-- Botón de confirmar -->
     <Button
         android:id="@+id/btnConfirmarPedido"
-        android:text="Confirmar Pedido"
-        android:layout_marginTop="24dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="Confirmar Pedido"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:backgroundTint="@color/verde3" />
 
 </LinearLayout>
