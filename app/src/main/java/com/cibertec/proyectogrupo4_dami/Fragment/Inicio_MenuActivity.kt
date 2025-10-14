@@ -14,7 +14,7 @@ import com.google.android.material.navigation.NavigationView
 
 class Inicio_MenuActivity : AppCompatActivity() {
 
-    //VARIABLES
+    //---------------------------VARIABLES----------------------
     private lateinit var DlayMenu : DrawerLayout
     private lateinit var IvMenu : ImageView
     private lateinit var MenuNavi  : NavigationView
@@ -26,16 +26,17 @@ class Inicio_MenuActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_inicio_menu)
 
-        //Inicializar
+        //----------------Inicializar-------------------------
         DlayMenu = findViewById(R.id.dlayMenu)
         IvMenu = findViewById(R.id.ivMenu)
         MenuNavi = findViewById(R.id.menuNavi)
 
-        //ABRIR CON CLICK
+        //------------ABRIR EL MENU CON CLICK------------
         IvMenu.setOnClickListener {
             DlayMenu.open()
         }
 
+        // Detecta qué opción del menú selecciona el usuario
         MenuNavi.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true
             DlayMenu.closeDrawers()
@@ -55,9 +56,12 @@ class Inicio_MenuActivity : AppCompatActivity() {
             insets
         }
 
+        // Carga el fragmento de inicio al abrir la app
         replaceFragment(InicioFragment())
     }
 
+    // sirve para reemplazar o cambiar el contenido que se muestra Ç
+    // dentro del contenedor principal por otro fragmento.
     private fun replaceFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction()
             .replace(R.id.ConteFragment, fragment).commit()

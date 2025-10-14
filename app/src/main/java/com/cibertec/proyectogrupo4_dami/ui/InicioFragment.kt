@@ -17,6 +17,7 @@ import com.cibertec.proyectogrupo4_dami.entity.Producto
 
 class InicioFragment : Fragment() {
 
+    //----------------VARIABLES-------------
     private lateinit var rvHistorial: RecyclerView
     private lateinit var historialAdapter: HistorialAdapter
 
@@ -24,7 +25,8 @@ class InicioFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // INFLAMOS EL FRAGMENT
+
+        // Inflamos el diseño del fragmento (fragment_inicio.xml)
         return inflater.inflate(R.layout.fragment_inicio, container, false)
     }
 
@@ -32,8 +34,10 @@ class InicioFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Conectamos el RecyclerView del XML con el código
         rvHistorial = view.findViewById(R.id.rvHistorial)
 
+        //----------LISTAR---------
         val productos = listOf(
             Producto(
                 R.mipmap.ic_hamburguesa6,
@@ -79,21 +83,26 @@ class InicioFragment : Fragment() {
             )
         )
 
+        // Aplica un efecto visual a las categorías (zoom al tocar)
         val contenedorCategorias = view.findViewById<LinearLayout>(R.id.contenedorCategorias)
         for (i in 0 until contenedorCategorias.childCount) {
             val categoria = contenedorCategorias.getChildAt(i)
             aplicarEfectoZoom(categoria)
         }
 
+        // Configuramos el adaptador con los productos y el diseño en lista
         historialAdapter = HistorialAdapter(productos)
         rvHistorial.layoutManager = LinearLayoutManager(requireContext())
         rvHistorial.adapter = historialAdapter
     }
 
+    // Función para aplicar efecto de zoom al presionar una categoría
     @SuppressLint("ClickableViewAccessibility")
     private fun aplicarEfectoZoom(vista: View) {
         vista.setOnTouchListener { v, e ->
             when (e.action) {
+
+                // Aumenta ligeramente el tamaño al presionar
                 MotionEvent.ACTION_DOWN -> {
                     v.animate().scaleX(1.1f).scaleY(1.1f)
                         .setDuration(120)
@@ -102,6 +111,8 @@ class InicioFragment : Fragment() {
                     v.performClick()
                 }
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+
+                    // Regresa al tamaño normal al soltar
                     v.animate().scaleX(1f).scaleY(1f)
                         .setDuration(150)
                         .setInterpolator(OvershootInterpolator())
