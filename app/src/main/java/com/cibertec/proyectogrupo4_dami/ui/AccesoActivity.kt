@@ -119,7 +119,7 @@ class AccesoActivity : AppCompatActivity() {
         }
 
          // Iniciar sesión
-        val intent = Intent(this, Categorias_Activity::class.java).apply {
+        val intent = Intent(this, EstadoPedidoActivity::class.java).apply {
             putExtra("nombres", nombres)
             putExtra("correo", correo)
             putExtra("celular", celular)
