@@ -17,6 +17,8 @@ import com.cibertec.proyectogrupo4_dami.adapter.CarruselAdapter
 import com.cibertec.proyectogrupo4_dami.data.AppDatabaseHelper
 import com.cibertec.proyectogrupo4_dami.entity.Usuario
 import com.google.android.material.textfield.TextInputEditText
+import com.cibertec.proyectogrupo4_dami.ui.InicioFragment
+import com.cibertec.proyectogrupo4_dami.Fragment.Inicio_MenuActivity
 import kotlin.math.abs
 
 class AccesoActivity : AppCompatActivity() {
@@ -118,8 +120,9 @@ class AccesoActivity : AppCompatActivity() {
             return
         }
 
+        //-----------------------------------------------------CAMBIAR ACITVITY----------------
          // Iniciar sesión
-        val intent = Intent(this, Categorias_Activity::class.java).apply {
+        val intent = Intent(this, Inicio_MenuActivity::class.java).apply {
             putExtra("nombres", nombres)
             putExtra("correo", correo)
             putExtra("celular", celular)

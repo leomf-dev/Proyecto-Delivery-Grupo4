@@ -10,7 +10,23 @@
     android:layout_height="match_parent"
     tools:context=".ui.ContactoRepartidorActivity">
 
+    <LinearLayout
+        android:layout_marginHorizontal="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_margin="4dp"
+            android:id="@+id/ivAtras"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_atras"/>
+
+    </LinearLayout>
+
     <ScrollView
+        android:layout_marginHorizontal="7dp"
         android:id="@+id/scrollChat"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -21,6 +37,8 @@
             android:id="@+id/chat"
             android:layout_margin="5dp"
             android:orientation="vertical"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </ScrollView>
@@ -29,24 +47,28 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="4dp"
+        android:padding="3dp"
+        android:layout_marginHorizontal="10dp"
         android:elevation="4dp">
 
         <EditText
             android:id="@+id/etMensaje"
-            android:hint="Escribe un mensaje..."
+            android:hint="Escribele al repartidor..."
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:padding="8dp" />
+            android:background="#E0E0E0"
+            android:padding="8dp"
+            android:elevation="5dp"/>
 
-        <Button
-            android:id="@+id/btnEnviar"
-            android:text="Enviar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/naranja"/>
+        <ImageView
+            android:id="@+id/ivEnviar"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/azul2"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/ic_enviar"/>
+
     </LinearLayout>
 
 </LinearLayout>

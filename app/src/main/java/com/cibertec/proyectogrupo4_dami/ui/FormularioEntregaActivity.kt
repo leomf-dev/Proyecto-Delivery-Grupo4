@@ -19,6 +19,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.cibertec.proyectogrupo4_dami.Fragment.Inicio_MenuActivity
 import com.cibertec.proyectogrupo4_dami.R
 import com.cibertec.proyectogrupo4_dami.data.AppDatabaseHelper
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -97,7 +98,23 @@ class FormularioEntregaActivity : AppCompatActivity() {
         }
 
         // --- Confirmar pedido ---
-        btnConfirmar.setOnClickListener { guardarDireccion() }
+        btnConfirmar.setOnClickListener {
+            guardarDireccion()
+
+            // Luego de guardar, simular checkout exitoso e ir al menú principal
+            val direccion = tietDireccion.text.toString().trim()
+            val metodoId = rgMetodoPago.checkedRadioButtonId
+            val metodoPago = if (metodoId != -1) findViewById<RadioButton>(metodoId).text.toString() else "No especificado"
+
+            Toast.makeText(
+                this,
+                "Pedido confirmado\nDirección: $direccion\nPago: $metodoPago",
+                Toast.LENGTH_LONG
+            ).show()
+
+            startActivity(Intent(this, Inicio_MenuActivity::class.java))
+            finish()
+        }
 
         // --- Ajustes de bordes del sistema ---
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -110,7 +127,6 @@ class FormularioEntregaActivity : AppCompatActivity() {
     // ---------------------------------------------------------
     // MÉTODOS DE UBICACIÓN
     // ---------------------------------------------------------
-
     @SuppressLint("MissingPermission")
     private fun obtenerUbicacion() {
         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
@@ -136,9 +152,8 @@ class FormularioEntregaActivity : AppCompatActivity() {
     // ---------------------------------------------------------
     // GUARDAR DIRECCIÓN EN BD
     // ---------------------------------------------------------
-
     private fun guardarDireccion() {
-        val direccion = direccionSeleccionada ?: ""
+        val direccion = direccionSeleccionada ?: tietDireccion.text.toString().trim()
         val referencia = tietReferencia.text.toString().trim()
         val metodoId = rgMetodoPago.checkedRadioButtonId
 
@@ -152,9 +167,7 @@ class FormularioEntregaActivity : AppCompatActivity() {
             return
         }
 
-        val metodoPago = findViewById<RadioButton>(metodoId).text.toString()
         val idUsuario = 1 // Simulado (luego puedes obtenerlo de sesión o base de datos)
-
         val dbHelper = AppDatabaseHelper(this)
         val db = dbHelper.writableDatabase
 
@@ -187,13 +200,11 @@ class FormularioEntregaActivity : AppCompatActivity() {
 
         cursor.close()
         db.close()
-        finish()
     }
 
     // ---------------------------------------------------------
     // PERMISOS
     // ---------------------------------------------------------
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -213,7 +224,6 @@ class FormularioEntregaActivity : AppCompatActivity() {
     // ---------------------------------------------------------
     // RESULTADOS DE INTENTS (Places / Mapa)
     // ---------------------------------------------------------
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 

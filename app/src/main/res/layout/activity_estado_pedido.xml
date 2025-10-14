@@ -7,15 +7,10 @@
     android:layout_height="match_parent"
     android:id="@+id/ActivityEstadoPedido">
 
-    <RelativeLayout
+    <LinearLayout
+        android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_atras"
-            android:adjustViewBounds="true"/>
 
         <TextView
             android:id="@+id/txtEstadoPedido"
@@ -27,12 +22,12 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progresoPedido"
         style="?android:attr/progressBarStyleHorizontal"
-        android:progress="70"
+        android:progress="30"
         android:max="100"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,14 +46,16 @@
         android:text="Contactar Repartidor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
         android:backgroundTint="@color/naranja"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="6dp"/>
 
     <Button
         android:id="@+id/btnSoporte"
         android:text="Contactar Soporte"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
         android:backgroundTint="@color/naranja"/>
 
     <LinearLayout
@@ -72,6 +69,7 @@
             android:layout_height="wrap_content"
             android:text="Mis pedidos:"
             android:layout_marginVertical="3dp"
+            android:layout_marginStart="5dp"
             android:textSize="15sp"/>
 
         <androidx.recyclerview.widget.RecyclerView

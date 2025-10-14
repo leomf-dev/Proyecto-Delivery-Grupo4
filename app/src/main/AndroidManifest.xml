@@ -32,7 +32,7 @@
             android:name=".ui.CarritoActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.Categorias_Activity"
+            android:name=".Fragment.Inicio_MenuActivity"
             android:exported="false" />
         <activity
             android:name=".ui.CategoriasActivity"
