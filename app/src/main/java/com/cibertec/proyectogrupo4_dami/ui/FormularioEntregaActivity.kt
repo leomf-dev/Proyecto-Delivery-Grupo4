@@ -11,6 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.cibertec.proyectogrupo4_dami.Fragment.Inicio_MenuActivity
 import com.cibertec.proyectogrupo4_dami.R
 
 class FormularioEntregaActivity : AppCompatActivity() {
@@ -54,8 +55,9 @@ class FormularioEntregaActivity : AppCompatActivity() {
                 Toast.LENGTH_LONG
             ).show()
 
+            //-----------------------------------------------------CAMBIAR ACITVITY----------------
             // Opcional: Ir a pantalla de resumen o volver al inicio
-            startActivity(Intent(this, Categorias_Activity::class.java))
+            startActivity(Intent(this, Inicio_MenuActivity::class.java))
             finish()
         }
 
