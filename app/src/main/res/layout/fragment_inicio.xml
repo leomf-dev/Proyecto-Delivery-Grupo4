@@ -41,6 +41,19 @@
                 android:adjustViewBounds="true" />
         </LinearLayout>
 
+        <!-- BOTÓN PARA IR AL FORMULARIO DE ENTREGA -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnIrFormulario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🛍️ actualiza tu metodo de pago y direccion"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="24dp"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="16dp"
+            android:elevation="8dp"/>
 
         <!-- CONTENEDOR DE BÚSQUEDA -->
         <LinearLayout
@@ -229,6 +242,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
         />
+
+
+
     </LinearLayout>
+
 
 </FrameLayout>

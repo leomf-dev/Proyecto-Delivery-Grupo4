@@ -1,12 +1,14 @@
 package com.cibertec.proyectogrupo4_dami.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
+import android.widget.Button
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cibertec.proyectogrupo4_dami.R
 import com.cibertec.proyectogrupo4_dami.adapter.HistorialAdapter
 import com.cibertec.proyectogrupo4_dami.entity.Producto
+import com.google.android.material.button.MaterialButton
 
 class InicioFragment : Fragment() {
 
@@ -94,7 +97,16 @@ class InicioFragment : Fragment() {
         historialAdapter = HistorialAdapter(productos)
         rvHistorial.layoutManager = LinearLayoutManager(requireContext())
         rvHistorial.adapter = historialAdapter
+
+        // ---- Botón para abrir formulario ----
+        val btnIrFormulario = view.findViewById<MaterialButton>(R.id.btnIrFormulario)
+        btnIrFormulario.setOnClickListener {
+            val intent = Intent(requireContext(), FormularioEntregaActivity::class.java)
+            startActivity(intent)
+        }
+
     }
+
 
     // Función para aplicar efecto de zoom al presionar una categoría
     @SuppressLint("ClickableViewAccessibility")
