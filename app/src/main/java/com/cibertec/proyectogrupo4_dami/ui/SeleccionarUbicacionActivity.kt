@@ -1,6 +1,7 @@
 package com.cibertec.proyectogrupo4_dami.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
@@ -13,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.cibertec.proyectogrupo4_dami.R
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -23,6 +25,13 @@ import com.google.android.gms.maps.model.MarkerOptions
 import java.util.*
 
 class SeleccionarUbicacionActivity : AppCompatActivity(), OnMapReadyCallback {
+
+
+    private lateinit var locationRequest: com.google.android.gms.location.LocationRequest
+    private lateinit var locationCallback: com.google.android.gms.location.LocationCallback
+    private var latitudSeleccionada: Double? = null
+    private var longitudSeleccionada: Double? = null
+    private var haCentradoMapa = false
 
     private lateinit var map: GoogleMap
     private lateinit var btnConfirmarUbicacion: Button
@@ -74,28 +83,77 @@ class SeleccionarUbicacionActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         map.uiSettings.isZoomControlsEnabled = true
 
-        // Centrar en Lima
-        val lima = LatLng(-12.0464, -77.0428)
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(lima, 12f))
+        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        // Verificar permisos de ubicación
+        // Verificar permisos
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             == PackageManager.PERMISSION_GRANTED
         ) {
             map.isMyLocationEnabled = true
+
+            // ✅ Configurar actualizaciones en tiempo real
+            val locationRequest = com.google.android.gms.location.LocationRequest.Builder(
+                com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY,
+                3000L // cada 3 segundos aprox
+            ).setMinUpdateDistanceMeters(5f) // actualiza solo si se movió al menos 5m
+                .build()
+
+            // Callback que se ejecuta cada vez que cambia la ubicación
+            val locationCallback = object : com.google.android.gms.location.LocationCallback() {
+                override fun onLocationResult(locationResult: com.google.android.gms.location.LocationResult) {
+                    super.onLocationResult(locationResult)
+                    val location = locationResult.lastLocation ?: return
+
+                    val posicionActual = LatLng(location.latitude, location.longitude)
+                    direccionSeleccionada = "Tu ubicación actual"
+                    latitudSeleccionada = location.latitude
+                    longitudSeleccionada = location.longitude
+
+                    // Eliminar marcador anterior y poner el nuevo
+                    marcador?.remove()
+                    marcador = map.addMarker(
+                        MarkerOptions()
+                            .position(posicionActual)
+                            .title("Estás aquí 🧭")
+                    )
+
+                    // Centrar suavemente al usuario la primera vez
+                    if (!haCentradoMapa) {
+                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(posicionActual, 17f))
+                        haCentradoMapa = true
+                    }
+                }
+            }
+
+            // Guardar para detenerlo en onPause
+            this.locationCallback = locationCallback
+            this.locationRequest = locationRequest
+
+            fusedLocationClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                mainLooper
+            )
+
         } else {
+            // Pedir permiso si no está concedido
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 LOCATION_PERMISSION_REQUEST
             )
+
+            // Vista por defecto (Lima)
+            val lima = LatLng(-12.0464, -77.0428)
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(lima, 12f))
         }
 
-        // Mantener presionado para seleccionar ubicación
+        // Mantener funcionalidad de mantener presionado para seleccionar ubicación
         map.setOnMapLongClickListener { latLng ->
             marcador?.remove()
             marcador = map.addMarker(
@@ -113,6 +171,8 @@ class SeleccionarUbicacionActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
     }
+
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
