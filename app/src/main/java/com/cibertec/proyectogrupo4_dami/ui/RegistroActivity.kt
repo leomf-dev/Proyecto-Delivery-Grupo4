@@ -148,6 +148,7 @@ class RegistroActivity : AppCompatActivity() {
         val dbHelper = AppDatabaseHelper(this)
         val db = dbHelper.writableDatabase
 
+
         // Verificar si el correo ya existe
         val cursor = db.rawQuery("SELECT correo FROM usuario WHERE correo = ?", arrayOf(correo))
         if (cursor.count > 0) {
