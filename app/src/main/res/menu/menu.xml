@@ -26,6 +26,10 @@
             android:icon="@drawable/ic_food"
             android:title="Cerrar Sesion" />
 
+        <item
+            android:id="@+id/itProductosApi"
+            android:title="Productos API" />
+
     </group>
 
 

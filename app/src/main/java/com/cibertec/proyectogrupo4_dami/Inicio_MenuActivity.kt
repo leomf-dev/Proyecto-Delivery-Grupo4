@@ -9,8 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.cibertec.proyectogrupo4_dami.ui.InicioFragment
-import com.cibertec.proyectogrupo4_dami.ui.PedidosFragment
-import com.cibertec.proyectogrupo4_dami.ui.PerfilFragment
+import com.cibertec.proyectogrupo4_dami.ui.ProductsApiFragment
 import com.google.android.material.navigation.NavigationView
 
 class Inicio_MenuActivity : AppCompatActivity() {
@@ -42,10 +41,9 @@ class Inicio_MenuActivity : AppCompatActivity() {
             DlayMenu.closeDrawers()
 
             //-----LLAMAR A FRAGMENT----
-            when (menuItem.itemId){
+            when (menuItem.itemId) {
                 R.id.itInicio -> replaceFragment(InicioFragment())
-                R.id.itPedidos -> replaceFragment(PedidosFragment())
-                R.id.itPerfil -> replaceFragment(PerfilFragment())
+                R.id.itProductosApi -> replaceFragment(ProductsApiFragment())
             }
             true
         }

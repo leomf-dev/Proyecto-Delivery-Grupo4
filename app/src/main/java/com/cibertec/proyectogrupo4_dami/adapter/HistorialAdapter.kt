@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cibertec.proyectogrupo4_dami.R
 import com.google.android.material.button.MaterialButton
 import com.cibertec.proyectogrupo4_dami.entity.Producto
+import com.bumptech.glide.Glide
 
 class HistorialAdapter(private val listaHistorial: List<Producto>) :
     RecyclerView.Adapter<HistorialAdapter.HistorialViewHolder>() {
@@ -22,23 +23,23 @@ class HistorialAdapter(private val listaHistorial: List<Producto>) :
     override fun onBindViewHolder(holder: HistorialViewHolder, position: Int) {
         val product = listaHistorial[position]
 
-        holder.ivImagen.setImageResource(product.imagenResId)
-        holder.tvProducto.text = product.titulo
-        holder.tvPrecio.text = product.precio
-        holder.tvDescrip.text = product.descripcion
+        Glide.with(holder.itemView.context)
+            .load(product.imagen)
+            .into(holder.ivImagen)
 
+        holder.tvProducto.text = product.titulo
+        holder.tvPrecio.text = "S/ ${product.precio}"
+        holder.tvDescrip.text = product.descripcion
         //------------------------------------------------
     }
 
-    override fun getItemCount(): Int {
-        return listaHistorial.size
-    }
+    override fun getItemCount(): Int = listaHistorial.size
 
     inner class HistorialViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivImagen: ImageView = itemView.findViewById(R.id.ivProducto)
         val tvProducto: TextView = itemView.findViewById(R.id.Tv_Producto)
         val tvPrecio: TextView = itemView.findViewById(R.id.Tv_Precio)
         val tvDescrip: TextView = itemView.findViewById(R.id.Tv_Descripcion)
-        val btnComprar: MaterialButton = itemView.findViewById(R.id.btnComprar) // Comprar
+        val btnComprar: MaterialButton = itemView.findViewById(R.id.btnComprar)
     }
 }
