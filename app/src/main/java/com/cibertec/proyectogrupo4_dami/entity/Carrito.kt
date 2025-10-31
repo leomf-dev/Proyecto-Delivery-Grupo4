@@ -4,9 +4,7 @@ data class Carrito(
     val producto: Producto,
     var cantidad: Int
 ) {
+    //CAMBIADO PARA DOUBLE
     val subtotal: Double
-        get() = cantidad * producto.precio.replace("S/ ", "").toDouble()
-
-
-
+        get() = cantidad * producto.precio
 }
