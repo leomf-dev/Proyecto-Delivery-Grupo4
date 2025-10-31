@@ -23,7 +23,7 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
                 clave TEXT NOT NULL,
                 celular TEXT NOT NULL
             )
-        """.trimIndent()) //Elimina espacion y saltos innecesarios
+        """.trimIndent()) //Elimina espacios y saltos innecesarios
 
 
         // Tabla CATEGORIA
