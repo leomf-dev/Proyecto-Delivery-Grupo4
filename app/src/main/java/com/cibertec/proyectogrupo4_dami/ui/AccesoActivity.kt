@@ -109,7 +109,7 @@ class AccesoActivity : AppCompatActivity() {
         val claveGuardada = cursor.getString(0)
         val nombres = cursor.getString(1)
         val celular = cursor.getString(2)
-        cursor.close()
+        cursor.close
         db.close()
 
         // Validar Contraseña
