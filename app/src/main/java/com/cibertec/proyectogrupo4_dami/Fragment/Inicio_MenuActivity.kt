@@ -44,6 +44,7 @@ class Inicio_MenuActivity : AppCompatActivity() {
             //-----------REDIRECCIONAR------------
             when (menuItem.itemId){
                 R.id.itInicio -> replaceFragment(InicioFragment())
+                R.id.itProductosApi -> replaceFragment(ProductsApiFragment())
                 //R.id.itPedidos -> replaceFragment(PedidosFragment())
                 //R.id.itPerfil -> replaceFragment(PerfilFragment())
             }

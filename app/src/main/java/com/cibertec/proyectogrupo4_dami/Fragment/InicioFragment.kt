@@ -47,42 +47,21 @@ class InicioFragment : Fragment() {
                 "Hamburguesa Clasica",
                 "Recién horneado y crujiente",
                 "S/ 13.00",
-                1
+                1.21
             ),
             Producto(
                 R.mipmap.ic_hamburguesa1,
                 "Hamburguesa Queso",
                 "Recién horneado y crujiente",
                 "S/ 21.50",
-                2
+                2.21
             ),
             Producto(
                 R.mipmap.ic_hamburguesa2,
                 "Hamburguesa Doble Carne",
                 "Recién horneado y crujiente",
                 "S/ 16.00",
-                3
-            ),
-            Producto(
-                R.mipmap.ic_hamburguesa3,
-                "Hamburguesa con Tocino",
-                "Recién horneado y crujiente",
-                "S/ 36.00",
-                4
-            ),
-            Producto(
-                R.mipmap.ic_hamburguesa4,
-                "Hamburguesa Vegana",
-                "Recién horneado y crujiente",
-                "S/ 41.00",
-                5
-            ),
-            Producto(
-                R.mipmap.ic_hamburguesa5,
-                "Hamburguesa Carne Doble",
-                "Recién horneado y crujiente",
-                "S/ 12.00",
-                6
+                3.12
             )
         )
 

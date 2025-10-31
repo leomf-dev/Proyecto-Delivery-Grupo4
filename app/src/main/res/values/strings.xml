@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">ProyectoGrupo4_DAMI</string>
     <string name="google_maps_key">AIzaSyASfomy-klL9sK9JPT7lmYOoXNbmpznO3s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
 

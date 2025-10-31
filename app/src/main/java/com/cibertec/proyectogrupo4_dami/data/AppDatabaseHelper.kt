@@ -36,19 +36,18 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
 
 
         // Tabla PRODUCTO
-        db.execSQL("""
+         db.execSQL("""
             CREATE TABLE producto (
                 id_producto INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 id_categoria INTEGER NOT NULL,
-                imagenResId INTEGER,
+                imagen TEXT,
                 nom_producto TEXT NOT NULL,
                 descripcion TEXT,
                 precio TEXT NOT NULL,
                 cantidad INTEGER NOT NULL,
                 FOREIGN KEY(id_categoria) REFERENCES categoria(id_categoria)
             )
-        """.trimIndent())
-
+         """.trimIndent())
 
 
         // Tabla CARRITO
@@ -93,8 +92,6 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
 """.trimIndent())
 
     }
-
-
 
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

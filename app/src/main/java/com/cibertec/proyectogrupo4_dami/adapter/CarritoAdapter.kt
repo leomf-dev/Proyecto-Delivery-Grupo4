@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.cibertec.proyectogrupo4_dami.R
 import com.cibertec.proyectogrupo4_dami.entity.Carrito
 import com.google.android.material.button.MaterialButton
@@ -39,11 +40,16 @@ class CarritoAdapter(
     override fun onBindViewHolder(holder: CarritoViewHolder, position: Int) {
         val item = listaCarrito[position]
 
-        holder.imgProducto.setImageResource(item.producto.imagenResId)
+        //MOSTRAR LISTADO PRODUCTO "FIREBASE"
+        Glide.with(holder.itemView.context)
+            .load(item.producto.imagen)
+            .into(holder.imgProducto)
+
         holder.tvNombre.text = item.producto.titulo
-        holder.tvPrecio.text = item.producto.precio
+        holder.tvPrecio.text = "S/ %.2f".format(item.producto.precio)
         holder.tvCantidad.text = item.cantidad.toString()
         holder.tvSubtotal.text = "Subtotal: S/ %.2f".format(item.subtotal)
+
 
         //Aumentar cantidad
         holder.btnAumentar.setOnClickListener {
@@ -75,9 +81,13 @@ class CarritoAdapter(
     }
 
     // 🔹 Función auxiliar para obtener el total (por ejemplo, para enviar al checkout)
+
+    //MODIFICADO PARA DOUBLE
+    //val precioNum = it.producto.precio
+
     fun calcularTotal(): Double {
         return listaCarrito.sumOf {
-            val precioNum = it.producto.precio.replace("S/ ", "").toDouble()
+            val precioNum = it.producto.precio
             precioNum * it.cantidad
         }
     }
