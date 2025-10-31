@@ -36,22 +36,22 @@ class ContactoRepartidorActivity : AppCompatActivity() {
         ivEnviar = findViewById(R.id.ivEnviar)
         ivAtras = findViewById(R.id.ivAtras)
 
-        val usuario = obtenerUsuarioLogeado(this)
-        if (usuario != null){
-            Usuario(
-                id = 0,
-                nombres = "ale",
-                correo = "nuncaQuien@gmail.com",
-                clave = "12345",
-                celular = "999888777")
-        }
+//        val usuario = obtenerUsuarioLogeado(this)
+//        if (usuario != null){
+//            Usuario(
+//                id = 0,
+//                nombres = "ale",
+//                correo = "nuncaQuien@gmail.com",
+//                clave = "12345",
+//                celular = "999888777")
+//        }
 
         ivAtras.setOnClickListener {
             startActivity(Intent(this, EstadoPedidoActivity::class.java))
         }
 
         // mensaje ejemplo
-        agregarMensaje("Hola ${usuario?.nombres}, estoy llegando a tu ubicacion", false)
+        //agregarMensaje("Hola ${usuario?.nombres}, estoy llegando a tu ubicacion", false)
 
         ivEnviar.setOnClickListener {
             val texto = etMensaje.text.toString().trim()
@@ -112,12 +112,12 @@ class ContactoRepartidorActivity : AppCompatActivity() {
         // scroll.post { scroll.fullScroll(ScrollView.FOCUS_DOWN) }
     }
 
-    fun obtenerUsuarioLogeado(context: Context): Usuario? {
-        val prefs = context.getSharedPreferences("session", Context.MODE_PRIVATE)
-        val correo = prefs.getString("correo", null)
-        return if (correo != null) {
-            val db = AppDatabaseHelper(context)
-            db.obtenerUsuarioPorCorreo(correo)
-        } else null
-    }
+//    fun obtenerUsuarioLogeado(context: Context): Usuario? {
+//        val prefs = context.getSharedPreferences("session", Context.MODE_PRIVATE)
+//        val correo = prefs.getString("correo", null)
+//        return if (correo != null) {
+//            val db = AppDatabaseHelper(context)
+//            db.obtenerUsuarioPorCorreo(correo)
+//        } else null
+//    }
 }
