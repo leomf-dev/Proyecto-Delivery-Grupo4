@@ -25,7 +25,7 @@ class ProductsApiFragment : Fragment(R.layout.fragment_products_api) {
 
         rvProductos = view.findViewById(R.id.rvProductsApi)
         rvProductos.layoutManager = LinearLayoutManager(requireContext())
-        adapter = ProductApiAdapter(productos)
+        adapter = ProductApiAdapter(requireContext(), productos)
         rvProductos.adapter = adapter
 
         cargarProductosDesdeApi()
