@@ -15,6 +15,10 @@ import com.cibertec.proyectogrupo4_dami.entity.Producto
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 class ProductApiAdapter(
@@ -54,6 +58,10 @@ class ProductApiAdapter(
         }
     }
 
+    var costo : Double = 0.0
+    var costoFinal : Double = 0.0
+    var cantidadProd : Int = 0
+
 
     private fun verCarrito(producto: Producto){
         //vistas
@@ -86,14 +94,65 @@ class ProductApiAdapter(
         val descripcion = producto.descripcion
         val precio = producto.precio
 
+
+        costo = precio
+
         nombretv.setText(nombre)
         descripciontv.setText(descripcion)
         preciotv.text = String.format("S/. %.2f", precio)
 
+        costoFinal = costo
+        cantidadProd= 1
+
+        //incrementar cantidad
+        btnAumentar.setOnClickListener {
+            costoFinal = costoFinal + costo
+            cantidadProd++
+
+            prefinaltv.text = String.format("S/. %.2f", costoFinal)
+            cantidadtv.text = cantidadProd.toString()
+        }
+
+        //Disminuir cantidad
+        btnDisminuir.setOnClickListener {
+            //disminuir solo si la cantidad es mayor a 1
+            if(cantidadProd > 1){
+                costoFinal = costoFinal - costo
+                cantidadProd--
+
+                prefinaltv.text = String.format("S/. %.2f", costoFinal)
+                cantidadtv.text = cantidadProd.toString()
+            }
+        }
+        prefinaltv.text = String.format("S/. %.2f", costoFinal)
+
+        //Cargar la imagen
+        cargarimg(productoId, imagenSIV)
+
         dialog.show()
         dialog.setCanceledOnTouchOutside(true)
+    }
 
+    private fun cargarimg(productoId: String, imagenSIV: ShapeableImageView) {
+        val ref = FirebaseDatabase.getInstance().getReference("products")
+        val idFirebase = "prod_$productoId"
 
+        ref.child(idFirebase).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val imagen = snapshot.child("imagen").value.toString()
+
+                    Glide.with(context)
+                        .load(imagen)
+                        .placeholder(R.mipmap.ic_producto)
+                        .into(imagenSIV)
+                }
+            }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            } )
     }
 
     override fun getItemCount(): Int = listaProductos.size

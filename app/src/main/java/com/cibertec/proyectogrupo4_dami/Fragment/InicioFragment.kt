@@ -43,26 +43,20 @@ class InicioFragment : Fragment() {
         //----------LISTAR---------
         val productos = listOf(
             Producto(
-                R.mipmap.ic_hamburguesa6,
+                "R.mipmap.ic_hamburguesa6",
                 "Hamburguesa Clasica",
                 "Recién horneado y crujiente",
                 "S/ 13.00",
                 1.21
             ),
             Producto(
-                R.mipmap.ic_hamburguesa1,
+                "R.mipmap.ic_hamburguesa1",
                 "Hamburguesa Queso",
                 "Recién horneado y crujiente",
                 "S/ 21.50",
                 2.21
-            ),
-            Producto(
-                R.mipmap.ic_hamburguesa2,
-                "Hamburguesa Doble Carne",
-                "Recién horneado y crujiente",
-                "S/ 16.00",
-                3.12
             )
+
         )
 
         // Aplica un efecto visual a las categorías (zoom al tocar)
