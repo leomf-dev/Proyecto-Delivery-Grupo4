@@ -33,7 +33,7 @@ class CheckoutActivity: AppCompatActivity(){
         val total = intent.getDoubleExtra("total", 0.0)
         val idUsuario = intent.getIntExtra("id_usuario", 1) // Simula usuario logueado
 
-        // ✅ Cargar dirección guardada (si existe)
+        // Cargar dirección guardada (si existe)
         val dbHelper = AppDatabaseHelper(this)
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery(

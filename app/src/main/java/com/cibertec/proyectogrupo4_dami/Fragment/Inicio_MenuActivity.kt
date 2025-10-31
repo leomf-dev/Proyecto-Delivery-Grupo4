@@ -1,5 +1,6 @@
 package com.cibertec.proyectogrupo4_dami.Fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
@@ -9,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.cibertec.proyectogrupo4_dami.R
+import com.cibertec.proyectogrupo4_dami.ui.EstadoPedidoActivity
 import com.cibertec.proyectogrupo4_dami.ui.InicioFragment
 import com.google.android.material.navigation.NavigationView
 
@@ -44,7 +46,7 @@ class Inicio_MenuActivity : AppCompatActivity() {
             //-----------REDIRECCIONAR------------
             when (menuItem.itemId){
                 R.id.itInicio -> replaceFragment(InicioFragment())
-                //R.id.itPedidos -> replaceFragment(PedidosFragment())
+                R.id.itPedidos -> startActivity(Intent(this, EstadoPedidoActivity::class.java))
                 //R.id.itPerfil -> replaceFragment(PerfilFragment())
             }
             true

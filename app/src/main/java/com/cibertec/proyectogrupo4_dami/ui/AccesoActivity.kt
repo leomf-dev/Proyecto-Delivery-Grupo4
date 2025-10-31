@@ -102,7 +102,7 @@ class AccesoActivity : AppCompatActivity() {
         Toast.makeText(this, "La cuenta no existe", Toast.LENGTH_SHORT).show()
         tietCorreologin.setText("")
         return
-    }
+        }
   
         // Obtener datos del usuario
         cursor.moveToFirst()
@@ -121,13 +121,16 @@ class AccesoActivity : AppCompatActivity() {
         }
 
         //-----------------------------------------------------CAMBIAR ACITVITY----------------
-         // Iniciar sesión
+        // Iniciar sesión
         val intent = Intent(this, Inicio_MenuActivity::class.java).apply {
             putExtra("nombres", nombres)
             putExtra("correo", correo)
             putExtra("celular", celular)
             putExtra("clave", clave)
         }
+
+        guardarSesion(this, correo)
+
         startActivity(intent)
         finish()
     }
@@ -161,6 +164,12 @@ class AccesoActivity : AppCompatActivity() {
                 Handler(Looper.getMainLooper()).postDelayed(this, 3000)
             }
         }, 3000)
+    }
+
+    // pa guardar la sesion
+    fun guardarSesion(context: Context, correo: String) {
+        val prefs = context.getSharedPreferences("session", Context.MODE_PRIVATE)
+        prefs.edit().putString("correo", correo).apply()
     }
 
 }

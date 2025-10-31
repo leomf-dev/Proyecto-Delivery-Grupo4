@@ -3,6 +3,7 @@ package com.cibertec.proyectogrupo4_dami.data
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.cibertec.proyectogrupo4_dami.entity.Usuario
 
 
 /**
@@ -94,9 +95,6 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
 
     }
 
-
-
-
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         // Elimina todas las tablas si se actualiza la versión
         db.execSQL("DROP TABLE IF EXISTS direccion")
@@ -109,5 +107,22 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
         // Vuelve a crearlas
         onCreate(db)
 
+    }
+
+    fun obtenerUsuarioPorCorreo(correo: String): Usuario? {
+        val db = readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM usuario WHERE correo=?", arrayOf(correo))
+        var usuario: Usuario? = null
+        if (cursor.moveToFirst()) {
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow("id_usuario"))
+            val nombres = cursor.getString(cursor.getColumnIndexOrThrow("nombres"))
+            val correodb = cursor.getString(cursor.getColumnIndexOrThrow("correo"))
+            val clave = cursor.getString(cursor.getColumnIndexOrThrow("clave"))
+            val celular = cursor.getString(cursor.getColumnIndexOrThrow("celular"))
+            usuario = Usuario(id, nombres, correodb, clave, celular)
+        }
+        cursor.close()
+        db.close()
+        return usuario
     }
 }
