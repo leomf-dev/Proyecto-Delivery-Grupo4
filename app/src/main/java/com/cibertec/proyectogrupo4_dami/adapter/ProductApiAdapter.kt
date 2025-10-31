@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cibertec.proyectogrupo4_dami.R
@@ -15,10 +16,13 @@ import com.cibertec.proyectogrupo4_dami.entity.Producto
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+
 import com.google.firebase.database.ValueEventListener
+import kotlin.math.cos
 
 
 class ProductApiAdapter(
@@ -129,9 +133,37 @@ class ProductApiAdapter(
         //Cargar la imagen
         cargarimg(productoId, imagenSIV)
 
+        btnAgregarCarrito.setOnClickListener {
+            agregarCarrito(context, producto, costoFinal, cantidadProd)
+        }
+
+
+
         dialog.show()
         dialog.setCanceledOnTouchOutside(true)
     }
+
+
+    private fun ProductApiAdapter.agregarCarrito(context: Context, producto: Producto, costoFinal: Double, cantidadProd: Int) {
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val hashMap = HashMap<String, Any>()
+        hashMap["idProducto"] = producto.id
+        hashMap["nombre"] = producto.titulo
+        hashMap["precio"] = producto.precio
+        hashMap["precioFinal"] = costoFinal
+        hashMap["cantidad"] = cantidadProd
+
+        val ref = FirebaseDatabase.getInstance().getReference("usuarios")
+        ref.child(firebaseAuth.uid!!).child("CarritoCompras").child(producto.id)
+            .setValue(hashMap)
+            .addOnSuccessListener{
+                Toast.makeText(context, "Se agrego el producto al carrito",Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e->
+                Toast.makeText(context, "${e.message}",Toast.LENGTH_SHORT).show()
+            }
+    }
+
 
     private fun cargarimg(productoId: String, imagenSIV: ShapeableImageView) {
         val ref = FirebaseDatabase.getInstance().getReference("products")
