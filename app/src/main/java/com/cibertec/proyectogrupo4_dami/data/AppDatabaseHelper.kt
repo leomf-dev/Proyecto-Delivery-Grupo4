@@ -36,7 +36,7 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
 
 
         // Tabla PRODUCTO
-        db.execSQL("""
+         db.execSQL("""
             CREATE TABLE producto (
                 id_producto INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 id_categoria INTEGER NOT NULL,

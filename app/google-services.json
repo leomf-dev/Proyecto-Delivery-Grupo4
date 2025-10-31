@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "980833915383",
+    "project_id": "deliveryaltoque-722b7",
+    "storage_bucket": "deliveryaltoque-722b7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980833915383:android:34c5ad35130f3b3e509ef2",
+        "android_client_info": {
+          "package_name": "com.cibertec.proyectogrupo4_dami"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-zEm8vL_3UU0ULz5H_b41pUgvEiCW7Jk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

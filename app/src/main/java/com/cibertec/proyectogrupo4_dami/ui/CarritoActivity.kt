@@ -40,8 +40,8 @@ class CarritoActivity : AppCompatActivity() {
         // Datos de prueba (puedes reemplazar por los que vengan del intent)
         listaCarrito.addAll(
             listOf(
-                Carrito(Producto(R.mipmap.ic_hamburguesa1, "Hamburguesa Clásica", "Crujiente", "S/ 13.00", 1), 1),
-                Carrito(Producto(R.mipmap.ic_hamburguesa2, "Hamburguesa Queso", "Jugosa", "S/ 18.00", 1), 2)
+                Carrito(Producto("R.mipmap.ic_hamburguesa1", "Hamburguesa Clásica", "Crujiente", "S/ 13.00", 1.12), 1),
+                Carrito(Producto("R.mipmap.ic_hamburguesa2", "Hamburguesa Queso", "Jugosa", "S/ 18.00", 1.12), 2)
             )
         )
 

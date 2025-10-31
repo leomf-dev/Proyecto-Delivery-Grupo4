@@ -14,6 +14,7 @@
     <LinearLayout
         android:background="@drawable/bg_categoria"
         android:layout_width="match_parent"
+        android:backgroundTint="@color/moradoCat"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp">
@@ -32,6 +33,8 @@
                 android:text="Producto:"
                 android:textSize="15sp"
                 android:paddingTop="3dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 />
 
             <TextView
@@ -41,6 +44,8 @@
                 android:text="Precio:"
                 android:textSize="15sp"
                 android:paddingTop="3dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 />
 
             <TextView
@@ -50,20 +55,22 @@
                 android:text="Descripción:"
                 android:textSize="15sp"
                 android:paddingTop="3dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnComprar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Comprar"
+                android:text="Añadir al carrito"
                 android:textColor="@android:color/black"
                 android:layout_marginTop="8dp"
                 app:icon="@drawable/ic_comprar"
                 app:iconGravity="textStart"
                 app:iconPadding="8dp"
+                android:backgroundTint="@color/verdeCat"
                 app:iconTint="@android:color/black"
-                app:backgroundTint="@android:color/holo_orange_light"
                 app:strokeColor="@android:color/black"
                 app:strokeWidth="2dp"
                 app:cornerRadius="12dp"

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.cibertec.proyectogrupo4_dami.R
 import com.cibertec.proyectogrupo4_dami.entity.Producto
 import com.cibertec.proyectogrupo4_dami.ui.CarritoActivity
@@ -24,10 +25,14 @@ class HistorialAdapter(private val listaHistorial: List<Producto>) :
     override fun onBindViewHolder(holder: HistorialViewHolder, position: Int) {
         val product = listaHistorial[position]
 
-        holder.ivImagen.setImageResource(product.imagenResId)
+        Glide.with(holder.itemView.context)
+            .load(product.imagen)
+            .into(holder.ivImagen)
+
         holder.tvProducto.text = product.titulo
-        holder.tvPrecio.text = product.precio
+        holder.tvPrecio.text = "S/ ${product.precio}"
         holder.tvDescrip.text = product.descripcion
+        //------------------------------------------------
 
         //  Cuando el usuario presione el botón "Comprar"
         holder.btnComprar.setOnClickListener {

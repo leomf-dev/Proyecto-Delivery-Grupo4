@@ -1,6 +1,5 @@
 package com.cibertec.proyectogrupo4_dami.ui
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -13,12 +12,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.cibertec.proyectogrupo4_dami.R
-import com.cibertec.proyectogrupo4_dami.adapter.CarruselAdapter
-import com.cibertec.proyectogrupo4_dami.data.AppDatabaseHelper
-import com.cibertec.proyectogrupo4_dami.entity.Usuario
-import com.google.android.material.textfield.TextInputEditText
-import com.cibertec.proyectogrupo4_dami.ui.InicioFragment
 import com.cibertec.proyectogrupo4_dami.Fragment.Inicio_MenuActivity
+import com.cibertec.proyectogrupo4_dami.Fragment.ProductsApiFragment
+import com.cibertec.proyectogrupo4_dami.adapter.CarruselAdapter
+import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import kotlin.math.abs
 
 class AccesoActivity : AppCompatActivity() {
@@ -29,11 +28,13 @@ class AccesoActivity : AppCompatActivity() {
     private lateinit var btnIniciarSesion: Button
     private lateinit var btnRegistrarse: Button
 
+    private val auth by lazy { FirebaseAuth.getInstance() }
+    private val database by lazy { FirebaseDatabase.getInstance() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_acceso)
-
 
         vpCarrusel = findViewById(R.id.vpCarrusel)
         tietCorreologin = findViewById(R.id.tietCorreologin)
@@ -48,13 +49,11 @@ class AccesoActivity : AppCompatActivity() {
             startActivity(Intent(this, RegistroActivity::class.java))
         }
 
-        // Iniciar sesión
+        // Iniciar sesión con Firebase
         btnIniciarSesion.setOnClickListener {
-            validarYAcceder()
+            validarYAccederConFirebase()
         }
 
-
-        // Insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -66,88 +65,71 @@ class AccesoActivity : AppCompatActivity() {
             )
             insets
         }
-
     }
 
-    private fun validarYAcceder() {
+    private fun validarYAccederConFirebase() {
         val correo = tietCorreologin.text.toString().trim()
         val clave = tietClavelogin.text.toString().trim()
 
-        // Correo
+        // Validaciones básicas
         if (correo.isEmpty()) {
             Toast.makeText(this, "Ingresa tu correo", Toast.LENGTH_SHORT).show()
             return
         }
-
-        // Contraseña
         if (clave.isEmpty()) {
             Toast.makeText(this, "Ingresa tu contraseña", Toast.LENGTH_SHORT).show()
             return
         }
 
+        // Iniciar sesión con Firebase Authentication
+        auth.signInWithEmailAndPassword(correo, clave)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Login exitoso → obtener datos del usuario desde Realtime Database
+                    val uid = auth.currentUser?.uid ?: return@addOnCompleteListener
 
-        // Buscar usuario en la base de datos
-        val dbHelper = AppDatabaseHelper(this)
-        val db = dbHelper.readableDatabase
+                    database.reference.child("usuarios").child(uid).get()
+                        .addOnSuccessListener { snapshot ->
+                            val nombres = snapshot.child("nombres").value?.toString() ?: ""
+                            val celular = snapshot.child("celular").value?.toString() ?: ""
 
-        val cursor = db.rawQuery(
-            "SELECT clave, nombres, celular FROM usuario WHERE correo = ?",
-            arrayOf(correo)
-        )
-
-        // Si no hay resultados
-        if (cursor.count == 0) {
-        cursor.close()
-        db.close()
-        Toast.makeText(this, "La cuenta no existe", Toast.LENGTH_SHORT).show()
-        tietCorreologin.setText("")
-        return
-        }
-  
-        // Obtener datos del usuario
-        cursor.moveToFirst()
-        val claveGuardada = cursor.getString(0)
-        val nombres = cursor.getString(1)
-        val celular = cursor.getString(2)
-        cursor.close
-        db.close()
-
-        // Validar Contraseña
-
-        if (clave != claveGuardada) {
-            Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
-            tietClavelogin.setText("")
-            return
-        }
-
-        //-----------------------------------------------------CAMBIAR ACITVITY----------------
-        // Iniciar sesión
-        val intent = Intent(this, Inicio_MenuActivity::class.java).apply {
-            putExtra("nombres", nombres)
-            putExtra("correo", correo)
-            putExtra("celular", celular)
-            putExtra("clave", clave)
-        }
-
-        guardarSesion(this, correo)
-
-        startActivity(intent)
-        finish()
+                            // Ir al menú principal
+                            val intent = Intent(this, Inicio_MenuActivity::class.java).apply {
+                                putExtra("nombres", nombres)
+                                putExtra("correo", correo)
+                                putExtra("celular", celular)
+                            }
+                            startActivity(intent)
+                            finish()
+                        }
+                        .addOnFailureListener { e ->
+                            // Si falla la lectura de DB, igual permitimos el ingreso con datos mínimos
+                            val intent = Intent(this, ProductsApiFragment::class.java).apply {
+                                putExtra("nombres", "")
+                                putExtra("correo", correo)
+                                putExtra("celular", "")
+                            }
+                            startActivity(intent)
+                            finish()
+                        }
+                } else {
+                    val errorMessage = task.exception?.message ?: "Error desconocido"
+                    Toast.makeText(this, "Inicio de sesión fallido: $errorMessage", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
 
-
-    //Configurar Carrusel
     private fun configurarCarrusel() {
         val imagenesCarrusel = listOf(
             R.drawable.carrusel_03,
             R.drawable.carrusel_04,
             R.drawable.carrusel_08,
-            R.drawable.carrusel_07)
+            R.drawable.carrusel_07
+        )
         val adapter = CarruselAdapter(imagenesCarrusel)
         vpCarrusel.adapter = adapter
 
-        // Transformación suave
         vpCarrusel.setPageTransformer { page, position ->
             page.apply {
                 alpha = 1 - abs(position)
@@ -156,7 +138,6 @@ class AccesoActivity : AppCompatActivity() {
             }
         }
 
-        // Cambio automático
         Handler(Looper.getMainLooper()).postDelayed(object : Runnable {
             override fun run() {
                 val nextItem = (vpCarrusel.currentItem + 1) % imagenesCarrusel.size
@@ -165,11 +146,4 @@ class AccesoActivity : AppCompatActivity() {
             }
         }, 3000)
     }
-
-    // pa guardar la sesion
-    fun guardarSesion(context: Context, correo: String) {
-        val prefs = context.getSharedPreferences("session", Context.MODE_PRIVATE)
-        prefs.edit().putString("correo", correo).apply()
-    }
-
 }
