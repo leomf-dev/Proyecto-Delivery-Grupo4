@@ -3,11 +3,10 @@ package com.cibertec.proyectogrupo4_dami.data
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.cibertec.proyectogrupo4_dami.entity.Usuario
 
 
 /**
- Clase para gestionar la creación y actualización de la base de datos SQLite.
+Clase para gestionar la creación y actualización de la base de datos SQLite.
  */
 
 class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_app.db", null, 1) {
@@ -24,7 +23,7 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
                 clave TEXT NOT NULL,
                 celular TEXT NOT NULL
             )
-        """.trimIndent()) //Elimina espacion y saltos innecesarios
+        """.trimIndent()) //Elimina espacios y saltos innecesarios
 
 
         // Tabla CATEGORIA
@@ -41,15 +40,14 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
             CREATE TABLE producto (
                 id_producto INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 id_categoria INTEGER NOT NULL,
-                imagenResId INTEGER,
+                imagen TEXT,
                 nom_producto TEXT NOT NULL,
                 descripcion TEXT,
                 precio TEXT NOT NULL,
                 cantidad INTEGER NOT NULL,
                 FOREIGN KEY(id_categoria) REFERENCES categoria(id_categoria)
             )
-        """.trimIndent())
-
+         """.trimIndent())
 
 
         // Tabla CARRITO
@@ -95,6 +93,7 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
 
     }
 
+
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         // Elimina todas las tablas si se actualiza la versión
         db.execSQL("DROP TABLE IF EXISTS direccion")
@@ -107,22 +106,5 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
         // Vuelve a crearlas
         onCreate(db)
 
-    }
-
-    fun obtenerUsuarioPorCorreo(correo: String): Usuario? {
-        val db = readableDatabase
-        val cursor = db.rawQuery("SELECT * FROM usuario WHERE correo=?", arrayOf(correo))
-        var usuario: Usuario? = null
-        if (cursor.moveToFirst()) {
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow("id_usuario"))
-            val nombres = cursor.getString(cursor.getColumnIndexOrThrow("nombres"))
-            val correodb = cursor.getString(cursor.getColumnIndexOrThrow("correo"))
-            val clave = cursor.getString(cursor.getColumnIndexOrThrow("clave"))
-            val celular = cursor.getString(cursor.getColumnIndexOrThrow("celular"))
-            usuario = Usuario(id, nombres, correodb, clave, celular)
-        }
-        cursor.close()
-        db.close()
-        return usuario
     }
 }
