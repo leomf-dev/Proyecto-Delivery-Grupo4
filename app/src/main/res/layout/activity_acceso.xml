@@ -8,7 +8,6 @@
     android:fillViewport="true"
     tools:context=".ui.AccesoActivity">
 
-    <!-- Fondo de la pantalla -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
@@ -27,21 +26,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Espacio para animación Lottie (lo dejamos vacío por ahora) -->
-        <LinearLayout
-            android:id="@+id/llLottieContainer"
+        <!-- Icono de atrás (ic_arrow_back) -->
+        <ImageView
+            android:id="@+id/btnRegresar"
+            android:layout_width="38dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="Volver"
+            app:layout_constraintTop_toTopOf="@id/icLetra_app"
+            app:layout_constraintBottom_toBottomOf="@id/icLetra_app"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Animación Lottie -->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimacion"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:gravity="center"
-            android:orientation="vertical"
+            android:layout_height="180dp"
             android:layout_marginTop="130dp"
+            app:lottie_rawRes="@raw/login"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
             app:layout_constraintTop_toBottomOf="@id/icLetra_app"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-            <!-- Aquí irá la animación Lottie más adelante -->
-        </LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Formulario dentro de un LinearLayout para mejor control -->
+        <!-- Formulario -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,7 +59,7 @@
             android:paddingHorizontal="32dp"
             android:gravity="center"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/llLottieContainer"
+            app:layout_constraintTop_toBottomOf="@id/lottieAnimacion"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
@@ -62,7 +72,7 @@
                 android:hint="Correo"
                 android:textColorHint="@color/black"
                 app:boxBackgroundColor="@android:color/white"
-                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidth="1dp"
                 app:boxStrokeColor="@color/black"
                 app:boxCornerRadiusBottomEnd="0dp"
                 app:boxCornerRadiusBottomStart="0dp"
@@ -89,7 +99,7 @@
                 android:hint="Contraseña"
                 android:textColorHint="@color/black"
                 app:boxBackgroundColor="@android:color/white"
-                app:boxStrokeWidth="3dp"
+                app:boxStrokeWidth="1dp"
                 app:boxStrokeColor="@color/black"
                 app:boxCornerRadiusBottomEnd="0dp"
                 app:boxCornerRadiusBottomStart="0dp"
@@ -122,16 +132,34 @@
                 android:textSize="17sp"
                 android:textStyle="bold" />
 
-            <!-- Texto de registro -->
-            <TextView
-                android:id="@+id/tvRegistrar"
+            <!-- Texto "¿No tienes cuenta aún? Regístrate" -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:text="¿No tienes cuenta aún? Registrate"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¿No tienes cuenta aún?"
+                    android:textSize="16sp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/tvRegistrarse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Regístrate"
+                    android:textSize="19sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

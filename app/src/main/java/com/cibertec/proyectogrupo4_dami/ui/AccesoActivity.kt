@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -25,6 +27,8 @@ class AccesoActivity : AppCompatActivity() {
     private lateinit var tietCorreologin: TextInputEditText
     private lateinit var tietClavelogin: TextInputEditText
     private lateinit var btnIniciarSesion: Button
+    private lateinit var tvRegistrarse: TextView
+    private lateinit var btnRegresar: ImageView
 
     private val auth by lazy { FirebaseAuth.getInstance() }
     private val database by lazy { FirebaseDatabase.getInstance() }
@@ -38,12 +42,24 @@ class AccesoActivity : AppCompatActivity() {
         tietCorreologin = findViewById(R.id.tietCorreologin)
         tietClavelogin = findViewById(R.id.tietClavelogin)
         btnIniciarSesion = findViewById(R.id.btnIniciarSesion)
+        tvRegistrarse = findViewById(R.id.tvRegistrarse)
+        btnRegresar = findViewById(R.id.btnRegresar)
 
 
 
         // Iniciar sesión con Firebase
         btnIniciarSesion.setOnClickListener {
             validarYAccederConFirebase()
+        }
+
+        btnRegresar.setOnClickListener {
+            startActivity(Intent(this, InicioSesionActivity::class.java))
+            finish()
+        }
+
+        tvRegistrarse.setOnClickListener {
+            startActivity(Intent(this, RegistroActivity::class.java))
+            finish()
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

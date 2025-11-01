@@ -42,8 +42,9 @@ class RegistroActivity : AppCompatActivity() {
         btnRegistrarse = findViewById(R.id.btnRegistrarse)
         btnRegresar = findViewById(R.id.btnRegresar)
 
-        // Volver a AccesoActivity
+
         btnRegresar.setOnClickListener {
+            startActivity(Intent(this, InicioSesionActivity::class.java))
             finish()
         }
 
