@@ -12,6 +12,10 @@
             android:title="Inicio" />
 
         <item
+            android:id="@+id/itCarrito"
+            android:title="Carrito" />
+
+        <item
             android:id="@+id/itPedidos"
             android:icon="@drawable/ic_pedido"
             android:title="Mis Pedidos" />
@@ -25,9 +29,5 @@
             android:id="@+id/itCerrar"
             android:icon="@drawable/ic_salir"
             android:title="Cerrar Sesion" />
-
-        <item
-            android:id="@+id/itProductosApi"
-            android:title="Productos API FIREBASE" />
     </group>
 </menu>

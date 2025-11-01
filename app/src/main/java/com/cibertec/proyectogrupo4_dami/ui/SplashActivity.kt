@@ -37,7 +37,7 @@ class SplashActivity : AppCompatActivity() {
 
         // Espera 2 segundos y abre Activity
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, AccesoActivity::class.java))
+            startActivity(Intent(this, InicioSesionActivity::class.java))
             finish()
         }, 2000)
     }
