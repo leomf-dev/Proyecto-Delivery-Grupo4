@@ -39,9 +39,17 @@ class CarritoAdapter(
 
         val nombre = Carrito.nombre
         val cantidad = Carrito.cantidad
+        val precio = Carrito.precio
 
+       //asignar valores
         holder.tvNombreC.text = nombre
         holder.tvCantidad.text = cantidad.toString()
+        holder.tvPrecioC.text = "S/ %.2f".format(precio)
+
+        // Calcular y mostrar subtotal
+        val subtotal = precio * cantidad
+        holder.tvSubtotalC.text = "Subtotal: S/ %.2f".format(subtotal)
+
 
 
         cargarImagen(Carrito, holder)
