@@ -33,7 +33,7 @@
 
     <!-- Total general -->
     <TextView
-        android:id="@+id/tvTotalGeneral"
+        android:id="@+id/tvTotalGener"
         android:text="Total: S/ 0.00"
         android:textSize="20dp"
         android:textStyle="bold"
@@ -45,7 +45,7 @@
 
     <!-- Botón Continuar Comprando -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnContinuarComprando"
+        android:id="@+id/btnContinuarComprand"
         android:text="Continuar comprando"
         android:textAllCaps="false"
         android:textSize="17dp"
@@ -59,7 +59,7 @@
 
     <!-- Botón Realizar Pedido -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnRealizarPedido"
+        android:id="@+id/btnRealizarPedid"
         android:text="Realizar Pedido"
         android:textAllCaps="false"
         android:textSize="18dp"
