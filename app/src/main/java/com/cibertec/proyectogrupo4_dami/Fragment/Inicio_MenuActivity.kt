@@ -9,7 +9,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.cibertec.proyectogrupo4_dami.R
-import com.cibertec.proyectogrupo4_dami.ui.InicioFragment
 import com.google.android.material.navigation.NavigationView
 
 class Inicio_MenuActivity : AppCompatActivity() {
@@ -43,8 +42,8 @@ class Inicio_MenuActivity : AppCompatActivity() {
 
             //-----------REDIRECCIONAR------------
             when (menuItem.itemId){
-                R.id.itInicio -> replaceFragment(InicioFragment())
-                R.id.itProductosApi -> replaceFragment(ProductsApiFragment())
+                R.id.itInicio -> replaceFragment(ProductsApiFragment())
+                R.id.itCarrito -> replaceFragment(CarritoFragment())
                 //R.id.itPedidos -> replaceFragment(PedidosFragment())
                 //R.id.itPerfil -> replaceFragment(PerfilFragment())
             }
@@ -57,12 +56,9 @@ class Inicio_MenuActivity : AppCompatActivity() {
             insets
         }
 
-        // Carga el fragmento de inicio al abrir la app
-        replaceFragment(InicioFragment())
+        replaceFragment(ProductsApiFragment())
     }
 
-    // sirve para reemplazar o cambiar el contenido que se muestra Ç
-    // dentro del contenedor principal por otro fragmento.
     private fun replaceFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction()
             .replace(R.id.ConteFragment, fragment).commit()

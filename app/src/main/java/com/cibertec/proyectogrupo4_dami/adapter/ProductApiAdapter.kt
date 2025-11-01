@@ -44,17 +44,11 @@ class ProductApiAdapter(
         Glide.with(holder.itemView.context)
             .load(producto.imagen)
             .transform(CircleCrop())
-
-            //.placeholder(R.drawable.ic_food) // opcional: imagen por defecto
-            //.error(R.drawable.ic_food)       // opcional: si falla
-
             .into(holder.ivImagen)
 
         holder.tvProducto.text = producto.titulo
         holder.tvPrecio.text = "S/ ${producto.precio}"
         holder.tvDescrip.text = producto.descripcion
-
-        // Opcional: ocultar el botón si no lo usas en la API
 
         //Para agregar al carrito el producto seleccionado
         holder.btnComprar.setOnClickListener {
@@ -144,13 +138,13 @@ class ProductApiAdapter(
     }
 
 
-    private fun ProductApiAdapter.agregarCarrito(context: Context, producto: Producto, costoFinal: Double, cantidadProd: Int) {
+    private fun agregarCarrito(context: Context, producto: Producto, costoFinal: Double, cantidadProd: Int) {
         val firebaseAuth = FirebaseAuth.getInstance()
         val hashMap = HashMap<String, Any>()
         hashMap["idProducto"] = producto.id
         hashMap["nombre"] = producto.titulo
         hashMap["precio"] = producto.precio
-        hashMap["precioFinal"] = costoFinal
+        hashMap["precioFinal"] = costoFinal.toString()
         hashMap["cantidad"] = cantidadProd
 
         val ref = FirebaseDatabase.getInstance().getReference("usuarios")
