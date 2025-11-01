@@ -6,6 +6,7 @@ import android.content.Context
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -20,7 +21,7 @@ import com.google.firebase.database.ValueEventListener
 
 class CarritoAdapter(
     private val context: Context,
-    private val listaCarrito: List<Carrito>) :
+    private val listaCarrito: MutableList<Carrito>) :
     RecyclerView.Adapter<CarritoAdapter.CarritoViewHolder>() {
 
 
@@ -39,12 +40,24 @@ class CarritoAdapter(
 
         val nombre = Carrito.nombre
         val cantidad = Carrito.cantidad
+        val precio = Carrito.precio
 
+        //asignar valores
         holder.tvNombreC.text = nombre
         holder.tvCantidad.text = cantidad.toString()
+        holder.tvPrecioC.text = "S/ %.2f".format(precio)
+
+        // Calcular y mostrar subtotal
+        val subtotal = precio * cantidad
+        holder.tvSubtotalC.text = "Subtotal: S/ %.2f".format(subtotal)
+
 
 
         cargarImagen(Carrito, holder)
+
+        holder.btnEliminar.setOnClickListener {
+            eliminarProdCarrito(context, Carrito.idProducto)
+        }
 
 
 
@@ -83,10 +96,28 @@ class CarritoAdapter(
 //        }
     }
 
+    private fun eliminarProdCarrito(context: Context, idProducto: String) {
+        val firebaseAuth = FirebaseAuth.getInstance()
+
+        val ref = FirebaseDatabase.getInstance().getReference("usuarios")
+        ref.child(firebaseAuth.uid!!).child("CarritoCompras").child(idProducto)
+            .removeValue()
+            .addOnSuccessListener {
+                Toast.makeText(context, "Se elimino el producto del carrito", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e->
+                Toast.makeText(context, "${e.message}", Toast.LENGTH_SHORT).show()
+
+            }
+    }
+
+
+
+
     private fun cargarImagen(carrito: Carrito, holder: CarritoAdapter.CarritoViewHolder) {
         val idProducto = carrito.idProducto
         val ref = FirebaseDatabase.getInstance().getReference("products")
-        val idFirebase = "prod_$idProducto" // 🔹 mismo formato que usas en el diálogo
+        val idFirebase = "prod_$idProducto"
 
         ref.child(idFirebase).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -107,7 +138,6 @@ class CarritoAdapter(
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Puedes dejarlo vacío o mostrar un log
             }
         })
     }
