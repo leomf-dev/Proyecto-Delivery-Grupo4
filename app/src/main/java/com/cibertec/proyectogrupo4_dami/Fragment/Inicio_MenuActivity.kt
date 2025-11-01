@@ -25,6 +25,7 @@ class Inicio_MenuActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_inicio_menu)
 
+
         //----------------Inicializar-------------------------
         DlayMenu = findViewById(R.id.dlayMenu)
         IvMenu = findViewById(R.id.ivMenu)

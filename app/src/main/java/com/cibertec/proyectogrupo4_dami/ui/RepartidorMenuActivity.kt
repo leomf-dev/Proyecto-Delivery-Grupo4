@@ -1,6 +1,8 @@
 package com.cibertec.proyectogrupo4_dami.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.cibertec.proyectogrupo4_dami.R
@@ -22,6 +24,7 @@ class RepartidorMenuActivity : AppCompatActivity() {
         )
 
         val builder = StringBuilder()
+        var direccionDelPedido: String? = null
         while (cursor.moveToNext()) {
             builder.append("Pedido #${cursor.getInt(0)}\n")
             builder.append("Fecha: ${cursor.getString(1)}\n")
@@ -33,5 +36,13 @@ class RepartidorMenuActivity : AppCompatActivity() {
         db.close()
 
         tvPedidos.text = if (builder.isEmpty()) "No tienes pedidos asignados" else builder.toString()
+
+        val btnVerMapa = findViewById<Button>(R.id.btnVerMapa)
+        btnVerMapa.setOnClickListener {
+            val intent = Intent(this, RutaEntregaActivity::class.java)
+            intent.putExtra("direccion", direccionDelPedido)
+            startActivity(intent)
+        }
+
     }
 }

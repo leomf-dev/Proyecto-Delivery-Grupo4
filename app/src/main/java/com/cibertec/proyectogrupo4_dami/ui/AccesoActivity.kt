@@ -1,6 +1,5 @@
 package com.cibertec.proyectogrupo4_dami.ui
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -24,6 +23,7 @@ class AccesoActivity : AppCompatActivity() {
     private lateinit var btnIniciarSesion: Button
     private lateinit var tvRegistrarse: TextView
     private lateinit var btnRegresar: ImageView
+    private lateinit var tvAccesoRepartidor: TextView
 
     private val auth by lazy { FirebaseAuth.getInstance() }
     private val database by lazy { FirebaseDatabase.getInstance() }
@@ -36,34 +36,24 @@ class AccesoActivity : AppCompatActivity() {
         tietCorreologin = findViewById(R.id.tietCorreologin)
         tietClavelogin = findViewById(R.id.tietClavelogin)
         btnIniciarSesion = findViewById(R.id.btnIniciarSesion)
-        tvRegistrarse = findViewById(R.id.tvRegistrarse)
+        tvRegistrarse = findViewById(R.id.btnRegistrarse)
         btnRegresar = findViewById(R.id.btnRegresar)
+        tvAccesoRepartidor = findViewById(R.id.tvAccesoRepartidor)
 
-        btnIniciarSesion.setOnClickListener {
-            validarYAccederConFirebase()
-        }
+        btnIniciarSesion.setOnClickListener { validarYAccederConFirebase() }
 
         btnRegresar.setOnClickListener {
-            startActivity(Intent(this, InicioSesionActivity::class.java))
             finish()
         }
 
         tvRegistrarse.setOnClickListener {
             startActivity(Intent(this, RegistroActivity::class.java))
-            finish()
         }
 
-        findViewById<TextView>(R.id.tvAccesoRepartidor).setOnClickListener {
+        tvAccesoRepartidor.setOnClickListener {
             startActivity(Intent(this, AccesoRepartidorActivity::class.java))
         }
 
-        // Ir al registro del repartidor
-        findViewById<Button>(R.id.btnRegistroRepartidor).setOnClickListener {
-            startActivity(Intent(this, RegistroRepartidorActivity::class.java))
-        }
-
-
-        // Insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -81,12 +71,8 @@ class AccesoActivity : AppCompatActivity() {
         val correo = tietCorreologin.text.toString().trim()
         val clave = tietClavelogin.text.toString().trim()
 
-        if (correo.isEmpty()) {
-            Toast.makeText(this, "Ingresa tu correo", Toast.LENGTH_SHORT).show()
-            return
-        }
-        if (clave.isEmpty()) {
-            Toast.makeText(this, "Ingresa tu contraseña", Toast.LENGTH_SHORT).show()
+        if (correo.isEmpty() || clave.isEmpty()) {
+            Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -94,17 +80,12 @@ class AccesoActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val uid = auth.currentUser?.uid ?: return@addOnCompleteListener
-
                     database.reference.child("usuarios").child(uid).get()
                         .addOnSuccessListener { snapshot ->
                             val nombres = snapshot.child("nombres").value?.toString() ?: ""
                             val celular = snapshot.child("celular").value?.toString() ?: ""
 
-                            Toast.makeText(
-                                this,
-                                "¡Bienvenido, $nombres!",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(this, "¡Bienvenido, $nombres!", Toast.LENGTH_SHORT).show()
 
                             val intent = Intent(this, Inicio_MenuActivity::class.java).apply {
                                 putExtra("nombres", nombres)
@@ -114,18 +95,12 @@ class AccesoActivity : AppCompatActivity() {
                             startActivity(intent)
                             finish()
                         }
-                        .addOnFailureListener { e ->
-                            val intent = Intent(this, Inicio_MenuActivity::class.java).apply {
-                                putExtra("nombres", "")
-                                putExtra("correo", correo)
-                                putExtra("celular", "")
-                            }
-                            startActivity(intent)
-                            finish()
-                        }
                 } else {
-                    val errorMessage = task.exception?.message ?: "Error desconocido"
-                    Toast.makeText(this, "Inicio de sesión fallido: $errorMessage", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "Inicio de sesión fallido: ${task.exception?.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
     }

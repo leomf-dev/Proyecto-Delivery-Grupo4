@@ -1,172 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:padding="16dp"
+    android:background="@drawable/bg_morado_gradiente"
     tools:context=".ui.FormularioEntregaActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+    <!-- 🔹 Scroll con formulario -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- 🌟 Encabezado -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Formulario de Entrega"
-            android:textColor="@color/verde3"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="24dp" />
-
-        <!-- 🏠 Sección Dirección -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardElevation="4dp"
-            app:cardCornerRadius="16dp"
-            app:strokeColor="@color/verde3"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="📍 Dirección de entrega"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="8dp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="      Dirección completa"
-                    app:startIconDrawable="@drawable/ic_location_on">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tietDireccion"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPostalAddress" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginTop="12dp">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnUsarUbicacion"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Mi ubicación"
-                        android:textAllCaps="false"
-                        android:textColor="@android:color/white"
-                        app:icon="@drawable/ic_my_location"
-                        app:iconTint="@android:color/white"
-                        app:cornerRadius="12dp"
-                        app:backgroundTint="@color/verde3" />
-
-                    <View
-                        android:layout_width="8dp"
-                        android:layout_height="match_parent" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnElegirEnMapa"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Elegir en mapa"
-                        android:textAllCaps="false"
-                        android:textColor="@android:color/black"
-                        app:icon="@drawable/ic_map"
-                        app:iconTint="@android:color/black"
-                        app:cornerRadius="12dp"
-                        app:backgroundTint="@color/amarillo2" />
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- 📝 Referencia -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Referencia (opcional)"
-            app:startIconDrawable="@drawable/ic_edit_location"
-            android:layout_marginBottom="20dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tietReferencia"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- 💳 Método de pago -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Método de pago"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/verde3"
-            android:layout_marginBottom="8dp" />
-
-        <RadioGroup
-            android:id="@+id/rgMetodoPago"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="8dp">
+            android:gravity="center_horizontal"
+            android:paddingHorizontal="24dp"
+            android:paddingBottom="40dp">
 
-            <RadioButton
-                android:id="@+id/rbEfectivo"
+            <!-- 🚚 Animación -->
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieDelivery"
+                android:layout_width="300dp"
+                android:layout_height="180dp"
+                android:layout_marginTop="32dp"
+                app:lottie_rawRes="@raw/delivery_moto"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true" />
+
+            <!-- 🌟 Título -->
+            <TextView
+                android:id="@+id/tvTitulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="💵 Efectivo" />
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp"
+                android:text="Formulario de Entrega"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
-            <RadioButton
-                android:id="@+id/rbTarjeta"
+            <!-- 📍 Dirección -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilDireccion"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Dirección completa"
+                app:startIconDrawable="@drawable/ic_location_on"
+                app:startIconTint="@color/moradoOscuro"
+                app:boxBackgroundColor="@android:color/white"
+                app:boxStrokeColor="@color/moradoOscuro"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusBottomEnd="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tietDireccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPostalAddress"
+                    android:textColor="@android:color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 🔘 Botones ubicación -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="16dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnUsarUbicacion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Usar mi ubicación"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    app:cornerRadius="14dp"
+                    app:icon="@drawable/ic_my_location"
+                    app:iconTint="@android:color/white"
+                    app:backgroundTint="@color/moradoOscuro" />
+
+                <View
+                    android:layout_width="12dp"
+                    android:layout_height="match_parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnElegirEnMapa"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Elegir en mapa"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    app:cornerRadius="14dp"
+                    app:icon="@drawable/ic_map"
+                    app:iconTint="@android:color/white"
+                    app:backgroundTint="@color/moradoClaro" />
+            </LinearLayout>
+
+            <!-- ✏️ Referencia -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilReferencia"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Referencia (opcional)"
+                app:startIconDrawable="@drawable/ic_edit_location"
+                app:startIconTint="@color/moradoOscuro"
+                app:boxBackgroundColor="@android:color/white"
+                app:boxStrokeColor="@color/moradoOscuro">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tietReferencia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColor="@android:color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 💳 Método de pago -->
+            <TextView
+                android:id="@+id/tvMetodoPago"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="💳 Tarjeta" />
+                android:layout_marginTop="24dp"
+                android:text="Método de pago"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white" />
 
-            <RadioButton
-                android:id="@+id/rbYape"
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:id="@+id/rgMetodoPago"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="📱 Yape / Plin" />
-        </RadioGroup>
+                android:orientation="vertical"
+                android:paddingStart="8dp">
 
-        <!-- ✅ Confirmar -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnConfirmar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Confirmar pedido"
-            android:textAllCaps="false"
-            app:cornerRadius="20dp"
-            app:icon="@drawable/ic_check"
-            app:iconTint="@android:color/white"
-            android:layout_marginTop="28dp"
-            android:layout_marginBottom="16dp"
-            app:backgroundTint="@color/verde3"
-            android:textColor="@android:color/white"
-            app:elevation="6dp" />
-    </LinearLayout>
-</ScrollView>
+                <RadioButton
+                    android:id="@+id/rbEfectivo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="💵 Efectivo"
+                    android:textColor="@android:color/white" />
+
+                <RadioButton
+                    android:id="@+id/rbTarjeta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="💳 Tarjeta"
+                    android:textColor="@android:color/white" />
+
+                <RadioButton
+                    android:id="@+id/rbYape"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📱 Yape / Plin"
+                    android:textColor="@android:color/white" />
+            </RadioGroup>
+
+            <!-- ✅ Botón confirmar -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnConfirmar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Confirmar pedido"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:paddingVertical="14dp"
+                app:cornerRadius="20dp"
+                app:icon="@drawable/ic_check"
+                app:iconTint="@android:color/white"
+                app:backgroundTint="@color/moradoOscuro" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

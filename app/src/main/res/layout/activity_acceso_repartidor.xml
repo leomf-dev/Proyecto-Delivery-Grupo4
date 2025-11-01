@@ -1,57 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center"
-    android:background="@color/white"
+    android:background="@drawable/bg_morado_gradiente"
     tools:context=".ui.AccesoRepartidorActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Acceso Repartidor"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginBottom="32dp" />
+    <!-- 🔹 ScrollView envuelve solo el formulario -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Correo">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietCorreoRepartidor"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="vertical"
+            android:paddingBottom="40dp"
+            android:paddingHorizontal="32dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Contraseña"
-        android:layout_marginTop="16dp">
+            <!-- 🔹 Logo superior -->
+            <ImageView
+                android:id="@+id/icLogo"
+                android:layout_width="160dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_logo_letra" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietClaveRepartidor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <!-- 🔹 Animación moto -->
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieMoto"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="24dp"
+                app:lottie_rawRes="@raw/delivery_moto"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true" />
 
-    <Button
-        android:id="@+id/btnIniciarRepartidor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Iniciar sesión"
-        android:textAllCaps="false"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="@color/azul"
-        android:textColor="@color/white" />
+            <!-- 🔹 Título -->
+            <TextView
+                android:id="@+id/tvTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="Acceso Repartidor"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
-</LinearLayout>
+            <!-- 🔹 Campo correo -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilCorreoRepartidor"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:hint="Correo electrónico"
+                app:startIconDrawable="@drawable/ic_correo_small"
+                app:startIconTint="@color/moradoOscuro"
+                app:boxBackgroundColor="@android:color/white"
+                app:boxStrokeColor="@color/moradoOscuro"
+                app:boxStrokeWidth="2dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusBottomEnd="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tietCorreoRepartidor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@android:color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 🔒 Campo contraseña -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilClaveRepartidor"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Contraseña"
+                app:startIconDrawable="@drawable/ic_candado_small"
+                app:startIconTint="@color/moradoOscuro"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/moradoOscuro"
+                app:boxBackgroundColor="@android:color/white"
+                app:boxStrokeColor="@color/moradoOscuro"
+                app:boxStrokeWidth="2dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusBottomEnd="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tietClaveRepartidor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textColor="@android:color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 🟣 Botón iniciar sesión -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnIniciarRepartidor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:paddingVertical="14dp"
+                android:text="Iniciar sesión"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp"
+                app:backgroundTint="@color/moradoOscuro"
+                app:icon="@drawable/ic_login"
+                app:iconTint="@android:color/white"
+                app:iconPadding="8dp" />
+
+            <!-- ⚪ Botón registrarse -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRegistroRepartidor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingVertical="14dp"
+                android:text="Registrarme como repartidor"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp"
+                app:backgroundTint="#8E24AA"
+                app:icon="@drawable/ic_user_add"
+                app:iconTint="@android:color/white"
+                app:iconPadding="8dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
