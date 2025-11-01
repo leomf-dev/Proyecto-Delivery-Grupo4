@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -51,6 +52,15 @@ class AccesoActivity : AppCompatActivity() {
         // Iniciar sesión
         btnIniciarSesion.setOnClickListener {
             validarYAcceder()
+        }
+
+        findViewById<TextView>(R.id.tvAccesoRepartidor).setOnClickListener {
+            startActivity(Intent(this, AccesoRepartidorActivity::class.java))
+        }
+
+        // Ir al registro del repartidor
+        findViewById<Button>(R.id.btnRegistroRepartidor).setOnClickListener {
+            startActivity(Intent(this, RegistroRepartidorActivity::class.java))
         }
 
 
@@ -161,6 +171,22 @@ class AccesoActivity : AppCompatActivity() {
                 Handler(Looper.getMainLooper()).postDelayed(this, 3000)
             }
         }, 3000)
+
+
+
+        val dbHelper = AppDatabaseHelper(this)
+        val db = dbHelper.writableDatabase
+
+        val values = android.content.ContentValues().apply {
+            put("nombre", "Juan Pérez")
+            put("correo", "repartidor1@gmail.com")
+            put("clave", "12345")
+            put("celular", "987654321")
+        }
+        db.insert("repartidor", null, values)
+        db.close()
+
     }
+
 
 }

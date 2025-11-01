@@ -114,6 +114,16 @@
                 android:textStyle="bold"/>
 
             <TextView
+                android:id="@+id/tvAccesoRepartidor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Eres repartidor? Inicia sesión aquí"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -135,6 +145,18 @@
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/btnRegistroRepartidor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Eres repartidor? Regístrate aquí"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/morado"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="20dp"/>
+
 
         </LinearLayout>
 

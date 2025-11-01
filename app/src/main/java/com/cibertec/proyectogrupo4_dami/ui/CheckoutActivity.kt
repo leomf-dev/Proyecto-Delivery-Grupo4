@@ -65,9 +65,10 @@ class CheckoutActivity: AppCompatActivity(){
             val dbHelper = AppDatabaseHelper(this)
             val db = dbHelper.writableDatabase
             val fecha = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date())
-
+            val idRepartidor = 1
             val values = ContentValues().apply {
                 put("id_usuario", idUsuario)
+                put("id_repartidor", idRepartidor)
                 put("fecha", fecha)
                 put("total", total)
                 put("estado", "Pendiente")
