@@ -144,13 +144,13 @@ class ProductApiAdapter(
     }
 
 
-    private fun ProductApiAdapter.agregarCarrito(context: Context, producto: Producto, costoFinal: Double, cantidadProd: Int) {
+    private fun agregarCarrito(context: Context, producto: Producto, costoFinal: Double, cantidadProd: Int) {
         val firebaseAuth = FirebaseAuth.getInstance()
         val hashMap = HashMap<String, Any>()
         hashMap["idProducto"] = producto.id
         hashMap["nombre"] = producto.titulo
         hashMap["precio"] = producto.precio
-        hashMap["precioFinal"] = costoFinal
+        hashMap["precioFinal"] = costoFinal.toString()
         hashMap["cantidad"] = cantidadProd
 
         val ref = FirebaseDatabase.getInstance().getReference("usuarios")
