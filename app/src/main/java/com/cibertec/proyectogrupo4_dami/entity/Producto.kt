@@ -10,6 +10,5 @@ data class Producto(
     @SerializedName("titulo") val titulo: String,
     @SerializedName("descripcion") val descripcion: String,
     @SerializedName("precio") val precio: Double,
-    @SerializedName("categoria") val categoria: String,
     val cantidad: Int = 0
 )

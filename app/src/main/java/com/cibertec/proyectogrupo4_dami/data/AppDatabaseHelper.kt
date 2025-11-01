@@ -26,6 +26,15 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
         """.trimIndent()) //Elimina espacios y saltos innecesarios
 
 
+        // Tabla CATEGORIA
+        db.execSQL("""
+            CREATE TABLE categoria (
+                id_categoria INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                nom_categ TEXT NOT NULL
+            )
+        """.trimIndent())
+
+
         // Tabla PRODUCTO
          db.execSQL("""
             CREATE TABLE producto (
@@ -36,7 +45,7 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
                 descripcion TEXT,
                 precio TEXT NOT NULL,
                 cantidad INTEGER NOT NULL,
-                categoria TEXT
+                FOREIGN KEY(id_categoria) REFERENCES categoria(id_categoria)
             )
          """.trimIndent())
 

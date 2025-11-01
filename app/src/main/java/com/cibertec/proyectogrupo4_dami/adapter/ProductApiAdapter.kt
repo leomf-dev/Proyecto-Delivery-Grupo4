@@ -44,11 +44,17 @@ class ProductApiAdapter(
         Glide.with(holder.itemView.context)
             .load(producto.imagen)
             .transform(CircleCrop())
+
+            //.placeholder(R.drawable.ic_food) // opcional: imagen por defecto
+            //.error(R.drawable.ic_food)       // opcional: si falla
+
             .into(holder.ivImagen)
 
         holder.tvProducto.text = producto.titulo
         holder.tvPrecio.text = "S/ ${producto.precio}"
         holder.tvDescrip.text = producto.descripcion
+
+        // Opcional: ocultar el botón si no lo usas en la API
 
         //Para agregar al carrito el producto seleccionado
         holder.btnComprar.setOnClickListener {

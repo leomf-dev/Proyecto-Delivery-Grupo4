@@ -52,9 +52,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("androidx.core:core-splashscreen:1.0.0")
 
-    //ViewPager2
-    implementation("androidx.viewpager2:viewpager2:1.0.0")
-
 
     // Para obtener ubicación actual (GPS)
     implementation("com.google.android.gms:play-services-location:21.2.0")
@@ -73,8 +70,5 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-database")
-
-    //LOTTIE
-    implementation("com.airbnb.android:lottie:6.6.6")
 
 }
