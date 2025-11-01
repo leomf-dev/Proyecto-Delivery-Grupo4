@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".ui.InicioSesionActivity">
+
+
+    <ImageView
+        android:id="@+id/icLetra_app"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="3dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/ic_logo_letra_morado"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Slider (ViewPager2) -->
+
+    <!-- Indicadores (Puntos) -->
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpSlider"
+        android:layout_width="360dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="112dp"
+        android:background="@drawable/fondo_slider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/llIndicadores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vpSlider">
+
+        <!-- Los puntos se agregarán dinámicamente desde Kotlin -->
+        <!-- Por ahora, dejamos el contenedor vacío -->
+    </LinearLayout>
+
+    <!-- Texto Descriptivo -->
+    <TextView
+        android:id="@+id/tvTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Busca tu comida favorita cerca de ti"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llIndicadores" />
+
+    <TextView
+        android:id="@+id/tvSubtitulo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="32dp"
+        android:text="Descubre los mejores sabores del Perú y pide tus platos favoritos sin moverte de casa. ¡Rápido, fácil y al toque!"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitulo" />
+
+    <!-- Botones Horizontales -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginHorizontal="32dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSubtitulo">
+
+        <!-- Botón Iniciar Sesión -->
+        <Button
+            android:id="@+id/btnIniciarSesion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/morado"
+            android:text="Iniciar Sesion"
+            android:textColor="@color/white"
+            app:cornerRadius="12dp"
+            android:paddingVertical="12dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:cornerRadius="12dp" />
+
+        <!-- Botón Registrarse -->
+        <Button
+            android:id="@+id/btnRegistrarse"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="@color/amarillo"
+            android:text="Registrarse"
+            app:cornerRadius="12dp"
+            android:paddingVertical="12dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:cornerRadius="12dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

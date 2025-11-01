@@ -5,43 +5,29 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bbbb"
+    android:background="@drawable/acceso"
     tools:context=".ui.AccesoActivity">
 
 
     <ImageView
         android:id="@+id/icLetra_app"
-        android:layout_width="68dp"
-        android:layout_height="55dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="3dp"
         android:adjustViewBounds="true"
-        android:background="@drawable/ic_logo_letra"
-        app:layout_constraintStart_toStartOf="parent"
+       android:background="@drawable/ic_logo_letra"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
-    <!-- Carrusel de imágenes  -->
-    <FrameLayout
-        android:id="@+id/frCarrusel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/icLetra_app">
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vpCarrusel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </FrameLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="320dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/formulario_acceso">
+        app:layout_constraintTop_toBottomOf="@+id/icLetra_app">
 
 
         <LinearLayout
@@ -49,7 +35,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingTop="40dp"
             android:paddingHorizontal="10dp">
 
 
@@ -59,21 +44,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Correo"
-                android:textColorHint="@color/white_70"
+                android:textColorHint="@color/black"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusBottomStart="20dp"
                 app:boxCornerRadiusTopEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
                 app:startIconContentDescription="Ícono de correo"
                 app:startIconDrawable="@drawable/ic_correo_small"
-                app:startIconTint="@color/white">
+                app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tietCorreologin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -84,23 +69,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="Contraseña"
-                android:textColorHint="@color/white_70"
+                android:textColorHint="@color/black"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusBottomStart="20dp"
                 app:boxCornerRadiusTopEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/white_70"
+                app:passwordToggleTint="@color/black"
                 app:startIconContentDescription="Ícono de contraseña"
                 app:startIconDrawable="@drawable/ic_candado_small"
-                app:startIconTint="@color/white">
+                app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tietClavelogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -111,7 +96,11 @@
                 android:layout_marginTop="16dp"
                 android:backgroundTint="@color/morado"
                 android:text="Iniciar sesión"
-                android:textStyle="bold"/>
+                app:cornerRadius="12dp"
+                android:paddingVertical="10dp"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -119,22 +108,13 @@
                 android:layout_marginTop="40dp"
                 android:text="¿No tienes cuenta aún? Registrate"
                 android:textAlignment="center"
-                android:textColor="@color/white_70"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="parent" />
 
-            <Button
-                android:id="@+id/btnRegistrarse"
-                android:layout_width="190dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/black"
-                android:text="Registrarse"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"/>
 
         </LinearLayout>
 

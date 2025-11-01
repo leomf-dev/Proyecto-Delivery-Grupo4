@@ -2,17 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-    <!--AÑADIR PERMISO FIREBASE-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- AÑADIR PERMISO FIREBASE -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
-
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -21,7 +15,9 @@
         android:roundIcon="@mipmap/ic_logo_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoGrupo4_DAMI">
-
+        <activity
+            android:name=".ui.InicioSesionActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -52,9 +48,7 @@
             android:name=".ui.AccesoActivity"
             android:exported="true" />
         <activity android:name=".ui.FormularioEntregaActivity" />
-
         <activity android:name=".ui.CheckoutActivity" />
-
         <activity
             android:name=".ui.SplashActivity"
             android:exported="true"

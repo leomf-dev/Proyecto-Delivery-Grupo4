@@ -14,7 +14,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.cibertec.proyectogrupo4_dami.R
 import com.cibertec.proyectogrupo4_dami.Fragment.Inicio_MenuActivity
 import com.cibertec.proyectogrupo4_dami.Fragment.ProductsApiFragment
-import com.cibertec.proyectogrupo4_dami.adapter.CarruselAdapter
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -26,7 +25,6 @@ class AccesoActivity : AppCompatActivity() {
     private lateinit var tietCorreologin: TextInputEditText
     private lateinit var tietClavelogin: TextInputEditText
     private lateinit var btnIniciarSesion: Button
-    private lateinit var btnRegistrarse: Button
 
     private val auth by lazy { FirebaseAuth.getInstance() }
     private val database by lazy { FirebaseDatabase.getInstance() }
@@ -36,18 +34,12 @@ class AccesoActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_acceso)
 
-        vpCarrusel = findViewById(R.id.vpCarrusel)
+
         tietCorreologin = findViewById(R.id.tietCorreologin)
         tietClavelogin = findViewById(R.id.tietClavelogin)
         btnIniciarSesion = findViewById(R.id.btnIniciarSesion)
-        btnRegistrarse = findViewById(R.id.btnRegistrarse)
 
-        configurarCarrusel()
 
-        // Ir a RegistroActivity
-        btnRegistrarse.setOnClickListener {
-            startActivity(Intent(this, RegistroActivity::class.java))
-        }
 
         // Iniciar sesión con Firebase
         btnIniciarSesion.setOnClickListener {
@@ -120,30 +112,4 @@ class AccesoActivity : AppCompatActivity() {
     }
 
 
-    private fun configurarCarrusel() {
-        val imagenesCarrusel = listOf(
-            R.drawable.carrusel_03,
-            R.drawable.carrusel_04,
-            R.drawable.carrusel_08,
-            R.drawable.carrusel_07
-        )
-        val adapter = CarruselAdapter(imagenesCarrusel)
-        vpCarrusel.adapter = adapter
-
-        vpCarrusel.setPageTransformer { page, position ->
-            page.apply {
-                alpha = 1 - abs(position)
-                scaleX = 0.95f + (1 - abs(position)) * 0.05f
-                scaleY = 0.95f + (1 - abs(position)) * 0.05f
-            }
-        }
-
-        Handler(Looper.getMainLooper()).postDelayed(object : Runnable {
-            override fun run() {
-                val nextItem = (vpCarrusel.currentItem + 1) % imagenesCarrusel.size
-                vpCarrusel.setCurrentItem(nextItem, true)
-                Handler(Looper.getMainLooper()).postDelayed(this, 3000)
-            }
-        }, 3000)
-    }
 }
