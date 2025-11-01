@@ -2,9 +2,12 @@ package com.cibertec.proyectogrupo4_dami.Fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.OvershootInterpolator
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -44,6 +47,28 @@ class ProductsApiFragment : Fragment(R.layout.fragment_products_api) {
             val categoriaView = contenedorCategorias.getChildAt(i)
             aplicarEfectoZoom(categoriaView)
         }
+
+        //-------BUSCAR EN LA BARRA DE BUSQUEDA------
+
+        val etBuscar = view.findViewById<EditText>(R.id.buscar)
+        etBuscar.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val query = s.toString().trim()
+                if (query.isNotEmpty()) {
+                    val filtrados = todosProductos.filter { producto ->
+                        producto.titulo.contains(query, ignoreCase = true) ||
+                                producto.descripcion.contains(query, ignoreCase = true)
+                    }
+                    mostrarProductos(filtrados)
+                } else {
+                    mostrarProductos(todosProductos)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
     }
 
     //-------------CARGAR PRODUCTOS------------------
