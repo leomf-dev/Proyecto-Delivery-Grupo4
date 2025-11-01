@@ -11,7 +11,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.cibertec.proyectogrupo4_dami.R
 import com.cibertec.proyectogrupo4_dami.Fragment.Inicio_MenuActivity
-import com.cibertec.proyectogrupo4_dami.Fragment.ProductsApiFragment
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -73,7 +72,7 @@ class RegistroActivity : AppCompatActivity() {
         val clave = tietClave.text.toString().trim()
         val confirmarClave = tietConfirmarClave.text.toString().trim()
 
-        // Validaciones (iguales a las tuyas)
+        // Validaciones
         if (nombre.isEmpty()) {
             Toast.makeText(this, "Ingresa tu nombre de usuario", Toast.LENGTH_SHORT).show()
             return
@@ -141,12 +140,10 @@ class RegistroActivity : AppCompatActivity() {
                         "celular" to telefono
 
                     )
-
                     database.reference.child("usuarios").child(uid).setValue(usuarioData)
                         .addOnSuccessListener {
                             Toast.makeText(this, "¡Te has registrado correctamente!", Toast.LENGTH_LONG).show()
-                            // Ir directamente al menú principal (ProductsApiFragment)
-                            startActivity(Intent(this, ProductsApiFragment::class.java))
+                            startActivity(Intent(this, Inicio_MenuActivity::class.java))
                             finish()
                         }
                         .addOnFailureListener { e ->
