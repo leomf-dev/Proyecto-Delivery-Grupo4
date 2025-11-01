@@ -1,10 +1,14 @@
 package com.cibertec.proyectogrupo4_dami.entity
 
 data class Carrito(
-    val producto: Producto,
+
+    val idProducto: String,
+    val nombre: String,
+    val precio: Double,
+    val precioFinal: String,
     var cantidad: Int
-) {
-    //CAMBIADO PARA DOUBLE
-    val subtotal: Double
-        get() = cantidad * producto.precio
+)
+{
+    constructor() : this("", "", 0.0, "", 0)
 }
+
