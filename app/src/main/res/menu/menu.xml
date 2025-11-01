@@ -29,9 +29,5 @@
             android:id="@+id/itCerrar"
             android:icon="@drawable/ic_salir"
             android:title="Cerrar Sesion" />
-
-        <item
-            android:id="@+id/itProductosApi"
-            android:title="Productos API FIREBASE" />
     </group>
 </menu>
