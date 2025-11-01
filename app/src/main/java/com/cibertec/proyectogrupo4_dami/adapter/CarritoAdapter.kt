@@ -2,31 +2,28 @@ package com.cibertec.proyectogrupo4_dami.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.content.Context
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.cibertec.proyectogrupo4_dami.R
 import com.cibertec.proyectogrupo4_dami.entity.Carrito
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class CarritoAdapter(
-    private val listaCarrito: MutableList<Carrito>,
-    private val onActualizarTotal: (Double) -> Unit // se usa para actualizar el total
-) : RecyclerView.Adapter<CarritoAdapter.CarritoViewHolder>() {
+    private val context: Context,
+    private val listaCarrito: MutableList<Carrito>) :
+    RecyclerView.Adapter<CarritoAdapter.CarritoViewHolder>() {
 
-    inner class CarritoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imgProducto: ImageView = itemView.findViewById(R.id.imgProducto)
-        val tvNombre: TextView = itemView.findViewById(R.id.tvNombreProducto)
-        val tvPrecio: TextView = itemView.findViewById(R.id.tvPrecioProducto)
-        val tvCantidad: TextView = itemView.findViewById(R.id.tvCantidad)
-        val tvSubtotal: TextView = itemView.findViewById(R.id.tvSubtotal)
-        val btnAumentar: MaterialButton = itemView.findViewById(R.id.btnAumentar)
-        val btnDisminuir:  MaterialButton = itemView.findViewById(R.id.btnDisminuir)
-        val btnEliminar: ImageButton = itemView.findViewById(R.id.btnEliminar)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarritoViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -34,52 +31,144 @@ class CarritoAdapter(
         return CarritoViewHolder(view)
     }
 
-    override fun getItemCount(): Int = listaCarrito.size
+    override fun getItemCount(): Int {
+        return listaCarrito.size
+    }
 
     override fun onBindViewHolder(holder: CarritoViewHolder, position: Int) {
-        val item = listaCarrito[position]
+        val Carrito = listaCarrito[position]
 
-        holder.imgProducto.setImageResource(item.producto.imagenResId)
-        holder.tvNombre.text = item.producto.titulo
-        holder.tvPrecio.text = item.producto.precio
-        holder.tvCantidad.text = item.cantidad.toString()
-        holder.tvSubtotal.text = "Subtotal: S/ %.2f".format(item.subtotal)
+        val nombre = Carrito.nombre
+        val cantidad = Carrito.cantidad
+        val precio = Carrito.precio
 
-        //Aumentar cantidad
-        holder.btnAumentar.setOnClickListener {
-            item.cantidad++
-            notifyItemChanged(position)
-            actualizarTotal()
-        }
+        //asignar valores
+        holder.tvNombreC.text = nombre
+        holder.tvCantidad.text = cantidad.toString()
+        holder.tvPrecioC.text = "S/ %.2f".format(precio)
 
-        //Disminuir cantidad
-        holder.btnDisminuir.setOnClickListener {
-            if (item.cantidad > 1) {
-                item.cantidad--
-                notifyItemChanged(position)
-                actualizarTotal()
-            }
-        }
+        // Calcular y mostrar subtotal
+        val subtotal = precio * cantidad
+        holder.tvSubtotalC.text = "Subtotal: S/ %.2f".format(subtotal)
 
-        // Eliminar producto
+
+
+        cargarImagen(Carrito, holder)
+
         holder.btnEliminar.setOnClickListener {
-            listaCarrito.removeAt(position)
-            notifyItemRemoved(position)
-            actualizarTotal()
+            eliminarProdCarrito(context, Carrito.idProducto)
         }
+
+
+
+//        //MOSTRAR LISTADO PRODUCTO "FIREBASE"
+//        Glide.with(holder.itemView.context)
+//            .load(item.producto.imagen)
+//            .into(holder.imgProducto)
+//
+//        holder.tvNombre.text = item.producto.titulo
+//        holder.tvPrecio.text = "S/ %.2f".format(item.producto.precio)
+//        holder.tvCantidad.text = item.cantidad.toString()
+//        holder.tvSubtotal.text = "Subtotal: S/ %.2f".format(item.subtotal)
+//
+//
+//        //Aumentar cantidad
+//        holder.btnAumentar.setOnClickListener {
+//            item.cantidad++
+//            notifyItemChanged(position)
+//            actualizarTotal()
+//        }
+//
+//        //Disminuir cantidad
+//        holder.btnDisminuir.setOnClickListener {
+//            if (item.cantidad > 1) {
+//                item.cantidad--
+//                notifyItemChanged(position)
+//                actualizarTotal()
+//            }
+//        }
+//
+//        // Eliminar producto
+//        holder.btnEliminar.setOnClickListener {
+//            listaCarrito.removeAt(position)
+//            notifyItemRemoved(position)
+//            actualizarTotal()
+//        }
     }
 
-    private fun actualizarTotal() {
-        val total = listaCarrito.sumOf { it.subtotal }
-        onActualizarTotal(total)
+    private fun eliminarProdCarrito(context: Context, idProducto: String) {
+        val firebaseAuth = FirebaseAuth.getInstance()
+
+        val ref = FirebaseDatabase.getInstance().getReference("usuarios")
+        ref.child(firebaseAuth.uid!!).child("CarritoCompras").child(idProducto)
+            .removeValue()
+            .addOnSuccessListener {
+                Toast.makeText(context, "Se elimino el producto del carrito", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e->
+                Toast.makeText(context, "${e.message}", Toast.LENGTH_SHORT).show()
+
+            }
     }
 
-    // 🔹 Función auxiliar para obtener el total (por ejemplo, para enviar al checkout)
-    fun calcularTotal(): Double {
-        return listaCarrito.sumOf {
-            val precioNum = it.producto.precio.replace("S/ ", "").toDouble()
-            precioNum * it.cantidad
-        }
+
+
+
+    private fun cargarImagen(carrito: Carrito, holder: CarritoAdapter.CarritoViewHolder) {
+        val idProducto = carrito.idProducto
+        val ref = FirebaseDatabase.getInstance().getReference("products")
+        val idFirebase = "prod_$idProducto"
+
+        ref.child(idFirebase).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val imagen = snapshot.child("imagen").getValue(String::class.java)
+                    Glide.with(holder.itemView.context)
+                        .load(imagen)
+                        .placeholder(R.mipmap.ic_producto)
+                        .transform(CircleCrop())
+                        .error(R.mipmap.ic_producto)
+                        .into(holder.imgProductoC)
+                } else {
+                    Glide.with(holder.itemView.context)
+                        .load(R.mipmap.ic_producto)
+                        .transform(CircleCrop())
+                        .into(holder.imgProductoC)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
     }
+
+
+    inner class CarritoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val imgProductoC: ImageView = itemView.findViewById(R.id.imgProductoC)
+        val tvNombreC: TextView = itemView.findViewById(R.id.tvNombreProductoC)
+        val tvPrecioC: TextView = itemView.findViewById(R.id.tvPrecioProductoC)
+        val tvCantidad: TextView = itemView.findViewById(R.id.tvCantidad)
+        val tvSubtotalC: TextView = itemView.findViewById(R.id.tvSubtotalC)
+        val btnAumentar: MaterialButton = itemView.findViewById(R.id.btnAumentar)
+        val btnDisminuir:  MaterialButton = itemView.findViewById(R.id.btnDisminuir)
+        val btnEliminar: ImageButton = itemView.findViewById(R.id.btnEliminar)
+    }
+
+//    private fun actualizarTotal() {
+//        val total = listaCarrito.sumOf { it.subtotal }
+//        onActualizarTotal(total)
+//    }
+//
+//    // 🔹 Función auxiliar para obtener el total (por ejemplo, para enviar al checkout)
+//
+//    //MODIFICADO PARA DOUBLE
+//    //val precioNum = it.producto.precio
+//
+//    fun calcularTotal(): Double {
+//        return listaCarrito.sumOf {
+//            val precioNum = it.producto.precio
+//            precioNum * it.cantidad
+//        }
+//    }
 
 }

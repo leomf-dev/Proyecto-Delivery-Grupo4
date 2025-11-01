@@ -23,32 +23,22 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
                 clave TEXT NOT NULL,
                 celular TEXT NOT NULL
             )
-        """.trimIndent()) //Elimina espacion y saltos innecesarios
-
-
-        // Tabla CATEGORIA
-        db.execSQL("""
-            CREATE TABLE categoria (
-                id_categoria INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                nom_categ TEXT NOT NULL
-            )
-        """.trimIndent())
+        """.trimIndent()) //Elimina espacios y saltos innecesarios
 
 
         // Tabla PRODUCTO
-        db.execSQL("""
+         db.execSQL("""
             CREATE TABLE producto (
                 id_producto INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 id_categoria INTEGER NOT NULL,
-                imagenResId INTEGER,
+                imagen TEXT,
                 nom_producto TEXT NOT NULL,
                 descripcion TEXT,
                 precio TEXT NOT NULL,
                 cantidad INTEGER NOT NULL,
-                FOREIGN KEY(id_categoria) REFERENCES categoria(id_categoria)
+                categoria TEXT
             )
-        """.trimIndent())
-
+         """.trimIndent())
 
 
         // Tabla CARRITO
@@ -107,8 +97,6 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
 """.trimIndent())
 
     }
-
-
 
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

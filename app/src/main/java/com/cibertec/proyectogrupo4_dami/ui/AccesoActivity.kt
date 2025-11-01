@@ -1,57 +1,56 @@
 package com.cibertec.proyectogrupo4_dami.ui
 
-import android.content.Context
+
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.viewpager2.widget.ViewPager2
 import com.cibertec.proyectogrupo4_dami.R
-import com.cibertec.proyectogrupo4_dami.adapter.CarruselAdapter
-import com.cibertec.proyectogrupo4_dami.data.AppDatabaseHelper
-import com.cibertec.proyectogrupo4_dami.entity.Usuario
-import com.google.android.material.textfield.TextInputEditText
-import com.cibertec.proyectogrupo4_dami.ui.InicioFragment
 import com.cibertec.proyectogrupo4_dami.Fragment.Inicio_MenuActivity
-import kotlin.math.abs
+import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 class AccesoActivity : AppCompatActivity() {
 
-    private lateinit var vpCarrusel: ViewPager2
     private lateinit var tietCorreologin: TextInputEditText
     private lateinit var tietClavelogin: TextInputEditText
     private lateinit var btnIniciarSesion: Button
-    private lateinit var btnRegistrarse: Button
+    private lateinit var tvRegistrarse: TextView
+    private lateinit var btnRegresar: ImageView
+
+    private val auth by lazy { FirebaseAuth.getInstance() }
+    private val database by lazy { FirebaseDatabase.getInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_acceso)
 
-
-        vpCarrusel = findViewById(R.id.vpCarrusel)
         tietCorreologin = findViewById(R.id.tietCorreologin)
         tietClavelogin = findViewById(R.id.tietClavelogin)
         btnIniciarSesion = findViewById(R.id.btnIniciarSesion)
-        btnRegistrarse = findViewById(R.id.btnRegistrarse)
+        tvRegistrarse = findViewById(R.id.tvRegistrarse)
+        btnRegresar = findViewById(R.id.btnRegresar)
 
-        configurarCarrusel()
-
-        // Ir a RegistroActivity
-        btnRegistrarse.setOnClickListener {
-            startActivity(Intent(this, RegistroActivity::class.java))
+        btnIniciarSesion.setOnClickListener {
+            validarYAccederConFirebase()
         }
 
-        // Iniciar sesión
-        btnIniciarSesion.setOnClickListener {
-            validarYAcceder()
+        btnRegresar.setOnClickListener {
+            startActivity(Intent(this, InicioSesionActivity::class.java))
+            finish()
+        }
+
+        tvRegistrarse.setOnClickListener {
+            startActivity(Intent(this, RegistroActivity::class.java))
+            finish()
         }
 
         findViewById<TextView>(R.id.tvAccesoRepartidor).setOnClickListener {
@@ -76,117 +75,58 @@ class AccesoActivity : AppCompatActivity() {
             )
             insets
         }
-
     }
 
-    private fun validarYAcceder() {
+    private fun validarYAccederConFirebase() {
         val correo = tietCorreologin.text.toString().trim()
         val clave = tietClavelogin.text.toString().trim()
 
-        // Correo
         if (correo.isEmpty()) {
             Toast.makeText(this, "Ingresa tu correo", Toast.LENGTH_SHORT).show()
             return
         }
-
-        // Contraseña
         if (clave.isEmpty()) {
             Toast.makeText(this, "Ingresa tu contraseña", Toast.LENGTH_SHORT).show()
             return
         }
 
+        auth.signInWithEmailAndPassword(correo, clave)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val uid = auth.currentUser?.uid ?: return@addOnCompleteListener
 
-        // Buscar usuario en la base de datos
-        val dbHelper = AppDatabaseHelper(this)
-        val db = dbHelper.readableDatabase
+                    database.reference.child("usuarios").child(uid).get()
+                        .addOnSuccessListener { snapshot ->
+                            val nombres = snapshot.child("nombres").value?.toString() ?: ""
+                            val celular = snapshot.child("celular").value?.toString() ?: ""
 
-        val cursor = db.rawQuery(
-            "SELECT clave, nombres, celular FROM usuario WHERE correo = ?",
-            arrayOf(correo)
-        )
+                            Toast.makeText(
+                                this,
+                                "¡Bienvenido, $nombres!",
+                                Toast.LENGTH_SHORT
+                            ).show()
 
-        // Si no hay resultados
-        if (cursor.count == 0) {
-        cursor.close()
-        db.close()
-        Toast.makeText(this, "La cuenta no existe", Toast.LENGTH_SHORT).show()
-        tietCorreologin.setText("")
-        return
-    }
-  
-        // Obtener datos del usuario
-        cursor.moveToFirst()
-        val claveGuardada = cursor.getString(0)
-        val nombres = cursor.getString(1)
-        val celular = cursor.getString(2)
-        cursor.close()
-        db.close()
-
-        // Validar Contraseña
-
-        if (clave != claveGuardada) {
-            Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
-            tietClavelogin.setText("")
-            return
-        }
-
-        //-----------------------------------------------------CAMBIAR ACITVITY----------------
-         // Iniciar sesión
-        val intent = Intent(this, Inicio_MenuActivity::class.java).apply {
-            putExtra("nombres", nombres)
-            putExtra("correo", correo)
-            putExtra("celular", celular)
-            putExtra("clave", clave)
-        }
-        startActivity(intent)
-        finish()
-    }
-
-
-
-    //Configurar Carrusel
-    private fun configurarCarrusel() {
-        val imagenesCarrusel = listOf(
-            R.drawable.carrusel_03,
-            R.drawable.carrusel_04,
-            R.drawable.carrusel_08,
-            R.drawable.carrusel_07)
-        val adapter = CarruselAdapter(imagenesCarrusel)
-        vpCarrusel.adapter = adapter
-
-        // Transformación suave
-        vpCarrusel.setPageTransformer { page, position ->
-            page.apply {
-                alpha = 1 - abs(position)
-                scaleX = 0.95f + (1 - abs(position)) * 0.05f
-                scaleY = 0.95f + (1 - abs(position)) * 0.05f
+                            val intent = Intent(this, Inicio_MenuActivity::class.java).apply {
+                                putExtra("nombres", nombres)
+                                putExtra("correo", correo)
+                                putExtra("celular", celular)
+                            }
+                            startActivity(intent)
+                            finish()
+                        }
+                        .addOnFailureListener { e ->
+                            val intent = Intent(this, Inicio_MenuActivity::class.java).apply {
+                                putExtra("nombres", "")
+                                putExtra("correo", correo)
+                                putExtra("celular", "")
+                            }
+                            startActivity(intent)
+                            finish()
+                        }
+                } else {
+                    val errorMessage = task.exception?.message ?: "Error desconocido"
+                    Toast.makeText(this, "Inicio de sesión fallido: $errorMessage", Toast.LENGTH_SHORT).show()
+                }
             }
-        }
-
-        // Cambio automático
-        Handler(Looper.getMainLooper()).postDelayed(object : Runnable {
-            override fun run() {
-                val nextItem = (vpCarrusel.currentItem + 1) % imagenesCarrusel.size
-                vpCarrusel.setCurrentItem(nextItem, true)
-                Handler(Looper.getMainLooper()).postDelayed(this, 3000)
-            }
-        }, 3000)
-
-
-
-        val dbHelper = AppDatabaseHelper(this)
-        val db = dbHelper.writableDatabase
-
-        val values = android.content.ContentValues().apply {
-            put("nombre", "Juan Pérez")
-            put("correo", "repartidor1@gmail.com")
-            put("clave", "12345")
-            put("celular", "987654321")
-        }
-        db.insert("repartidor", null, values)
-        db.close()
-
     }
-
-
 }

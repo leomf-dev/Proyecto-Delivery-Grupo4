@@ -12,6 +12,10 @@
             android:title="Inicio" />
 
         <item
+            android:id="@+id/itCarrito"
+            android:title="Carrito" />
+
+        <item
             android:id="@+id/itPedidos"
             android:icon="@drawable/ic_pedido"
             android:title="Mis Pedidos" />

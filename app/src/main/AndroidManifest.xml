@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- AÑADIR PERMISO FIREBASE -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -16,6 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoGrupo4_DAMI">
         <activity
+            android:name=".ui.InicioSesionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".InicioSesion"
+            android:exported="false" />        <activity
             android:name=".ui.RegistroRepartidorActivity"
             android:exported="false" />
 

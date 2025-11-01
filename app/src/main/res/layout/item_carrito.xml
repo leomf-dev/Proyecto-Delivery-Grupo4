@@ -21,12 +21,13 @@
 
         <!-- Imagen del producto -->
         <ImageView
-            android:id="@+id/imgProducto"
+            android:id="@+id/imgProductoC"
             android:layout_width="77dp"
             android:layout_height="81dp"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_hamburguesa1"
-            android:layout_marginEnd="12dp" />
+            android:layout_marginEnd="12dp"
+            app:shapeAppearanceOverlay="@style/RoundedImage"/>
 
         <!-- Información del producto -->
         <LinearLayout
@@ -36,7 +37,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvNombreProducto"
+                android:id="@+id/tvNombreProductoC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hamburguesa Clásica"
@@ -45,7 +46,7 @@
                 android:textColor="@color/black" />
 
             <TextView
-                android:id="@+id/tvPrecioProducto"
+                android:id="@+id/tvPrecioProductoC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="S/ 15.00"
@@ -53,7 +54,7 @@
                 android:textSize="12dp" />
 
             <TextView
-                android:id="@+id/tvSubtotal"
+                android:id="@+id/tvSubtotalC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Subtotal: S/ 15.00"
@@ -76,6 +77,7 @@
                 android:orientation="horizontal"
                 android:gravity="center">
 
+                <!--Boton disminuir-->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDisminuir"
                     android:layout_width="32dp"
@@ -91,6 +93,8 @@
                     app:iconGravity="textStart"
                     app:iconPadding="1dp"/>
 
+        <!--Cantidad-->
+
             <TextView
                 android:id="@+id/tvCantidad"
                 android:layout_width="wrap_content"
@@ -99,8 +103,9 @@
                 android:text="1"
                 android:textSize="18dp"
                 android:gravity="center"
-                android:padding="4dp"
-                />
+                android:padding="4dp" />
+
+         <!--Boton aumentar-->
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAumentar"

@@ -30,14 +30,14 @@ class SplashActivity : AppCompatActivity() {
             insets
         }
 
-        // Opcional: animación del logo
+        // animación del logo
         val logo = findViewById<ImageView>(R.id.icSplash)
-        val slideIn = AnimationUtils.loadAnimation(this, R.anim.deslizar_in) // crea un anim si quieres
+        val slideIn = AnimationUtils.loadAnimation(this, R.anim.deslizar_in)
         logo.startAnimation(slideIn)
 
-        // Espera 2 segundos y abre MainActivity
+        // Espera 2 segundos y abre Activity
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, AccesoActivity::class.java))
+            startActivity(Intent(this, InicioSesionActivity::class.java))
             finish()
         }, 2000)
     }
