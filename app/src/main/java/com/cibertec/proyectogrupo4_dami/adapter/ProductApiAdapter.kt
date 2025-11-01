@@ -148,7 +148,7 @@ class ProductApiAdapter(
         hashMap["cantidad"] = cantidadProd
 
         val ref = FirebaseDatabase.getInstance().getReference("usuarios")
-        ref.child(firebaseAuth.uid!!).child("CarritoCompras").push()
+        ref.child(firebaseAuth.uid!!).child("CarritoCompras").child(producto.id)
             .setValue(hashMap)
             .addOnSuccessListener{
                 Toast.makeText(context, "Se agrego el producto al carrito",Toast.LENGTH_SHORT).show()
