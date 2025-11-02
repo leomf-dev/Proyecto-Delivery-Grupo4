@@ -6,12 +6,76 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.CarritoFragment">
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        >
+
+        <!-- Título -->
+        <TextView
+            android:text="Carrito"
+            android:textSize="35dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:paddingTop="10dp"
+            android:paddingBottom="8dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/CarritoRv"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_carrito"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false" />
+
+        <!-- Total general -->
+        <TextView
+            android:id="@+id/tvTotalGeneral"
+            android:text="Total a pagar : S/ 0.00"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="end"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="20dp"/>
+
+        <!-- Botón Continuar Comprando -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnContinuarComprando"
+            android:text="Continuar comprando"
+            android:textAllCaps="false"
+            android:textSize="17dp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cornerRadius="16dp"
+            app:backgroundTint="@color/morado" />
+
+        <!-- Botón Realizar Pedido -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRealizarPedido"
+            android:text="Realizar Pedido"
+            android:textAllCaps="false"
+            android:textSize="18dp"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cornerRadius="16dp"
+            app:backgroundTint="@color/amarillo" />
+
+
+  </androidx.appcompat.widget.LinearLayoutCompat>
 
 
 

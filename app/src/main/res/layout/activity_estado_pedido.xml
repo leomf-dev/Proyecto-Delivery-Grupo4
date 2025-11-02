@@ -1,84 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center_horizontal"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ActivityEstadoPedido"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/ActivityEstadoPedido">
-
-    <LinearLayout
-        android:gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/txtEstadoPedido"
-            android:text="Estado: En camino"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"/>
-
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progresoPedido"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:progress="30"
-        android:max="100"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"/>
-
-    <ImageView
-        android:id="@+id/mapaEstatico"
-        android:src="@drawable/mapa_ejemplo"
-        android:scaleType="centerCrop"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginBottom="20dp"/>
-
-    <Button
-        android:id="@+id/btnContactarRepartidor"
-        android:text="Contactar Repartidor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:backgroundTint="@color/naranja"
-        android:layout_marginBottom="6dp"/>
-
-    <Button
-        android:id="@+id/btnSoporte"
-        android:text="Contactar Soporte"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:backgroundTint="@color/naranja"/>
+    android:padding="16dp"
+    android:background="@color/white"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="10dp">
+        android:gravity="center_horizontal">
 
+        <!-- 🔹 Info del pedido y repartidor -->
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tvInfoRepartidor"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Cargando pedido..."
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:padding="8dp"
+            android:layout_marginBottom="12dp" />
+
+        <!-- 🔹 Mapa estático -->
+        <ImageView
+            android:id="@+id/mapaEstatico"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:src="@drawable/mapa_ejemplo"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="20dp" />
+
+        <!-- 🔹 Botones -->
+        <Button
+            android:id="@+id/btnVerMiPedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ver mi pedido 🗺️"
+            android:backgroundTint="@color/morado"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/btnContactarRepartidor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contactar Repartidor"
+            android:backgroundTint="@color/naranja"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/btnSoporte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contactar Soporte"
+            android:backgroundTint="@color/naranja"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="12dp" />
+
+        <!-- 🔹 Lista de pedidos -->
+        <TextView
             android:text="Mis pedidos:"
-            android:layout_marginVertical="3dp"
-            android:layout_marginStart="5dp"
-            android:textSize="15sp"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPedidos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingEnd="8dp"/>
-
+            android:paddingEnd="8dp" />
 
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

@@ -1,6 +1,7 @@
 package com.cibertec.proyectogrupo4_dami.Fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -17,6 +18,8 @@ import com.cibertec.proyectogrupo4_dami.R
 import com.cibertec.proyectogrupo4_dami.adapter.ProductApiAdapter
 import com.cibertec.proyectogrupo4_dami.data.FakeStoreApi
 import com.cibertec.proyectogrupo4_dami.entity.Producto
+import com.cibertec.proyectogrupo4_dami.ui.FormularioEntregaActivity
+import com.google.android.material.button.MaterialButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -69,6 +72,13 @@ class ProductsApiFragment : Fragment(R.layout.fragment_products_api) {
 
             override fun afterTextChanged(s: Editable?) {}
         })
+
+        val btnIrFormulario = view.findViewById<MaterialButton>(R.id.btnIrFormulario)
+        btnIrFormulario.setOnClickListener {
+            val intent = Intent(requireContext(), FormularioEntregaActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     //-------------CARGAR PRODUCTOS------------------

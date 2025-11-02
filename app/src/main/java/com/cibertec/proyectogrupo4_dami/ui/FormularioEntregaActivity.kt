@@ -8,10 +8,12 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +21,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
+import androidx.core.widget.NestedScrollView
 import com.cibertec.proyectogrupo4_dami.Fragment.Inicio_MenuActivity
 import com.cibertec.proyectogrupo4_dami.R
 import com.cibertec.proyectogrupo4_dami.data.AppDatabaseHelper
@@ -52,10 +56,18 @@ class FormularioEntregaActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_formulario_entrega)
 
-        // Inicializar vistas
+        val rootView = findViewById<View>(R.id.main)
+        ViewCompat.setOnApplyWindowInsetsListener(rootView) { v, insets ->
+            val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            v.updatePadding(bottom = maxOf(imeInsets.bottom, systemBars.bottom))
+            insets
+        }
+
+        // --- Inicializar vistas ---
         tietDireccion = findViewById(R.id.tietDireccion)
         tietReferencia = findViewById(R.id.tietReferencia)
         rgMetodoPago = findViewById(R.id.rgMetodoPago)
@@ -71,7 +83,7 @@ class FormularioEntregaActivity : AppCompatActivity() {
         tietDireccion.setOnClickListener {
             val fields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
             val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
-                .setCountries(listOf("PE")) // restringir a Perú
+                .setCountries(listOf("PE"))
                 .build(this)
             startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
         }
@@ -101,28 +113,34 @@ class FormularioEntregaActivity : AppCompatActivity() {
         btnConfirmar.setOnClickListener {
             guardarDireccion()
 
-            // Luego de guardar, simular checkout exitoso e ir al menú principal
             val direccion = tietDireccion.text.toString().trim()
             val metodoId = rgMetodoPago.checkedRadioButtonId
-            val metodoPago = if (metodoId != -1) findViewById<RadioButton>(metodoId).text.toString() else "No especificado"
+            val metodoPago = if (metodoId != -1)
+                findViewById<RadioButton>(metodoId).text.toString()
+            else "No especificado"
 
             Toast.makeText(
                 this,
-                "Pedido confirmado\nDirección: $direccion\nPago: $metodoPago",
+                "Dirección guardada ✅\nMétodo: $metodoPago",
                 Toast.LENGTH_LONG
             ).show()
 
-            startActivity(Intent(this, Inicio_MenuActivity::class.java))
+            val intent = Intent(this, CheckoutActivity::class.java)
+            intent.putExtra("id_usuario", 1)
+            startActivity(intent)
             finish()
         }
 
-        // --- Ajustes de bordes del sistema ---
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        val scroll = findViewById<ScrollView>(R.id.scrollView)
+
+        // ✨ Desplaza suavemente cuando se enfoca un campo inferior
+        tietReferencia.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                scroll.post { scroll.smoothScrollTo(0, tietReferencia.bottom) }
+            }
         }
     }
+
 
     // ---------------------------------------------------------
     // MÉTODOS DE UBICACIÓN

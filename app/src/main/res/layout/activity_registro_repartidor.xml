@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_registrate1"
+    tools:context=".ui.RegistroRepartidorActivity">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/formulario_registro"
+            android:paddingTop="10dp"
+            android:layout_gravity="bottom">
+
+            <!-- Cabecera con volver -->
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="30dp"
+                android:paddingTop="15dp">
+
+                <ImageView
+                    android:id="@+id/btnRegresar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_regresar_blanco" />
+
+                <TextView
+                    android:id="@+id/tvVolver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:text="Iniciar Sesión (Repartidor)"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <!-- Formulario -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingHorizontal="32dp"
+                android:paddingBottom="20dp">
+
+                <!-- Nombre -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:hint="Nombre completo"
+                    android:textColorHint="@color/white_70"
+                    app:startIconDrawable="@drawable/ic_user_small"
+                    app:startIconTint="@color/white">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tietNombreRepartidor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Correo -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:hint="Correo"
+                    android:textColorHint="@color/white_70"
+                    app:startIconDrawable="@drawable/ic_correo_small"
+                    app:startIconTint="@color/white">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tietCorreoRepartidor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Teléfono -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:hint="Teléfono"
+                    android:textColorHint="@color/white_70"
+                    app:startIconDrawable="@drawable/ic_telefono"
+                    app:startIconTint="@color/white"
+                    app:suffixText="+51">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tietTelefonoRepartidor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        android:textColor="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Contraseña -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:hint="Contraseña"
+                    android:textColorHint="@color/white_70"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/white"
+                    app:startIconDrawable="@drawable/ic_candado_small"
+                    app:startIconTint="@color/white">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tietClaveRepartidor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:textColor="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Confirmar contraseña -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:hint="Confirmar contraseña"
+                    android:textColorHint="@color/white_70"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/white"
+                    app:startIconDrawable="@drawable/ic_candado_small"
+                    app:startIconTint="@color/white">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tietConfirmarClaveRepartidor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:textColor="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Botón -->
+                <Button
+                    android:id="@+id/btnRegistrarRepartidor"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:backgroundTint="@color/black"
+                    android:text="Registrar Repartidor"
+                    android:textSize="16sp"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

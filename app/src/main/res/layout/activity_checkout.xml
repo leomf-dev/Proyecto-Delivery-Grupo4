@@ -16,7 +16,7 @@
         android:text="Total a pagar:"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/morado"
         android:layout_marginBottom="16dp" />
 
     <!-- Campo de dirección -->
@@ -46,6 +46,6 @@
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        android:backgroundTint="@color/verde3" />
+        android:backgroundTint="@color/morado" />
 
 </LinearLayout>

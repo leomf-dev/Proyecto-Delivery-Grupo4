@@ -70,16 +70,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Correo"
-                android:textColorHint="@color/black"
+                android:textColorHint="@color/morado"
                 app:boxBackgroundColor="@android:color/white"
                 app:boxStrokeWidth="1dp"
-                app:boxStrokeColor="@color/black"
+                app:boxStrokeColor="@color/morado"
                 app:boxCornerRadiusBottomEnd="0dp"
                 app:boxCornerRadiusBottomStart="0dp"
                 app:boxCornerRadiusTopEnd="0dp"
                 app:boxCornerRadiusTopStart="0dp"
                 app:startIconDrawable="@drawable/ic_correo_small"
-                app:startIconTint="@color/black">
+                app:startIconTint="@color/morado">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tietCorreologin"
@@ -106,7 +106,7 @@
                 app:boxCornerRadiusTopEnd="0dp"
                 app:boxCornerRadiusTopStart="0dp"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/black"
+                app:passwordToggleTint="@color/morado"
                 app:startIconDrawable="@drawable/ic_candado_small"
                 app:startIconTint="@color/black">
 
@@ -132,34 +132,15 @@
                 android:textColor="@color/white"
                 app:cornerRadius="12dp" />
 
-            <!-- Texto "¿No tienes cuenta aún? Regístrate" -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvAccesoRepartidor"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="¿No tienes cuenta aún?"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="5dp"
-                    android:textColor="@color/black"/>
-
-                <TextView
-                    android:id="@+id/tvRegistrarse"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Regístrate"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:clickable="true"
-                    android:focusable="true"/>
-
-            </LinearLayout>
+                android:text="¿Eres repartidor? Inicia sesión aquí"
+                android:textColor="@color/morado"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center" />
 
         </LinearLayout>
 

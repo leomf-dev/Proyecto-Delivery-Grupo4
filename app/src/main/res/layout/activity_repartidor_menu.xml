@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/white"
+    tools:context=".ui.RepartidorMenuActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pedidos asignados"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tvPedidosRepartidor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cargando pedidos..."
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:textColor="@color/black"
+            android:background="@drawable/border_background" />
+
+        <Button
+            android:id="@+id/btnVerMapa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ver ruta del pedido 🗺️"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/morado"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:padding="8dp" />
+
+    </LinearLayout>
+</ScrollView>

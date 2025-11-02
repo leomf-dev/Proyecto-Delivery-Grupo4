@@ -16,10 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoGrupo4_DAMI">
         <activity
+            android:name=".ui.RutaEntregaActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.InicioSesionActivity"
             android:exported="false" />
         <activity
-            android:name=".InicioSesion"
+            android:name=".ui.RegistroRepartidorActivity"
             android:exported="false" />
 
         <meta-data
@@ -50,7 +53,9 @@
         <activity
             android:name=".ui.AccesoActivity"
             android:exported="true" />
-        <activity android:name=".ui.FormularioEntregaActivity" />
+        <activity
+            android:name=".ui.FormularioEntregaActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".ui.CheckoutActivity" />
         <activity
             android:name=".ui.SplashActivity"
@@ -61,7 +66,18 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> <!-- 🚴‍♂️ Activities de repartidor -->
+
+        <activity
+            android:name=".ui.AccesoRepartidorActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".ui.RepartidorMenuActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

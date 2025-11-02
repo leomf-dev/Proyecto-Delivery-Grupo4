@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper
 Clase para gestionar la creación y actualización de la base de datos SQLite.
  */
 
-class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_app.db", null, 1) {
+class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_app.db", null, 2) {
 
     override fun onCreate(db: SQLiteDatabase) {
 
@@ -54,18 +54,21 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
 
 
 
-        // Tabla PEDIDOS
+// Tabla PEDIDOS
         db.execSQL("""
     CREATE TABLE pedidos (
         id_pedido INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         id_usuario INTEGER NOT NULL,
+        id_repartidor INTEGER,
         fecha TEXT NOT NULL,
         total REAL NOT NULL,
         estado TEXT NOT NULL,
         direccion TEXT NOT NULL,
-        FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario)
+        FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
+        FOREIGN KEY(id_repartidor) REFERENCES repartidor(id_repartidor)
     )
 """.trimIndent())
+
 
 
 
@@ -82,6 +85,17 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
     )
 """.trimIndent())
 
+
+        db.execSQL("""
+    CREATE TABLE repartidor (
+    id_repartidor INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    nombre TEXT NOT NULL,
+    correo TEXT UNIQUE NOT NULL,
+    clave TEXT NOT NULL,
+    celular TEXT
+    )
+""".trimIndent())
+
     }
 
 
@@ -93,6 +107,7 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
         db.execSQL("DROP TABLE IF EXISTS producto")
         db.execSQL("DROP TABLE IF EXISTS categoria")
         db.execSQL("DROP TABLE IF EXISTS usuario")
+        db.execSQL("DROP TABLE IF EXISTS repartidor")
 
         // Vuelve a crearlas
         onCreate(db)

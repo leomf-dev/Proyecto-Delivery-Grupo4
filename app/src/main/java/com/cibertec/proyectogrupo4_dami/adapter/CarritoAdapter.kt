@@ -6,6 +6,7 @@ import android.content.Context
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -20,7 +21,7 @@ import com.google.firebase.database.ValueEventListener
 
 class CarritoAdapter(
     private val context: Context,
-    private val listaCarrito: List<Carrito>) :
+    private val listaCarrito: MutableList<Carrito>) :
     RecyclerView.Adapter<CarritoAdapter.CarritoViewHolder>() {
 
 
@@ -34,59 +35,100 @@ class CarritoAdapter(
         return listaCarrito.size
     }
 
+    var costo : Double = 0.0
     override fun onBindViewHolder(holder: CarritoViewHolder, position: Int) {
         val Carrito = listaCarrito[position]
 
         val nombre = Carrito.nombre
-        val cantidad = Carrito.cantidad
+        var cantidad = Carrito.cantidad
+        var precio = Carrito.precio
+        var precioFinal = Carrito.precioFinal
 
+        //asignar valores
         holder.tvNombreC.text = nombre
         holder.tvCantidad.text = cantidad.toString()
+        holder.tvPrecioC.text = "Precio: S/ %.2f".format(precio)
 
+        // Calcular y mostrar subtotal
+        val subtotal = precio * cantidad
+        holder.tvSubtotalC.text = "Subtotal: S/ %.2f".format(subtotal)
 
         cargarImagen(Carrito, holder)
 
+        holder.btnEliminar.setOnClickListener {
+            eliminarProdCarrito(context, Carrito.idProducto)
+        }
 
+        var PrecioFinalDb = precioFinal.toDouble()
 
-//        //MOSTRAR LISTADO PRODUCTO "FIREBASE"
-//        Glide.with(holder.itemView.context)
-//            .load(item.producto.imagen)
-//            .into(holder.imgProducto)
-//
-//        holder.tvNombre.text = item.producto.titulo
-//        holder.tvPrecio.text = "S/ %.2f".format(item.producto.precio)
-//        holder.tvCantidad.text = item.cantidad.toString()
-//        holder.tvSubtotal.text = "Subtotal: S/ %.2f".format(item.subtotal)
-//
-//
-//        //Aumentar cantidad
-//        holder.btnAumentar.setOnClickListener {
-//            item.cantidad++
-//            notifyItemChanged(position)
-//            actualizarTotal()
-//        }
-//
-//        //Disminuir cantidad
-//        holder.btnDisminuir.setOnClickListener {
-//            if (item.cantidad > 1) {
-//                item.cantidad--
-//                notifyItemChanged(position)
-//                actualizarTotal()
-//            }
-//        }
-//
-//        // Eliminar producto
-//        holder.btnEliminar.setOnClickListener {
-//            listaCarrito.removeAt(position)
-//            notifyItemRemoved(position)
-//            actualizarTotal()
-//        }
+        holder.btnAumentar.setOnClickListener {
+            costo = precio.toDouble()
+            PrecioFinalDb += costo
+            cantidad++
+
+            holder.tvSubtotalC.text = PrecioFinalDb.toString()
+            holder.tvCantidad.text = cantidad.toString()
+
+            var precioFinalSt = PrecioFinalDb.toString()
+
+            calcularNuevoPrecio(context, Carrito.idProducto, precioFinalSt, cantidad)
+        }
+
+        holder.btnDisminuir.setOnClickListener {
+            if (cantidad > 1) {
+                costo = precio.toDouble()
+                PrecioFinalDb = PrecioFinalDb - costo
+                cantidad--
+
+            holder.tvSubtotalC.text = PrecioFinalDb.toString()
+            holder.tvCantidad.text = cantidad.toString()
+
+            var precioFinalSt = PrecioFinalDb.toString()
+            calcularNuevoPrecio(context, Carrito.idProducto, precioFinalSt, cantidad)
+            }
+        }
     }
+
+    private fun calcularNuevoPrecio(context: Context, idProducto: String, precioFinalSt: String, cantidad: Int) {
+        val hashMap : HashMap<String, Any> = HashMap()
+        val firebaseAuth = FirebaseAuth.getInstance()
+
+        hashMap["cantidad"] = cantidad
+        hashMap["precioFinal"] =precioFinalSt
+
+        val ref = FirebaseDatabase.getInstance().getReference("usuarios")
+        ref.child(firebaseAuth.uid!!).child("CarritoCompras").child(idProducto)
+            .updateChildren(hashMap)
+            .addOnSuccessListener {
+                Toast.makeText(context, "Se actualizo la cantidad", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e->
+                Toast.makeText(context, "${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun eliminarProdCarrito(context: Context, idProducto: String) {
+        val firebaseAuth = FirebaseAuth.getInstance()
+
+        val ref = FirebaseDatabase.getInstance().getReference("usuarios")
+        ref.child(firebaseAuth.uid!!).child("CarritoCompras").child(idProducto)
+            .removeValue()
+            .addOnSuccessListener {
+                Toast.makeText(context, "Se elimino el producto del carrito", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e->
+                Toast.makeText(context, "${e.message}", Toast.LENGTH_SHORT).show()
+
+            }
+    }
+
+
+
 
     private fun cargarImagen(carrito: Carrito, holder: CarritoAdapter.CarritoViewHolder) {
         val idProducto = carrito.idProducto
         val ref = FirebaseDatabase.getInstance().getReference("products")
-        val idFirebase = "prod_$idProducto" // 🔹 mismo formato que usas en el diálogo
+        val idFirebase = "prod_$idProducto"
 
         ref.child(idFirebase).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -107,7 +149,6 @@ class CarritoAdapter(
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Puedes dejarlo vacío o mostrar un log
             }
         })
     }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cibertec.proyectogrupo4_dami.R
@@ -45,6 +46,31 @@ class CarritoFragment : Fragment(R.layout.fragment_carrito) {
         firebaseAuth = FirebaseAuth.getInstance()
         cargarProductoCarrito()
 
+        sumaProductos()
+
+    }
+
+    private fun sumaProductos() {
+        val ref = FirebaseDatabase.getInstance().getReference("usuarios")
+        ref.child(firebaseAuth.uid!!).child("CarritoCompras")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var suma = 0.0
+                    for (producto in snapshot.children) {
+                        val precioFinal = producto.child("precioFinal").getValue(String::class.java)
+
+                        if (precioFinal != null) {
+                            suma += precioFinal.toDouble()
+                        }
+                    }
+                    //  Buscamos el TextView dentro del fragmento
+                    val totalGeneral = view?.findViewById<TextView>(R.id.tvTotalGeneral)
+                    totalGeneral?.text =  "Total a pagar: S/ %.2f".format(suma)
+                }
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+            })
     }
 
     private fun cargarProductoCarrito() {
