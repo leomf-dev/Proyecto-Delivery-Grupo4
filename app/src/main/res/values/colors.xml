@@ -22,6 +22,9 @@
     <color name="naranja">#F26818</color>
     <color name="moradoOscuro">#512DA8</color>
     <color name="moradoClaro">#B39DDB</color>
+    <color name="morado1">#911ba7</color>
+    <color name="morado2">#800080</color>
+
 
     <!--COLORES USADOS EN CATEGORIA-->
     <color name="moradoCat">#6F17A4</color>

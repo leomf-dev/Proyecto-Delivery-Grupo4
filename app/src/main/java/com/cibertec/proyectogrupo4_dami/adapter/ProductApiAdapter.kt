@@ -170,7 +170,7 @@ class ProductApiAdapter(
 
                     Glide.with(context)
                         .load(imagen)
-                        .placeholder(R.mipmap.ic_producto)
+                        .placeholder(R.mipmap.carga_prod)
                         .into(imagenSIV)
                 }
             }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -45,8 +46,14 @@ class CarritoFragment : Fragment(R.layout.fragment_carrito) {
 
         firebaseAuth = FirebaseAuth.getInstance()
         cargarProductoCarrito()
-
         sumaProductos()
+
+        val btnSeguirComprando = view.findViewById<Button>(R.id.btnContinuarComprando)
+
+        //boton seguir comprando regresa a inicio
+        btnSeguirComprando.setOnClickListener {
+            (activity as? Inicio_MenuActivity)?.replaceFragment(ProductsApiFragment())
+        }
 
     }
 

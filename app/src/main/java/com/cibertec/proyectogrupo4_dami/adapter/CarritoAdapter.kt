@@ -136,13 +136,13 @@ class CarritoAdapter(
                     val imagen = snapshot.child("imagen").getValue(String::class.java)
                     Glide.with(holder.itemView.context)
                         .load(imagen)
-                        .placeholder(R.mipmap.ic_producto)
+                        .placeholder(R.mipmap.carga_prod)
                         .transform(CircleCrop())
-                        .error(R.mipmap.ic_producto)
+                        .error(R.mipmap.carga_prod)
                         .into(holder.imgProductoC)
                 } else {
                     Glide.with(holder.itemView.context)
-                        .load(R.mipmap.ic_producto)
+                        .load(R.mipmap.carga_prod)
                         .transform(CircleCrop())
                         .into(holder.imgProductoC)
                 }
@@ -164,22 +164,5 @@ class CarritoAdapter(
         val btnDisminuir:  MaterialButton = itemView.findViewById(R.id.btnDisminuir)
         val btnEliminar: ImageButton = itemView.findViewById(R.id.btnEliminar)
     }
-
-//    private fun actualizarTotal() {
-//        val total = listaCarrito.sumOf { it.subtotal }
-//        onActualizarTotal(total)
-//    }
-//
-//    // 🔹 Función auxiliar para obtener el total (por ejemplo, para enviar al checkout)
-//
-//    //MODIFICADO PARA DOUBLE
-//    //val precioNum = it.producto.precio
-//
-//    fun calcularTotal(): Double {
-//        return listaCarrito.sumOf {
-//            val precioNum = it.producto.precio
-//            precioNum * it.cantidad
-//        }
-//    }
 
 }
