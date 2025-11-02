@@ -87,6 +87,7 @@
     <Button
         android:id="@+id/btnContactarRepartidor"
         android:text="Contactar Repartidor"
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
@@ -96,6 +97,7 @@
     <Button
         android:id="@+id/btnSoporte"
         android:text="Contactar Soporte"
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"

@@ -13,6 +13,7 @@ materialVersion = "1.13.0"
 firebaseDatabaseV = "22.0.1"
 firebaseAuthV ="24.0.1"
 firebaseFirestoreKtx = "26.0.2"
+uiText = "1.9.4"
 
 
 [libraries]
@@ -28,6 +29,7 @@ google-material = { group = "com.google.android.material", name = "material", ve
 firebaseDatabase = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabaseV" }
 firebaseAuth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuthV" }
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
+androidx-ui-text = { group = "androidx.compose.ui", name = "ui-text", version.ref = "uiText" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

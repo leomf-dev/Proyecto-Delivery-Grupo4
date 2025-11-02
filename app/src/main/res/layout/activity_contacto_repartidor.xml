@@ -63,7 +63,8 @@
 
             <EditText
                 android:id="@+id/etMensaje"
-                android:textColorHint="@color/semi_negro"
+                android:textColorHint="@color/white_50"
+                android:textColor="@color/semi_negro"
                 android:hint="Escribele al repartidor..."
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

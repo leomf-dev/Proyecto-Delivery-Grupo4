@@ -1,5 +1,7 @@
 package com.cibertec.proyectogrupo4_dami.ui
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.EditText
@@ -50,6 +52,12 @@ class ContactoRepartidorActivity : AppCompatActivity() {
         ivAtras.setOnClickListener {
             finish()
         }
+
+        ivEnviar.addAnimatorListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                ivEnviar.progress = 0f
+            }
+        })
 
         ivEnviar.setOnClickListener {
             ivEnviar.playAnimation()
