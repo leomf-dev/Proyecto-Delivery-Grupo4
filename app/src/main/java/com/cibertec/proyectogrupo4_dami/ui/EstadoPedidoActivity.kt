@@ -39,7 +39,7 @@ class EstadoPedidoActivity : AppCompatActivity() {
         val db = dbHelper.readableDatabase
         val idUsuario = 1 // Simulado (login)
 
-        // 🔹 Obtener pedido más reciente con repartidor asignado
+        // Obtener pedido más reciente con repartidor asignado
         val cursor = db.rawQuery(
             """
             SELECT p.id_pedido, p.fecha, p.estado, p.total, p.direccion,
@@ -73,7 +73,7 @@ class EstadoPedidoActivity : AppCompatActivity() {
         cursor.close()
         db.close()
 
-        // 🔹 Configurar botones
+        // Configurar botones
         btnSoporte.setOnClickListener {
             val url = "https://wa.me/51987654321?text=Hola%2C+necesito+ayuda+con+mi+pedido"
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))

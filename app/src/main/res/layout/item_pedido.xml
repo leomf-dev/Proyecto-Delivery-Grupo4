@@ -16,25 +16,6 @@
         android:padding="16dp"
         android:orientation="horizontal">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
-
-            <ImageView
-                android:id="@+id/ivProducto"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/hamburgesa_img_referencial"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="4:3"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,28 +24,38 @@
 
             <TextView
                 android:id="@+id/tvProducto"
+                android:textColor="#4F4F4F"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Producto Ejemplo"
+                android:text="Codigo Pedido"
                 android:textSize="16sp"/>
 
-            <TextView
-                android:id="@+id/tvCantidad"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cantidad: 2"/>
+<!--            <TextView-->
+<!--                android:id="@+id/tvCantidad"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Cantidad: 2"/>-->
 
             <TextView
                 android:id="@+id/tvFecha"
+                android:textColor="#4F4F4F"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Comprado el: 27/09/2025"/>
+                android:text="Comprado el: 00/00/01"/>
 
             <TextView
                 android:id="@+id/tvEstado"
+                android:textColor="#4F4F4F"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="En camino"/>
+                android:text="Estado: En camino"/>
+
+            <TextView
+                android:id="@+id/tvTotal"
+                android:textColor="#4F4F4F"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total: -99,9"/>
 
         </LinearLayout>
 

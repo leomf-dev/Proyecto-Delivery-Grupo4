@@ -11,6 +11,7 @@ import com.cibertec.proyectogrupo4_dami.R
 import com.cibertec.proyectogrupo4_dami.adapter.PedidoAdapter
 import com.cibertec.proyectogrupo4_dami.entity.Pedido
 import com.cibertec.proyectogrupo4_dami.ui.ContactoRepartidorActivity
+import com.cibertec.proyectogrupo4_dami.ui.DetallePedidoDialog
 
 class PedidosFragment : Fragment(R.layout.fragment_pedido) {
 
@@ -31,9 +32,12 @@ class PedidosFragment : Fragment(R.layout.fragment_pedido) {
 
         val listaPedidos = mutableListOf<Pedido>()
 
-        val adapter = PedidoAdapter(requireContext(), listaPedidos)
-        rvPedidos.adapter = adapter
+        val adapter = PedidoAdapter(requireContext(), listaPedidos) { pedido ->
+            val dialog = DetallePedidoDialog.newInstance(pedido)
+            dialog.show(parentFragmentManager, "detallePedido")
+        }
 
+        rvPedidos.adapter = adapter
         adapter.cargarPedidosDesdeFirebase()
     }
 }
