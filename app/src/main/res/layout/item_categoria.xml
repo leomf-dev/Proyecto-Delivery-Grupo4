@@ -14,7 +14,7 @@
     <LinearLayout
         android:background="@drawable/bg_categoria"
         android:layout_width="match_parent"
-        android:backgroundTint="@color/moradoCat"
+        android:backgroundTint="@color/moradoClaro"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp">
@@ -30,12 +30,11 @@
                 android:id="@+id/Tv_Producto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Producto:"
-                android:textSize="15sp"
                 android:paddingTop="3dp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                />
+                android:text="Producto:"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/Tv_Precio"
@@ -44,7 +43,7 @@
                 android:text="Precio:"
                 android:textSize="15sp"
                 android:paddingTop="3dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 />
 
@@ -55,7 +54,7 @@
                 android:text="Descripción:"
                 android:textSize="15sp"
                 android:paddingTop="3dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 />
 
@@ -64,15 +63,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Añadir al carrito"
-                android:textColor="@android:color/black"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 android:layout_marginTop="8dp"
                 app:icon="@drawable/ic_comprar"
                 app:iconGravity="textStart"
                 app:iconPadding="8dp"
-                android:backgroundTint="@color/verdeCat"
-                app:iconTint="@android:color/black"
-                app:strokeColor="@android:color/black"
-                app:strokeWidth="2dp"
+                android:backgroundTint="@color/orange"
+                app:iconTint="@color/white"
+                app:strokeColor="@color/naranja"
+                app:strokeWidth="1dp"
                 app:cornerRadius="12dp"
            />
         </LinearLayout>

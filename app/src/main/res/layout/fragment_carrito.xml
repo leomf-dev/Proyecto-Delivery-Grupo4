@@ -10,20 +10,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="8dp"
-        >
+        android:padding="6dp">
 
-        <!-- Título -->
-        <TextView
-            android:text="Carrito"
-            android:textSize="35dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:paddingTop="10dp"
+<!--     Para el titulo-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_gravity="center_horizontal">
+
+            <!-- Texto del título -->
+            <TextView
+                android:text="Carrito"
+                android:textSize="35sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Animación Lottie -->
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieCarrito"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/carrito" />
+        </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/CarritoRv"
@@ -57,9 +74,11 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
+            android:layout_marginHorizontal="40dp"
             android:layout_height="wrap_content"
             app:cornerRadius="16dp"
-            app:backgroundTint="@color/morado" />
+            app:backgroundTint="@color/black"
+            android:layout_gravity="center" />
 
         <!-- Botón Realizar Pedido -->
         <com.google.android.material.button.MaterialButton
@@ -70,10 +89,11 @@
             android:textColor="@android:color/white"
             android:layout_marginBottom="40dp"
             android:layout_width="match_parent"
+            android:layout_marginHorizontal="40dp"
             android:layout_height="wrap_content"
             app:cornerRadius="16dp"
-            app:backgroundTint="@color/amarillo" />
-
+            app:backgroundTint="@color/morado2"
+            android:layout_gravity="center"/>
 
   </androidx.appcompat.widget.LinearLayoutCompat>
 

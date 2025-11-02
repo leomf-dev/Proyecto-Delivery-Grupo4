@@ -60,7 +60,7 @@ class Inicio_MenuActivity : AppCompatActivity() {
         replaceFragment(ProductsApiFragment())
     }
 
-    private fun replaceFragment(fragment: Fragment){
+     fun replaceFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction()
             .replace(R.id.ConteFragment, fragment).commit()
     }

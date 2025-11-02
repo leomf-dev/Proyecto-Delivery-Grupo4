@@ -8,20 +8,24 @@
     <color name="amarillo">#BFA017</color>
     <color name="semi_negro">#222222</color>
     <color name="rojo">#3E0909</color>
-    <color name="orange">#9B4E09</color>
+    <color name="orange">#9C4B00</color>
     <color name="verde">#365614</color>
     <color name="morado">#5B426E</color>
     <color name="gray">#3A3333</color>
-    <color name="gris">#3A3333</color>
+    <color name="gris">#C5FBF8EF</color>
+    <color name="gris2">#999797</color>
     <color name="azul">#447BDB</color>
     <color name="celeste">#34bbe9</color>
     <color name="verdoso">#396d52</color>
     <color name="verde3">#3efe39</color>
     <color name="azul2">#0d67ff</color>
     <color name="amarillo2">#fee215</color>
-    <color name="naranja">#F26818</color>
+    <color name="naranja">#C45617</color>
     <color name="moradoOscuro">#512DA8</color>
-    <color name="moradoClaro">#B39DDB</color>
+    <color name="moradoClaro">#D1F6EFF6</color>
+    <color name="morado1">#911ba7</color>
+    <color name="morado2">#800080</color>
+
 
     <!--COLORES USADOS EN CATEGORIA-->
     <color name="moradoCat">#6F17A4</color>

@@ -15,14 +15,13 @@
        <!--Imagen del producto seleccionado-->
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgPCar"
-            android:src="@mipmap/ic_producto"
+            android:src="@mipmap/carga_prod"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/RoundedImage"/>
-
 
         <!--Nombre del producto -->
         <TextView
@@ -72,12 +71,6 @@
             android:textAlignment="textStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
-
-
-
-
-
     </RelativeLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -97,7 +90,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-
         <!--Cantidad de producto -->
         <TextView
             android:id="@+id/cantidadPCar"
@@ -116,20 +108,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-
      </androidx.appcompat.widget.LinearLayoutCompat>
     
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAgregarCarrito"
         android:text="Agregar al carrito"
-        android:padding="5dp"
-        app:cornerRadius="0dp"
+        android:padding="8dp"
+        app:cornerRadius="12dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginHorizontal="40dp"
         android:textAllCaps="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:backgroundTint="@color/morado"
+        android:backgroundTint="@color/orange"
         android:textColor="@color/white"
         />
 
