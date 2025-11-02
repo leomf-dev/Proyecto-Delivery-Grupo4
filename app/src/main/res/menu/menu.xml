@@ -13,17 +13,13 @@
 
         <item
             android:id="@+id/itCarrito"
+            android:icon="@drawable/ic_carrito"
             android:title="Carrito" />
 
         <item
             android:id="@+id/itPedidos"
             android:icon="@drawable/ic_pedido"
             android:title="Mis Pedidos" />
-
-        <item
-            android:id="@+id/itPerfil"
-            android:icon="@drawable/ic_perfil"
-            android:title="Perfil" />
 
         <item
             android:id="@+id/itCerrar"

@@ -35,23 +35,23 @@ class CarritoAdapter(
         return listaCarrito.size
     }
 
+    var costo : Double = 0.0
     override fun onBindViewHolder(holder: CarritoViewHolder, position: Int) {
         val Carrito = listaCarrito[position]
 
         val nombre = Carrito.nombre
-        val cantidad = Carrito.cantidad
-        val precio = Carrito.precio
+        var cantidad = Carrito.cantidad
+        var precio = Carrito.precio
+        var precioFinal = Carrito.precioFinal
 
         //asignar valores
         holder.tvNombreC.text = nombre
         holder.tvCantidad.text = cantidad.toString()
-        holder.tvPrecioC.text = "S/ %.2f".format(precio)
+        holder.tvPrecioC.text = "Precio: S/ %.2f".format(precio)
 
         // Calcular y mostrar subtotal
         val subtotal = precio * cantidad
         holder.tvSubtotalC.text = "Subtotal: S/ %.2f".format(subtotal)
-
-
 
         cargarImagen(Carrito, holder)
 
@@ -59,41 +59,52 @@ class CarritoAdapter(
             eliminarProdCarrito(context, Carrito.idProducto)
         }
 
+        var PrecioFinalDb = precioFinal.toDouble()
 
+        holder.btnAumentar.setOnClickListener {
+            costo = precio.toDouble()
+            PrecioFinalDb += costo
+            cantidad++
 
-//        //MOSTRAR LISTADO PRODUCTO "FIREBASE"
-//        Glide.with(holder.itemView.context)
-//            .load(item.producto.imagen)
-//            .into(holder.imgProducto)
-//
-//        holder.tvNombre.text = item.producto.titulo
-//        holder.tvPrecio.text = "S/ %.2f".format(item.producto.precio)
-//        holder.tvCantidad.text = item.cantidad.toString()
-//        holder.tvSubtotal.text = "Subtotal: S/ %.2f".format(item.subtotal)
-//
-//
-//        //Aumentar cantidad
-//        holder.btnAumentar.setOnClickListener {
-//            item.cantidad++
-//            notifyItemChanged(position)
-//            actualizarTotal()
-//        }
-//
-//        //Disminuir cantidad
-//        holder.btnDisminuir.setOnClickListener {
-//            if (item.cantidad > 1) {
-//                item.cantidad--
-//                notifyItemChanged(position)
-//                actualizarTotal()
-//            }
-//        }
-//
-//        // Eliminar producto
-//        holder.btnEliminar.setOnClickListener {
-//            listaCarrito.removeAt(position)
-//            notifyItemRemoved(position)
-//            actualizarTotal()
-//        }
+            holder.tvSubtotalC.text = PrecioFinalDb.toString()
+            holder.tvCantidad.text = cantidad.toString()
+
+            var precioFinalSt = PrecioFinalDb.toString()
+
+            calcularNuevoPrecio(context, Carrito.idProducto, precioFinalSt, cantidad)
+        }
+
+        holder.btnDisminuir.setOnClickListener {
+            if (cantidad > 1) {
+                costo = precio.toDouble()
+                PrecioFinalDb = PrecioFinalDb - costo
+                cantidad--
+
+            holder.tvSubtotalC.text = PrecioFinalDb.toString()
+            holder.tvCantidad.text = cantidad.toString()
+
+            var precioFinalSt = PrecioFinalDb.toString()
+            calcularNuevoPrecio(context, Carrito.idProducto, precioFinalSt, cantidad)
+            }
+        }
+    }
+
+    private fun calcularNuevoPrecio(context: Context, idProducto: String, precioFinalSt: String, cantidad: Int) {
+        val hashMap : HashMap<String, Any> = HashMap()
+        val firebaseAuth = FirebaseAuth.getInstance()
+
+        hashMap["cantidad"] = cantidad
+        hashMap["precioFinal"] =precioFinalSt
+
+        val ref = FirebaseDatabase.getInstance().getReference("usuarios")
+        ref.child(firebaseAuth.uid!!).child("CarritoCompras").child(idProducto)
+            .updateChildren(hashMap)
+            .addOnSuccessListener {
+                Toast.makeText(context, "Se actualizo la cantidad", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e->
+                Toast.makeText(context, "${e.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun eliminarProdCarrito(context: Context, idProducto: String) {
