@@ -41,6 +41,7 @@ class AccesoActivity : AppCompatActivity() {
         btnIniciarSesion.setOnClickListener { validarYAccederConFirebase() }
 
         btnRegresar.setOnClickListener {
+            startActivity(Intent(this, InicioSesionActivity::class.java))
             finish()
         }
 
