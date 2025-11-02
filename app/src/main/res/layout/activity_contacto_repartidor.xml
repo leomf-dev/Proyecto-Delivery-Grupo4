@@ -6,12 +6,14 @@
     android:id="@+id/main"
     android:orientation="vertical"
     android:padding="8dp"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.ContactoRepartidorActivity">
 
     <LinearLayout
         android:layout_marginHorizontal="10dp"
+        android:paddingTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -51,23 +53,32 @@
         android:layout_marginHorizontal="10dp"
         android:elevation="4dp">
 
-        <EditText
-            android:id="@+id/etMensaje"
-            android:hint="Escribele al repartidor..."
+        <androidx.cardview.widget.CardView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
-            android:background="#E0E0E0"
             android:padding="8dp"
-            android:elevation="5dp"/>
+            app:cardCornerRadius="7dp"
+            app:cardElevation="10dp">
 
-        <ImageView
+            <EditText
+                android:id="@+id/etMensaje"
+                android:textColorHint="@color/semi_negro"
+                android:hint="Escribele al repartidor..."
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="10dp"
+                android:background="#E0E0E0" />
+        </androidx.cardview.widget.CardView>
+
+        <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/ivEnviar"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:backgroundTint="@color/azul2"
             android:layout_marginStart="5dp"
-            android:background="@drawable/ic_enviar"/>
+            app:lottie_speed="1.2"
+            app:lottie_rawRes="@raw/enviar_mensaje"/>
 
     </LinearLayout>
 

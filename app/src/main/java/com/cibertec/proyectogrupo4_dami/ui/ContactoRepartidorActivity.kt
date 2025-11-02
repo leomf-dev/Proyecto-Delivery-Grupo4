@@ -1,30 +1,36 @@
 package com.cibertec.proyectogrupo4_dami.ui
 
-import android.content.Context
-import android.content.Intent
-import android.media.Image
 import android.os.Bundle
 import android.view.Gravity
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.airbnb.lottie.LottieAnimationView
 import com.cibertec.proyectogrupo4_dami.R
-import com.cibertec.proyectogrupo4_dami.data.AppDatabaseHelper
-import com.cibertec.proyectogrupo4_dami.entity.Usuario
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class ContactoRepartidorActivity : AppCompatActivity() {
 
-    private lateinit var ivAtras : ImageView
-    private lateinit var chat : LinearLayout
-    private lateinit var etMensaje : EditText
-    private lateinit var ivEnviar: ImageView
+    private lateinit var ivAtras: ImageView
+    private lateinit var chat: LinearLayout
+    private lateinit var etMensaje: EditText
+    private lateinit var ivEnviar: LottieAnimationView
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var dbRef: DatabaseReference
+    private var nombreUsuario: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,36 +42,31 @@ class ContactoRepartidorActivity : AppCompatActivity() {
         ivEnviar = findViewById(R.id.ivEnviar)
         ivAtras = findViewById(R.id.ivAtras)
 
-//        val usuario = obtenerUsuarioLogeado(this)
-//        if (usuario != null){
-//            Usuario(
-//                id = 0,
-//                nombres = "ale",
-//                correo = "nuncaQuien@gmail.com",
-//                clave = "12345",
-//                celular = "999888777")
-//        }
+        auth = FirebaseAuth.getInstance()
+        dbRef = FirebaseDatabase.getInstance().getReference("usuarios")
+
+        obtenerNombreUsuario()
 
         ivAtras.setOnClickListener {
-            startActivity(Intent(this, EstadoPedidoActivity::class.java))
+            finish()
         }
 
-        // mensaje ejemplo
-        //agregarMensaje("Hola ${usuario?.nombres}, estoy llegando a tu ubicacion", false)
-
         ivEnviar.setOnClickListener {
+            ivEnviar.playAnimation()
             val texto = etMensaje.text.toString().trim()
             if (texto.isNotEmpty()) {
                 agregarMensaje(texto, true)
                 etMensaje.text.clear()
-                // respuesta Ejemplo
+
+                // Respuesta simulada del repartidor
                 chat.postDelayed({
-                    agregarMensaje("Ya casi llego", false)
+                    val nombre = nombreUsuario ?: "cliente"
+                    agregarMensaje("Hola $nombre, ya casi llego a tu ubicacion", false)
                 }, 1000)
             }
         }
 
-        // Insets
+        // Ajustar padding cuando aparece el teclado
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -79,45 +80,56 @@ class ContactoRepartidorActivity : AppCompatActivity() {
         }
     }
 
-    // Ejemplo de cadena de mensajes para interactuar con el repartidor
-    private fun agregarMensaje(msg : String, esUser : Boolean) {
+    private fun obtenerNombreUsuario() {
+        val uid = auth.currentUser?.uid
+        if (uid != null) {
+            dbRef.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        nombreUsuario = snapshot.child("nombres").value?.toString()
+                        agregarMensaje(
+                            "Hola ${nombreUsuario ?: "cliente"}, estoy llegando a tu ubicacion",
+                            false
+                        )
+                    } else {
+                        nombreUsuario = "cliente"
+                        agregarMensaje("Hola, estoy llegando a tu ubicación", false)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    nombreUsuario = "cliente"
+                    agregarMensaje("Hola, estoy llegando a tu ubicación", false)
+                }
+            })
+        } else {
+            nombreUsuario = "cliente"
+            agregarMensaje("Hola, estoy llegando a tu ubicación", false)
+        }
+    }
+
+    private fun agregarMensaje(msg: String, esUser: Boolean) {
         val tv = TextView(this).apply {
             text = msg
             textSize = 16f
             setPadding(16, 10, 16, 10)
             background = ContextCompat.getDrawable(
                 this@ContactoRepartidorActivity,
-                if (esUser)
-                        R.drawable.burbuja_usuario
-                    else
-                        R.drawable.burbuja_repartidor
+                if (esUser) R.drawable.burbuja_usuario else R.drawable.burbuja_repartidor
             )
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            params.setMargins(8, 8, 8, 8)
-
-            // izq = repartidor | der = usuario
-            gravity =
-                if (esUser)
-                    Gravity.END
-                else
-                    Gravity.START
+            ).apply {
+                setMargins(8, 8, 8, 8)
+                gravity = if (esUser) Gravity.END else Gravity.START
+            }
             layoutParams = params
         }
+
         chat.addView(tv)
 
-        // val scroll = findViewById<ScrollView>(R.id.scrollChat)
-        // scroll.post { scroll.fullScroll(ScrollView.FOCUS_DOWN) }
+        val scroll = findViewById<ScrollView>(R.id.scrollChat)
+        scroll.post { scroll.fullScroll(ScrollView.FOCUS_DOWN) }
     }
-
-//    fun obtenerUsuarioLogeado(context: Context): Usuario? {
-//        val prefs = context.getSharedPreferences("session", Context.MODE_PRIVATE)
-//        val correo = prefs.getString("correo", null)
-//        return if (correo != null) {
-//            val db = AppDatabaseHelper(context)
-//            db.obtenerUsuarioPorCorreo(correo)
-//        } else null
-//    }
 }
