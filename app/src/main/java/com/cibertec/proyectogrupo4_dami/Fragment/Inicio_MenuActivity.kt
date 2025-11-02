@@ -45,7 +45,7 @@ class Inicio_MenuActivity : AppCompatActivity() {
             when (menuItem.itemId){
                 R.id.itInicio -> replaceFragment(ProductsApiFragment())
                 R.id.itCarrito -> replaceFragment(CarritoFragment())
-                //R.id.itPedidos -> replaceFragment(PedidosFragment())
+                R.id.itPedidos -> replaceFragment(PedidosFragment())
                 //R.id.itPerfil -> replaceFragment(PerfilFragment())
             }
             true
