@@ -44,15 +44,14 @@ class SeleccionarUbicacionActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seleccionar_ubicacion)
 
-        // Referencias
+
         btnConfirmarUbicacion = findViewById(R.id.btnConfirmarUbicacion)
 
-        // Cargar mapa
+
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        // Confirmar ubicación
         btnConfirmarUbicacion.setOnClickListener {
             if (direccionSeleccionada != null && marcador != null) {
                 val lat = marcador!!.position.latitude
@@ -90,20 +89,19 @@ class SeleccionarUbicacionActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        // Verificar permisos
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             == PackageManager.PERMISSION_GRANTED
         ) {
             map.isMyLocationEnabled = true
 
-            // ✅ Configurar actualizaciones en tiempo real
             val locationRequest = com.google.android.gms.location.LocationRequest.Builder(
                 com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY,
-                3000L // cada 3 segundos aprox
-            ).setMinUpdateDistanceMeters(5f) // actualiza solo si se movió al menos 5m
+                3000L
+            ).setMinUpdateDistanceMeters(5f)
                 .build()
 
-            // Callback que se ejecuta cada vez que cambia la ubicación
+
             val locationCallback = object : com.google.android.gms.location.LocationCallback() {
                 override fun onLocationResult(locationResult: com.google.android.gms.location.LocationResult) {
                     super.onLocationResult(locationResult)
@@ -114,15 +112,15 @@ class SeleccionarUbicacionActivity : AppCompatActivity(), OnMapReadyCallback {
                     latitudSeleccionada = location.latitude
                     longitudSeleccionada = location.longitude
 
-                    // Eliminar marcador anterior y poner el nuevo
+
                     marcador?.remove()
                     marcador = map.addMarker(
                         MarkerOptions()
                             .position(posicionActual)
-                            .title("Estás aquí 🧭")
+                            .title("Estás aquí")
                     )
 
-                    // Centrar suavemente al usuario la primera vez
+
                     if (!haCentradoMapa) {
                         map.animateCamera(CameraUpdateFactory.newLatLngZoom(posicionActual, 17f))
                         haCentradoMapa = true
@@ -130,7 +128,7 @@ class SeleccionarUbicacionActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
 
-            // Guardar para detenerlo en onPause
+
             this.locationCallback = locationCallback
             this.locationRequest = locationRequest
 
@@ -141,19 +139,19 @@ class SeleccionarUbicacionActivity : AppCompatActivity(), OnMapReadyCallback {
             )
 
         } else {
-            // Pedir permiso si no está concedido
+
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 LOCATION_PERMISSION_REQUEST
             )
 
-            // Vista por defecto (Lima)
+
             val lima = LatLng(-12.0464, -77.0428)
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(lima, 12f))
         }
 
-        // Mantener funcionalidad de mantener presionado para seleccionar ubicación
+
         map.setOnMapLongClickListener { latLng ->
             marcador?.remove()
             marcador = map.addMarker(
@@ -167,7 +165,7 @@ class SeleccionarUbicacionActivity : AppCompatActivity(), OnMapReadyCallback {
 
             if (!direcciones.isNullOrEmpty()) {
                 direccionSeleccionada = direcciones[0].getAddressLine(0)
-                Toast.makeText(this, "📍 $direccionSeleccionada", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "$direccionSeleccionada", Toast.LENGTH_LONG).show()
             }
         }
     }

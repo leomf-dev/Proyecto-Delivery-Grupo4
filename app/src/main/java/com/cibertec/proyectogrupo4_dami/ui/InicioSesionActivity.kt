@@ -14,13 +14,13 @@ import com.cibertec.proyectogrupo4_dami.adapter.SliderAdapter
 
 class InicioSesionActivity : AppCompatActivity() {
 
-    // Declaración de vistas
+
     private lateinit var vpSlider: ViewPager2
     private lateinit var llIndicadores: LinearLayout
     private lateinit var btnIniciarSesion: android.widget.Button
     private lateinit var btnRegistrarse: android.widget.Button
 
-    // Lista de imágenes para el slider
+
     private val sliderImages = listOf(
         R.drawable.slider_1,
         R.drawable.slider_2,
@@ -34,7 +34,7 @@ class InicioSesionActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_inicio_sesion)
 
-        // Inicializar vistas con findViewById
+
         vpSlider = findViewById(R.id.vpSlider)
         llIndicadores = findViewById(R.id.llIndicadores)
         btnIniciarSesion = findViewById(R.id.btnIniciarSesion)
@@ -48,24 +48,23 @@ class InicioSesionActivity : AppCompatActivity() {
             insets
         }
 
-        // Configurar el slider
         vpSlider.adapter = SliderAdapter(sliderImages)
         setupIndicators()
 
-        // Actualizar indicadores cuando el usuario cambia de página
+
         vpSlider.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 updateIndicators(position)
             }
         })
 
-        // Botón "Iniciar Sesión"
+
         btnIniciarSesion.setOnClickListener {
             startActivity(Intent(this, AccesoActivity::class.java))
             finish()
         }
 
-        // Botón "Registrarse"
+
         btnRegistrarse.setOnClickListener {
             startActivity(Intent(this, RegistroActivity::class.java))
             finish()

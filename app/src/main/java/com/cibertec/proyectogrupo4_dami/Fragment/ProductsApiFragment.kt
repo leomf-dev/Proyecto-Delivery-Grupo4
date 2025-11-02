@@ -34,24 +34,20 @@ class ProductsApiFragment : Fragment(R.layout.fragment_products_api) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inicializar RecyclerView
         rvProductos = view.findViewById(R.id.rvProductsApi)
         rvProductos.layoutManager = LinearLayoutManager(requireContext())
         productosMostrados = mutableListOf()
         adapter = ProductApiAdapter(requireContext(),productosMostrados)
         rvProductos.adapter = adapter
 
-        // Cargar todos los productos desde Firebase
         cargarProductosDesdeApi()
 
-        // Configurar las categorías con efecto de zoom y clic
         val contenedorCategorias = view.findViewById<LinearLayout>(R.id.contenedorCategorias)
         for (i in 0 until contenedorCategorias.childCount) {
             val categoriaView = contenedorCategorias.getChildAt(i)
             aplicarEfectoZoom(categoriaView)
         }
 
-        //-------BUSCAR EN LA BARRA DE BUSQUEDA------
 
         val etBuscar = view.findViewById<EditText>(R.id.buscar)
         etBuscar.addTextChangedListener(object : TextWatcher {
@@ -81,7 +77,6 @@ class ProductsApiFragment : Fragment(R.layout.fragment_products_api) {
 
     }
 
-    //-------------CARGAR PRODUCTOS------------------
     private fun cargarProductosDesdeApi() {
         FakeStoreApi.apiService.getProducts().enqueue(object : Callback<Map<String, Producto>> {
             override fun onResponse(
@@ -91,7 +86,6 @@ class ProductsApiFragment : Fragment(R.layout.fragment_products_api) {
                 if (response.isSuccessful && response.body() != null) {
                     todosProductos.clear()
                     todosProductos.addAll(response.body()!!.values)
-                    // Mostrar todos los productos al inicio
                     mostrarProductos(todosProductos)
                 } else {
                     showError("Error al cargar: ${response.code()}")
@@ -110,7 +104,6 @@ class ProductsApiFragment : Fragment(R.layout.fragment_products_api) {
         adapter.notifyDataSetChanged()
     }
 
-    //-------------ZOOM------------------
     @SuppressLint("ClickableViewAccessibility")
     private fun aplicarEfectoZoom(vista: View) {
         vista.setOnTouchListener { v, event ->
@@ -132,7 +125,6 @@ class ProductsApiFragment : Fragment(R.layout.fragment_products_api) {
             false
         }
 
-        //-------------CLICK PRODUCTOS POR CATEGORIAS------------------
 
         vista.setOnClickListener {
             val categoria = when (vista.id) {

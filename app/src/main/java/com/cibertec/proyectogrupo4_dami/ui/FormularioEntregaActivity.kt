@@ -37,19 +37,18 @@ import java.util.*
 
 class FormularioEntregaActivity : AppCompatActivity() {
 
-    // --- Variables UI ---
     private lateinit var tietDireccion: EditText
     private lateinit var tietReferencia: EditText
     private lateinit var rgMetodoPago: RadioGroup
     private lateinit var btnConfirmar: Button
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-    // --- Variables de ubicación ---
+
     private var direccionSeleccionada: String? = null
     private var latitudSeleccionada: Double? = null
     private var longitudSeleccionada: Double? = null
 
-    // --- Constantes ---
+
     private val LOCATION_PERMISSION_REQUEST = 100
     private val AUTOCOMPLETE_REQUEST_CODE = 101
     private val MAPA_REQUEST_CODE = 200
@@ -67,19 +66,19 @@ class FormularioEntregaActivity : AppCompatActivity() {
             insets
         }
 
-        // --- Inicializar vistas ---
+
         tietDireccion = findViewById(R.id.tietDireccion)
         tietReferencia = findViewById(R.id.tietReferencia)
         rgMetodoPago = findViewById(R.id.rgMetodoPago)
         btnConfirmar = findViewById(R.id.btnConfirmar)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        // --- Inicializar Google Places ---
+
         if (!Places.isInitialized()) {
             Places.initialize(applicationContext, getString(R.string.google_maps_key), Locale.getDefault())
         }
 
-        // --- Evento: abrir buscador predictivo ---
+
         tietDireccion.setOnClickListener {
             val fields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
             val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
@@ -88,7 +87,7 @@ class FormularioEntregaActivity : AppCompatActivity() {
             startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
         }
 
-        // --- Evento: usar ubicación actual ---
+
         findViewById<Button>(R.id.btnUsarUbicacion).setOnClickListener {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED
@@ -103,13 +102,13 @@ class FormularioEntregaActivity : AppCompatActivity() {
             }
         }
 
-        // --- Evento: elegir ubicación en mapa ---
+
         findViewById<Button>(R.id.btnElegirEnMapa).setOnClickListener {
             val intent = Intent(this, SeleccionarUbicacionActivity::class.java)
             startActivityForResult(intent, MAPA_REQUEST_CODE)
         }
 
-        // --- Confirmar pedido ---
+
         btnConfirmar.setOnClickListener {
             guardarDireccion()
 
@@ -133,7 +132,7 @@ class FormularioEntregaActivity : AppCompatActivity() {
 
         val scroll = findViewById<ScrollView>(R.id.scrollView)
 
-        // ✨ Desplaza suavemente cuando se enfoca un campo inferior
+
         tietReferencia.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 scroll.post { scroll.smoothScrollTo(0, tietReferencia.bottom) }
@@ -142,9 +141,7 @@ class FormularioEntregaActivity : AppCompatActivity() {
     }
 
 
-    // ---------------------------------------------------------
-    // MÉTODOS DE UBICACIÓN
-    // ---------------------------------------------------------
+
     @SuppressLint("MissingPermission")
     private fun obtenerUbicacion() {
         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
@@ -167,9 +164,7 @@ class FormularioEntregaActivity : AppCompatActivity() {
         }
     }
 
-    // ---------------------------------------------------------
-    // GUARDAR DIRECCIÓN EN BD
-    // ---------------------------------------------------------
+
     private fun guardarDireccion() {
         val direccion = direccionSeleccionada ?: tietDireccion.text.toString().trim()
         val referencia = tietReferencia.text.toString().trim()
@@ -185,7 +180,7 @@ class FormularioEntregaActivity : AppCompatActivity() {
             return
         }
 
-        val idUsuario = 1 // Simulado (luego puedes obtenerlo de sesión o base de datos)
+        val idUsuario = 1
         val dbHelper = AppDatabaseHelper(this)
         val db = dbHelper.writableDatabase
 
@@ -220,9 +215,7 @@ class FormularioEntregaActivity : AppCompatActivity() {
         db.close()
     }
 
-    // ---------------------------------------------------------
-    // PERMISOS
-    // ---------------------------------------------------------
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -239,13 +232,11 @@ class FormularioEntregaActivity : AppCompatActivity() {
         }
     }
 
-    // ---------------------------------------------------------
-    // RESULTADOS DE INTENTS (Places / Mapa)
-    // ---------------------------------------------------------
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        // 🔍 Resultado del buscador predictivo (Google Places)
+
         if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             when (resultCode) {
                 RESULT_OK -> {
@@ -264,7 +255,7 @@ class FormularioEntregaActivity : AppCompatActivity() {
             }
         }
 
-        // 🗺️ Resultado del mapa manual
+
         if (requestCode == MAPA_REQUEST_CODE && resultCode == RESULT_OK) {
             val direccion = data?.getStringExtra("direccion_seleccionada")
             val lat = data?.getDoubleExtra("latitud", 0.0)

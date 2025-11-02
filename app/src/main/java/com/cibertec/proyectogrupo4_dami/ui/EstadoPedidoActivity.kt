@@ -39,7 +39,6 @@ class EstadoPedidoActivity : AppCompatActivity() {
         val db = dbHelper.readableDatabase
         val idUsuario = 1 // Simulado (login)
 
-        // Obtener pedido más reciente con repartidor asignado
         val cursor = db.rawQuery(
             """
             SELECT p.id_pedido, p.fecha, p.estado, p.total, p.direccion,
@@ -62,18 +61,17 @@ class EstadoPedidoActivity : AppCompatActivity() {
             val fecha = cursor.getString(1)
 
             tvInfoRepartidor.text =
-                "📦 Estado: $estado\n" +
-                        "💰 Total: S/ $total\n" +
-                        "📅 Fecha: $fecha\n\n" +
-                        "🧍 Repartidor: $nombreRep\n" +
-                        "📞 Celular: $celularRep"
+                "Estado: $estado\n" +
+                        "Total: S/ $total\n" +
+                        "Fecha: $fecha\n\n" +
+                        "Repartidor: $nombreRep\n" +
+                        "Celular: $celularRep"
         } else {
             tvInfoRepartidor.text = "No hay pedidos activos."
         }
         cursor.close()
         db.close()
 
-        // Configurar botones
         btnSoporte.setOnClickListener {
             val url = "https://wa.me/51987654321?text=Hola%2C+necesito+ayuda+con+mi+pedido"
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))

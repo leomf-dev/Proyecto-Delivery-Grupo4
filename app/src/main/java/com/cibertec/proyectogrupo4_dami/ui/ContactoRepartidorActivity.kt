@@ -74,7 +74,6 @@ class ContactoRepartidorActivity : AppCompatActivity() {
             }
         }
 
-        // Ajustar padding cuando aparece el teclado
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

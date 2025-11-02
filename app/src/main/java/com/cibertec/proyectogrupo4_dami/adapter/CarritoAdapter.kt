@@ -44,12 +44,10 @@ class CarritoAdapter(
         var precio = Carrito.precio
         var precioFinal = Carrito.precioFinal
 
-        //asignar valores
         holder.tvNombreC.text = nombre
         holder.tvCantidad.text = cantidad.toString()
         holder.tvPrecioC.text = "Precio: S/ %.2f".format(precio)
 
-        // Calcular y mostrar subtotal
         val subtotal = precio * cantidad
         holder.tvSubtotalC.text = "Subtotal: S/ %.2f".format(subtotal)
 

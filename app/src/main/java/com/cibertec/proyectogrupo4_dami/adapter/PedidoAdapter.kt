@@ -41,7 +41,7 @@ class PedidoAdapter(
         holder.tvTotal.text = "Total: ${pedido.total}"
         holder.tvEstado.text = "Estado: ${pedido.estado}"
 
-        // Colorear estado visualmente
+
         when (pedido.estado.lowercase()) {
             "entregado" -> holder.tvEstado.setTextColor(context.getColor(R.color.verde))
             "pendiente" -> holder.tvEstado.setTextColor(context.getColor(R.color.naranja))
@@ -60,7 +60,7 @@ class PedidoAdapter(
         val tvEstado: TextView = itemView.findViewById(R.id.tvEstado)
     }
 
-    // Metodo para cargar pedidos desde Firebase
+
     fun cargarPedidosDesdeFirebase() {
         val firebaseAuth = FirebaseAuth.getInstance()
         val uid = firebaseAuth.uid ?: return
@@ -86,11 +86,11 @@ class PedidoAdapter(
     }
 
     fun convertirTimestampAFecha(timestamp: Long?): String {
-        // Si el timestamp es nulo o cero, devuelve un texto por defecto
+
         if (timestamp == null || timestamp == 0L) {
             return "Fecha no disponible"
         }
-        // El formato "dd/MM/yyyy" mostrará día/mes/año. Puedes cambiarlo.
+
         val formato = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         val fechaDate = Date(timestamp)
         return formato.format(fechaDate)

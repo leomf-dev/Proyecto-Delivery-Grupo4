@@ -73,15 +73,14 @@ class RutaEntregaActivity : AppCompatActivity(), OnMapReadyCallback {
                         val pos = LatLng(loc.latitude, loc.longitude)
                         marcadorRepartidor?.remove()
                         marcadorRepartidor = map.addMarker(
-                            MarkerOptions().position(pos).title("Repartidor 🚴")
+                            MarkerOptions().position(pos).title("Repartidor")
                         )
 
-                        // Centra el mapa en la primera posición
+
                         map.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 16f))
 
-                        // Dibuja la línea hacia el destino
                         destino?.let {
-                            map.addMarker(MarkerOptions().position(it).title("Cliente 📍"))
+                            map.addMarker(MarkerOptions().position(it).title("Cliente"))
                             val ruta = listOf(pos, it)
                             map.addPolyline(
                                 com.google.android.gms.maps.model.PolylineOptions()
@@ -101,7 +100,7 @@ class RutaEntregaActivity : AppCompatActivity(), OnMapReadyCallback {
         val dbHelper = AppDatabaseHelper(this)
         val db = dbHelper.writableDatabase
         db.execSQL("UPDATE pedidos SET estado = 'Entregado' WHERE id_pedido = ?", arrayOf(idPedido))
-        Toast.makeText(this, "✅ Pedido entregado con éxito", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Pedido entregado con éxito", Toast.LENGTH_LONG).show()
         db.close()
         finish()
     }

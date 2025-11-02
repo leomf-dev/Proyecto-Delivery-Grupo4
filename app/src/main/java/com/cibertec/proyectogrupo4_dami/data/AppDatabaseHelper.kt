@@ -23,7 +23,7 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
                 clave TEXT NOT NULL,
                 celular TEXT NOT NULL
             )
-        """.trimIndent()) //Elimina espacios y saltos innecesarios
+        """.trimIndent())
 
 
         // Tabla PRODUCTO
@@ -100,7 +100,6 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
 
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        // Elimina todas las tablas si se actualiza la versión
         db.execSQL("DROP TABLE IF EXISTS direccion")
         db.execSQL("DROP TABLE IF EXISTS pedidos")
         db.execSQL("DROP TABLE IF EXISTS carrito")
@@ -109,7 +108,6 @@ class AppDatabaseHelper (context: Context) : SQLiteOpenHelper(context, "altoque_
         db.execSQL("DROP TABLE IF EXISTS usuario")
         db.execSQL("DROP TABLE IF EXISTS repartidor")
 
-        // Vuelve a crearlas
         onCreate(db)
 
     }

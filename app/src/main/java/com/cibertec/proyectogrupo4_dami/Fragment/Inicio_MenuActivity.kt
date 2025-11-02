@@ -26,22 +26,22 @@ class Inicio_MenuActivity : AppCompatActivity() {
         setContentView(R.layout.activity_inicio_menu)
 
 
-        //----------------Inicializar-------------------------
+
         DlayMenu = findViewById(R.id.dlayMenu)
         IvMenu = findViewById(R.id.ivMenu)
         MenuNavi = findViewById(R.id.menuNavi)
 
-        //------------ABRIR EL MENU CON CLICK------------
+
         IvMenu.setOnClickListener {
             DlayMenu.open()
         }
 
-        // Detecta qué opción del menú selecciona el usuario
+
         MenuNavi.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true
             DlayMenu.closeDrawers()
 
-            //-----------REDIRECCIONAR------------
+
             when (menuItem.itemId){
                 R.id.itInicio -> replaceFragment(ProductsApiFragment())
                 R.id.itCarrito -> replaceFragment(CarritoFragment())

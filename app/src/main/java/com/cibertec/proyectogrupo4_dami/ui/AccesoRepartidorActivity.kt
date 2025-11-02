@@ -30,7 +30,6 @@ class AccesoRepartidorActivity : AppCompatActivity() {
             val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
 
-            // Si el teclado está visible, aplicamos el padding inferior
             v.updatePadding(
                 bottom = maxOf(imeInsets.bottom, systemBars.bottom)
             )

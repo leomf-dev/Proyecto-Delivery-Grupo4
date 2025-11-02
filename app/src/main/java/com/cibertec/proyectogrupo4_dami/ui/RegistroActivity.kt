@@ -47,7 +47,7 @@ class RegistroActivity : AppCompatActivity() {
             finish()
         }
 
-        // Registrar usuario con Firebase
+
         btnRegistrarse.setOnClickListener {
             validarYRegistrarConFirebase()
         }
@@ -72,7 +72,7 @@ class RegistroActivity : AppCompatActivity() {
         val clave = tietClave.text.toString().trim()
         val confirmarClave = tietConfirmarClave.text.toString().trim()
 
-        // Validaciones
+
         if (nombre.isEmpty()) {
             Toast.makeText(this, "Ingresa tu nombre de usuario", Toast.LENGTH_SHORT).show()
             return
@@ -126,7 +126,7 @@ class RegistroActivity : AppCompatActivity() {
             return
         }
 
-        // Registrar en Firebase Authentication
+
         auth.createUserWithEmailAndPassword(correo, clave)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {

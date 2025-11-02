@@ -50,7 +50,6 @@ class CarritoFragment : Fragment(R.layout.fragment_carrito) {
 
         val btnSeguirComprando = view.findViewById<Button>(R.id.btnContinuarComprando)
 
-        //boton seguir comprando regresa a inicio
         btnSeguirComprando.setOnClickListener {
             (activity as? Inicio_MenuActivity)?.replaceFragment(ProductsApiFragment())
         }
@@ -85,8 +84,6 @@ class CarritoFragment : Fragment(R.layout.fragment_carrito) {
                 val listaProductos = mutableListOf<Map<String, Any>>()
                 var total = 0.0
 
-                // snapshot. = representa el nodo CarritoCompras del usuario en FireBase
-                // snapshot.children = devuelve la coleccion. (cada producto del carrito)
                 for (productoSnap in snapshot.children) {
                     val producto = productoSnap.getValue(Carrito::class.java)
                     if (producto != null) {
@@ -108,19 +105,17 @@ class CarritoFragment : Fragment(R.layout.fragment_carrito) {
                     "productos" to listaProductos
                 )
 
-                // Guardar el pedido
                 refPedidos.child(pedidoId).setValue(pedido)
                     .addOnSuccessListener {
                         Toast.makeText(requireContext(), "Pedido realizado con éxito", Toast.LENGTH_SHORT).show()
 
-                        // Vaciar el carrito
                         refCarrito.removeValue()
 
                         // Ir al fragment de pedidos
-                        parentFragmentManager.beginTransaction()
-                            .replace(R.layout.activity_inicio_menu, PedidosFragment())
-                            .addToBackStack(null)
-                            .commit()
+//                        parentFragmentManager.beginTransaction()
+//                            .replace(R.id.contenedorPedidos, PedidosFragment())
+//                            .addToBackStack(null)
+//                            .commit()
                     }
                     .addOnFailureListener {
                         Toast.makeText(requireContext(), "Error al registrar el pedido", Toast.LENGTH_SHORT).show()
@@ -144,7 +139,7 @@ class CarritoFragment : Fragment(R.layout.fragment_carrito) {
                             suma += precioFinal.toDouble()
                         }
                     }
-                    //  Buscamos el TextView dentro del fragmento
+
                     val totalGeneral = view?.findViewById<TextView>(R.id.tvTotalGeneral)
                     totalGeneral?.text =  "Total a pagar: S/ %.2f".format(suma)
                 }
@@ -170,7 +165,7 @@ class CarritoFragment : Fragment(R.layout.fragment_carrito) {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+
                 }
 
             })

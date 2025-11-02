@@ -40,7 +40,7 @@ class ProductApiAdapter(
     override fun onBindViewHolder(holder: ProductApiViewHolder, position: Int) {
         val producto = listaProductos[position]
 
-        // Cargar imagen desde URL con Glide
+
         Glide.with(holder.itemView.context)
             .load(producto.imagen)
             .transform(CircleCrop())
@@ -50,7 +50,7 @@ class ProductApiAdapter(
         holder.tvPrecio.text = "S/ ${producto.precio}"
         holder.tvDescrip.text = producto.descripcion
 
-        //Para agregar al carrito el producto seleccionado
+
         holder.btnComprar.setOnClickListener {
             verCarrito(producto)
         }
@@ -62,7 +62,7 @@ class ProductApiAdapter(
 
 
     private fun verCarrito(producto: Producto){
-        //vistas
+
         var imagenSIV : ShapeableImageView
         var nombretv : TextView
         var descripciontv : TextView
@@ -74,7 +74,7 @@ class ProductApiAdapter(
         var btnAgregarCarrito : MaterialButton
 
         val dialog = Dialog(context)
-        dialog.setContentView(R.layout.carrito_compras) // vista de carrito
+        dialog.setContentView(R.layout.carrito_compras)
 
         imagenSIV = dialog.findViewById(R.id.imgPCar)
         nombretv = dialog.findViewById(R.id.nombrePCar)
@@ -86,7 +86,7 @@ class ProductApiAdapter(
         btnAumentar = dialog.findViewById(R.id.btnAum)
         btnAgregarCarrito = dialog.findViewById(R.id.btnAgregarCarrito)
 
-       // datos del modelo
+
         val productoId = producto.id
         val nombre = producto.titulo
         val descripcion = producto.descripcion
@@ -102,7 +102,7 @@ class ProductApiAdapter(
         costoFinal = costo
         cantidadProd= 1
 
-        //incrementar cantidad
+
         btnAumentar.setOnClickListener {
             costoFinal = costoFinal + costo
             cantidadProd++
@@ -111,9 +111,9 @@ class ProductApiAdapter(
             cantidadtv.text = cantidadProd.toString()
         }
 
-        //Disminuir cantidad
+
         btnDisminuir.setOnClickListener {
-            //disminuir solo si la cantidad es mayor a 1
+
             if(cantidadProd > 1){
                 costoFinal = costoFinal - costo
                 cantidadProd--
@@ -124,7 +124,7 @@ class ProductApiAdapter(
         }
         prefinaltv.text = String.format("S/. %.2f", costoFinal)
 
-        //Cargar la imagen
+
         cargarimg(productoId, imagenSIV)
 
         btnAgregarCarrito.setOnClickListener {

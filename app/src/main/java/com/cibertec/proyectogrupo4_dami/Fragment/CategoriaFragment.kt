@@ -42,13 +42,12 @@ class CategoriaFragment : Fragment(R.layout.fragment__listarcategoria) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inicializar RecyclerView
         rvListCat = view.findViewById(R.id.rvListCat)
         rvListCat.layoutManager = LinearLayoutManager(requireContext())
         adapter = ProductApiAdapter(requireContext(), productos)
         rvListCat.adapter = adapter
 
-        // Cargar productos y filtrar por categoría
+
         cargarYFiltrarProductos()
     }
 

@@ -27,7 +27,7 @@ class RegistroRepartidorActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_registro_repartidor)
 
-        // Referencias
+
         tietNombre = findViewById(R.id.tietNombreRepartidor)
         tietCorreo = findViewById(R.id.tietCorreoRepartidor)
         tietTelefono = findViewById(R.id.tietTelefonoRepartidor)
@@ -36,17 +36,17 @@ class RegistroRepartidorActivity : AppCompatActivity() {
         btnRegistrar = findViewById(R.id.btnRegistrarRepartidor)
         btnRegresar = findViewById(R.id.btnRegresar)
 
-        // Volver al acceso repartidor
+
         btnRegresar.setOnClickListener {
             finish()
         }
 
-        // Registrar
+
         btnRegistrar.setOnClickListener {
             validarYRegistrar()
         }
 
-        // Ajuste de insets (como en tus otras activities)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -67,7 +67,7 @@ class RegistroRepartidorActivity : AppCompatActivity() {
         val clave = tietClave.text.toString().trim()
         val confirmarClave = tietConfirmarClave.text.toString().trim()
 
-        // Validaciones básicas
+
         if (nombre.isEmpty()) {
             Toast.makeText(this, "Ingresa tu nombre completo", Toast.LENGTH_SHORT).show()
             return
@@ -97,11 +97,11 @@ class RegistroRepartidorActivity : AppCompatActivity() {
             return
         }
 
-        // Guardar en base de datos
+
         val dbHelper = AppDatabaseHelper(this)
         val db = dbHelper.writableDatabase
 
-        // Verificar si ya existe ese correo
+
         val cursor = db.rawQuery("SELECT correo FROM repartidor WHERE correo = ?", arrayOf(correo))
         if (cursor.count > 0) {
             cursor.close()
@@ -111,7 +111,7 @@ class RegistroRepartidorActivity : AppCompatActivity() {
         }
         cursor.close()
 
-        // Insertar nuevo repartidor
+
         val values = android.content.ContentValues().apply {
             put("nombre", nombre)
             put("correo", correo)
@@ -129,14 +129,14 @@ class RegistroRepartidorActivity : AppCompatActivity() {
 
         Toast.makeText(this, "¡Repartidor registrado correctamente!", Toast.LENGTH_LONG).show()
 
-        // Limpiar campos
+
         tietNombre.setText("")
         tietCorreo.setText("")
         tietTelefono.setText("")
         tietClave.setText("")
         tietConfirmarClave.setText("")
 
-        // Volver al login del repartidor
+
         startActivity(Intent(this, AccesoRepartidorActivity::class.java))
         finish()
     }

@@ -33,7 +33,6 @@ class CheckoutActivity : AppCompatActivity() {
         val total = intent.getDoubleExtra("total", 0.0)
         val idUsuario = intent.getIntExtra("id_usuario", 1) // usuario logueado
 
-        // ✅ Cargar dirección guardada
         val dbHelper = AppDatabaseHelper(this)
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery(
@@ -60,7 +59,6 @@ class CheckoutActivity : AppCompatActivity() {
             val fecha = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date())
             val writableDb = dbHelper.writableDatabase
 
-            // 🔹 Buscar repartidor disponible (aleatorio)
             val cursorRepartidor = writableDb.rawQuery(
                 "SELECT id_repartidor FROM repartidor ORDER BY RANDOM() LIMIT 1",
                 null
@@ -71,7 +69,6 @@ class CheckoutActivity : AppCompatActivity() {
             }
             cursorRepartidor.close()
 
-            // 🔹 Insertar pedido
             val values = ContentValues().apply {
                 put("id_usuario", idUsuario)
                 put("id_repartidor", idRepartidor)
