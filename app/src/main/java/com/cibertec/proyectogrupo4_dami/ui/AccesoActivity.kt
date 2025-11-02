@@ -21,7 +21,6 @@ class AccesoActivity : AppCompatActivity() {
     private lateinit var tietCorreologin: TextInputEditText
     private lateinit var tietClavelogin: TextInputEditText
     private lateinit var btnIniciarSesion: Button
-    private lateinit var tvRegistrarse: TextView
     private lateinit var btnRegresar: ImageView
     private lateinit var tvAccesoRepartidor: TextView
 
@@ -36,7 +35,6 @@ class AccesoActivity : AppCompatActivity() {
         tietCorreologin = findViewById(R.id.tietCorreologin)
         tietClavelogin = findViewById(R.id.tietClavelogin)
         btnIniciarSesion = findViewById(R.id.btnIniciarSesion)
-        tvRegistrarse = findViewById(R.id.btnRegistrarse)
         btnRegresar = findViewById(R.id.btnRegresar)
         tvAccesoRepartidor = findViewById(R.id.tvAccesoRepartidor)
 
@@ -44,10 +42,6 @@ class AccesoActivity : AppCompatActivity() {
 
         btnRegresar.setOnClickListener {
             finish()
-        }
-
-        tvRegistrarse.setOnClickListener {
-            startActivity(Intent(this, RegistroActivity::class.java))
         }
 
         tvAccesoRepartidor.setOnClickListener {
